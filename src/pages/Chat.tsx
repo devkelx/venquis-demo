@@ -56,14 +56,18 @@ const Chat = () => {
       const userMessage = await saveUserMessage(message);
       if (!userMessage) return;
 
-      // Add to Zep memory
-      await addMemoryMessage(
-        currentConversation.zep_session_id,
-        createMemoryMessage('user', message, {
-          message_type: 'text',
-          conversation_id: currentConversation.id
-        })
-      );
+      // Add to Zep memory (optional - don't fail if it doesn't work)
+      try {
+        await addMemoryMessage(
+          currentConversation.zep_session_id,
+          createMemoryMessage('user', message, {
+            message_type: 'text',
+            conversation_id: currentConversation.id
+          })
+        );
+      } catch (error) {
+        console.warn('Failed to add message to Zep memory, continuing without memory:', error);
+      }
 
       setIsTyping(true);
 
@@ -141,15 +145,19 @@ const Chat = () => {
       // Save file message
       await saveFileMessage(file.name, urlData.publicUrl);
 
-      // Store contract context in Zep
-      await storeContractContext(
-        currentConversation.zep_session_id,
-        createContractContext(
-          fileName,
-          file.name,
-          urlData.publicUrl
-        )
-      );
+      // Store contract context in Zep (optional)
+      try {
+        await storeContractContext(
+          currentConversation.zep_session_id,
+          createContractContext(
+            fileName,
+            file.name,
+            urlData.publicUrl
+          )
+        );
+      } catch (error) {
+        console.warn('Failed to store contract context in Zep, continuing without memory:', error);
+      }
 
       toast({
         title: "Upload successful",
@@ -205,15 +213,19 @@ const Chat = () => {
     // Save button click as user message
     await saveUserMessage(`Clicked: ${buttonLabel}`);
 
-    // Add to memory
-    await addMemoryMessage(
-      currentConversation.zep_session_id,
-      createMemoryMessage('user', `User clicked: ${buttonLabel}`, {
-        message_type: 'button_click',
-        button_action: buttonId,
-        conversation_id: currentConversation.id
-      })
-    );
+    // Add to memory (optional)
+    try {
+      await addMemoryMessage(
+        currentConversation.zep_session_id,
+        createMemoryMessage('user', `User clicked: ${buttonLabel}`, {
+          message_type: 'button_click',
+          button_action: buttonId,
+          conversation_id: currentConversation.id
+        })
+      );
+    } catch (error) {
+      console.warn('Failed to add button click to Zep memory, continuing without memory:', error);
+    }
 
     setIsTyping(true);
     

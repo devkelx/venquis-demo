@@ -18,7 +18,8 @@ export const useZepMemory = () => {
       });
 
       if (error) {
-        throw new Error(`Failed to initialize session: ${error.message}`);
+        console.error('Zep initialization error:', error);
+        throw new Error(`Failed to initialize session: Edge Function returned a non-2xx status code`);
       }
 
       return true;
@@ -51,7 +52,8 @@ export const useZepMemory = () => {
       });
 
       if (error) {
-        throw new Error(`Failed to add memory: ${error.message}`);
+        console.error('Zep add memory error:', error);
+        throw new Error(`Failed to add memory: Edge Function returned a non-2xx status code`);
       }
 
       return true;
