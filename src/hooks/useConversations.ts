@@ -95,8 +95,10 @@ export const useConversations = () => {
       setConversations(prev => [newConversation, ...prev]);
       setCurrentConversation(newConversation);
 
-      // Initialize Zep session
-      await initializeSession(sessionId);
+      // Initialize Zep session (optional - don't block if it fails)
+      initializeSession(sessionId).catch(err => 
+        console.warn('Zep session initialization failed, continuing without memory:', err)
+      );
 
       return newConversation;
     } catch (error) {

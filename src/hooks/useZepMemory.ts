@@ -6,7 +6,7 @@ import { ZepMemoryMessage, ZepContractContext } from '@/integrations/zep/client'
 export const useZepMemory = () => {
   const [isLoading, setIsLoading] = useState(false);
 
-  // Initialize session via edge function
+  // Initialize session via edge function (optional - doesn't block conversation creation)
   const initializeSession = useCallback(async (sessionId: string): Promise<boolean> => {
     setIsLoading(true);
     try {
@@ -18,17 +18,14 @@ export const useZepMemory = () => {
       });
 
       if (error) {
-        throw new Error(`Failed to initialize session: ${error.message}`);
+        console.warn('Zep memory initialization failed:', error.message);
+        return false; // Don't throw error, just return false
       }
 
       return true;
     } catch (error) {
-      console.error('Error initializing session:', error);
-      toast({
-        title: "Memory Error",
-        description: "Failed to initialize conversation memory",
-        variant: "destructive"
-      });
+      console.warn('Zep memory initialization failed:', error);
+      // Don't show toast or block conversation creation
       return false;
     } finally {
       setIsLoading(false);
