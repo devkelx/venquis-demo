@@ -165,17 +165,17 @@ serve(async (req) => {
     console.log('Final response:', { aiResponse, actionButtons, analysisResult });
 
     // Store contract data if it's a file upload
-    if (file_name && file_url) {
+    if (file_name && file_url && analysisResult) {
       const { error: contractError } = await supabase
         .from('contracts')
         .insert({
           conversation_id,
           file_name,
           file_url,
-          client_name: analysisResult?.clientName || 'Unknown Client',
+          client_name: analysisResult?.clientName,
           extracted_terms: analysisResult,
-          fees: "Standard rate applies",
-          payment_terms: "Net 30 days"
+          fees: analysisResult?.fees,
+          payment_terms: analysisResult?.paymentTerms
         });
 
       if (contractError) {
