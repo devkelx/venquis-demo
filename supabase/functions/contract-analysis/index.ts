@@ -120,12 +120,24 @@ serve(async (req) => {
               const n8nResult = JSON.parse(responseText);
               console.log('n8n parsed result:', n8nResult);
               
-              // Use the response from n8n (prioritize 'content' field as shown in n8n config)
-              aiResponse = n8nResult.content || n8nResult.response || n8nResult.message || n8nResult.text;
-              actionButtons = n8nResult.action_buttons || n8nResult.actions || [];
-              analysisResult = n8nResult.analysis || n8nResult;
+              // Handle array response format from n8n (e.g., [{"output": "response text"}])
+              if (Array.isArray(n8nResult) && n8nResult.length > 0) {
+                const firstItem = n8nResult[0];
+                console.log('Processing array response, first item:', firstItem);
+                
+                // Extract content from various possible fields in the array item
+                aiResponse = firstItem.output || firstItem.content || firstItem.response || firstItem.message || firstItem.text;
+                actionButtons = firstItem.action_buttons || firstItem.actions || [];
+                analysisResult = firstItem.analysis || firstItem;
+              } else {
+                // Handle object response format
+                aiResponse = n8nResult.content || n8nResult.response || n8nResult.message || n8nResult.text;
+                actionButtons = n8nResult.action_buttons || n8nResult.actions || [];
+                analysisResult = n8nResult.analysis || n8nResult;
+              }
               
               if (!aiResponse) {
+                console.error('No valid response content found in:', n8nResult);
                 throw new Error('No response content from n8n webhook');
               }
             }
