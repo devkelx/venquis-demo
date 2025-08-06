@@ -110,25 +110,7 @@ const ChatSidebar = ({ onConversationSelect, onNewChat, isCollapsed = false, onT
           <PanelLeftOpen className="h-5 w-5" />
         </Button>
         
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={handleNewChat}
-          className="w-10 h-10 p-0"
-        >
-          <Plus className="h-5 w-5" />
-        </Button>
-        
         <div className="flex-1" />
-        
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => setIsDarkMode(!isDarkMode)}
-          className="w-10 h-10 p-0"
-        >
-          {isDarkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-        </Button>
         
         <Button
           variant="ghost"
