@@ -44,7 +44,7 @@ serve(async (req) => {
     switch (action) {
       case 'initialize-session':
         // Create or initialize a Zep session
-        response = await fetch(`${ZEP_API_URL}/sessions/${session_id}`, {
+        response = await fetch(`${ZEP_API_URL}/api/v1/sessions/${session_id}`, {
           method: 'POST',
           headers: zepHeaders,
           body: JSON.stringify({
@@ -56,8 +56,10 @@ serve(async (req) => {
           })
         });
         
-        if (!response.ok && response.status !== 409) { // 409 = session already exists
-          throw new Error(`Failed to initialize Zep session: ${response.statusText}`);
+        if (!response.ok && response.status !== 409 && response.status !== 400) { 
+          // 409 = session already exists, 400 = session exists
+          const errorText = await response.text();
+          throw new Error(`Failed to initialize Zep session: ${response.status} ${errorText}`);
         }
         
         return new Response(JSON.stringify({ success: true }), {
@@ -66,7 +68,7 @@ serve(async (req) => {
 
       case 'add-memory':
         // Add a message to Zep memory
-        response = await fetch(`${ZEP_API_URL}/sessions/${session_id}/memory`, {
+        response = await fetch(`${ZEP_API_URL}/api/v1/sessions/${session_id}/memory`, {
           method: 'POST',
           headers: zepHeaders,
           body: JSON.stringify({
@@ -76,7 +78,8 @@ serve(async (req) => {
         });
 
         if (!response.ok) {
-          throw new Error(`Failed to add memory: ${response.statusText}`);
+          const errorText = await response.text();
+          throw new Error(`Failed to add memory: ${response.status} ${errorText}`);
         }
 
         return new Response(JSON.stringify({ success: true }), {
@@ -85,13 +88,14 @@ serve(async (req) => {
 
       case 'get-memory':
         // Retrieve memory for a session
-        response = await fetch(`${ZEP_API_URL}/sessions/${session_id}/memory?limit=${limit}`, {
+        response = await fetch(`${ZEP_API_URL}/api/v1/sessions/${session_id}/memory?limit=${limit}`, {
           method: 'GET',
           headers: zepHeaders,
         });
 
         if (!response.ok) {
-          throw new Error(`Failed to get memory: ${response.statusText}`);
+          const errorText = await response.text();
+          throw new Error(`Failed to get memory: ${response.status} ${errorText}`);
         }
 
         const memoryData = await response.json();
@@ -104,7 +108,7 @@ serve(async (req) => {
 
       case 'search-memory':
         // Search memory with a query
-        response = await fetch(`${ZEP_API_URL}/sessions/${session_id}/search`, {
+        response = await fetch(`${ZEP_API_URL}/api/v1/sessions/${session_id}/search`, {
           method: 'POST',
           headers: zepHeaders,
           body: JSON.stringify({
@@ -114,7 +118,8 @@ serve(async (req) => {
         });
 
         if (!response.ok) {
-          throw new Error(`Failed to search memory: ${response.statusText}`);
+          const errorText = await response.text();
+          throw new Error(`Failed to search memory: ${response.status} ${errorText}`);
         }
 
         const searchData = await response.json();
@@ -127,7 +132,7 @@ serve(async (req) => {
 
       case 'store-context':
         // Store contract context as metadata
-        response = await fetch(`${ZEP_API_URL}/sessions/${session_id}/memory`, {
+        response = await fetch(`${ZEP_API_URL}/api/v1/sessions/${session_id}/memory`, {
           method: 'POST',
           headers: zepHeaders,
           body: JSON.stringify({
@@ -140,7 +145,8 @@ serve(async (req) => {
         });
 
         if (!response.ok) {
-          throw new Error(`Failed to store context: ${response.statusText}`);
+          const errorText = await response.text();
+          throw new Error(`Failed to store context: ${response.status} ${errorText}`);
         }
 
         return new Response(JSON.stringify({ success: true }), {
