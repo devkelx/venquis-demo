@@ -26,17 +26,6 @@ const Chat = () => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [shouldAutoScroll, setShouldAutoScroll] = useState(true);
 
-  // Clear states when no conversation is selected
-  useEffect(() => {
-    if (!currentConversation) {
-      setIsTyping(false);
-      setIsProcessing(false);
-      setIsUploading(false);
-      setUploadProgress(0);
-      setShouldAutoScroll(true);
-    }
-  }, [currentConversation]);
-
   // Auto-scroll functionality
   useEffect(() => {
     if (shouldAutoScroll && messagesEndRef.current) {
