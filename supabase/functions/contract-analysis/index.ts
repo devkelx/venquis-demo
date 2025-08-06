@@ -54,38 +54,82 @@ serve(async (req) => {
         throw new Error(`Failed to download file: ${downloadError.message}`);
       }
 
-      // Process the file content for AI analysis
       const fileSize = fileData.size;
       console.log(`File downloaded successfully: ${file_name}, size: ${fileSize} bytes`);
 
-      // Enhanced AI analysis simulation with file content awareness
-      analysisResult = {
-        contractType: "Employment Agreement",
-        clientName: file_name.includes('client') ? "Acme Corporation" : "Document Uploader",
-        fileSize: `${Math.round(fileSize / 1024)} KB`,
-        keyTerms: [
-          "Employment duration: 2 years",
-          "Salary: Performance-based compensation",
-          "Benefits: Health insurance and retirement plan",
-          "Notice period: 30 days required",
-          "Work location: Hybrid remote/office model"
-        ],
-        riskFactors: [
-          "Non-compete clause present - 12 month restriction",
-          "Termination conditions require clarification",
-          "Intellectual property assignment clause broad",
-          "Performance review criteria not specified"
-        ],
-        recommendations: [
-          "Negotiate termination notice period from 30 to 60 days",
-          "Clarify compensation structure and bonus criteria",
-          "Add specific performance metrics and review schedule",
-          "Limit non-compete geographical scope",
-          "Define IP ownership for personal projects"
-        ],
-        complianceScore: 7.5,
-        riskLevel: "Medium"
-      };
+      // **REAL N8N WEBHOOK INTEGRATION**
+      const N8N_WEBHOOK_URL = Deno.env.get('N8N_WEBHOOK_URL');
+      
+      if (N8N_WEBHOOK_URL) {
+        console.log('Calling n8n webhook for contract analysis...');
+        
+        try {
+          // Call real n8n workflow
+          const n8nResponse = await fetch(N8N_WEBHOOK_URL, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              file_name,
+              file_url,
+              file_size: fileSize,
+              conversation_id,
+              zep_session_id,
+              timestamp: new Date().toISOString(),
+              user_context: {
+                action: 'contract_analysis',
+                source: 'venquis_platform'
+              }
+            })
+          });
+
+          if (n8nResponse.ok) {
+            const n8nResult = await n8nResponse.json();
+            analysisResult = n8nResult.analysis || n8nResult;
+            console.log('n8n analysis received:', analysisResult);
+          } else {
+            console.error('n8n webhook failed:', n8nResponse.status);
+            throw new Error('n8n analysis failed');
+          }
+        } catch (n8nError) {
+          console.error('n8n webhook error:', n8nError);
+          // Fall back to demo analysis if n8n fails
+        }
+      }
+
+      // If no n8n webhook or it failed, use demo analysis
+      if (!analysisResult) {
+        console.log('Using demo analysis (no n8n webhook configured)');
+        analysisResult = {
+          contractType: "Employment Agreement",
+          clientName: file_name.includes('client') ? "Acme Corporation" : "Document Uploader",
+          fileSize: `${Math.round(fileSize / 1024)} KB`,
+          keyTerms: [
+            "Employment duration: 2 years",
+            "Salary: Performance-based compensation", 
+            "Benefits: Health insurance and retirement plan",
+            "Notice period: 30 days required",
+            "Work location: Hybrid remote/office model"
+          ],
+          riskFactors: [
+            "Non-compete clause present - 12 month restriction",
+            "Termination conditions require clarification", 
+            "Intellectual property assignment clause broad",
+            "Performance review criteria not specified"
+          ],
+          recommendations: [
+            "Negotiate termination notice period from 30 to 60 days",
+            "Clarify compensation structure and bonus criteria",
+            "Add specific performance metrics and review schedule", 
+            "Limit non-compete geographical scope",
+            "Define IP ownership for personal projects"
+          ],
+          complianceScore: 7.5,
+          riskLevel: "Medium",
+          source: "demo_analysis"
+        };
+      }
 
       // Store contract data
       const { error: contractError } = await supabase
@@ -105,6 +149,9 @@ serve(async (req) => {
       }
 
       // Create comprehensive AI response message with action buttons
+      const sourceInfo = analysisResult.source === 'demo_analysis' ? 
+        '\n\n*Note: This is a demo analysis. Configure N8N_WEBHOOK_URL for real AI processing.*' : '';
+      
       aiResponse = `## Contract Analysis Complete ✅
 
 **File:** ${file_name} (${analysisResult.fileSize})  
@@ -121,7 +168,7 @@ ${analysisResult.riskFactors.map(risk => `• ${risk}`).join('\n')}
 ### 💡 Recommendations:
 ${analysisResult.recommendations.map(rec => `• ${rec}`).join('\n')}
 
-What would you like to explore next?`;
+What would you like to explore next?${sourceInfo}`;
 
       actionButtons = [
         {
@@ -130,7 +177,7 @@ What would you like to explore next?`;
           variant: 'default'
         },
         {
-          id: 'risk_assessment',
+          id: 'risk_assessment', 
           label: 'Risk Assessment',
           variant: 'outline'
         },
@@ -141,7 +188,7 @@ What would you like to explore next?`;
         },
         {
           id: 'compliance_check',
-          label: 'Compliance Review',
+          label: 'Compliance Review', 
           variant: 'outline'
         },
         {

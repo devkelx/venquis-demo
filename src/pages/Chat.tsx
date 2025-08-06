@@ -15,7 +15,7 @@ import { createMemoryMessage, createContractContext } from "@/integrations/zep/c
 const Chat = () => {
   const { user } = useAuth();
   const { currentConversation, setCurrentConversation } = useConversations();
-  const { messages, loading, saveUserMessage, saveAIMessage, saveFileMessage } = useMessages(currentConversation?.id || null);
+  const { messages, loading, saveUserMessage, saveAIMessage, saveFileMessage, refetch: refetchMessages } = useMessages(currentConversation?.id || null);
   const { addMemoryMessage, storeContractContext } = useZepMemory();
   const [isTyping, setIsTyping] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -78,6 +78,9 @@ const Chat = () => {
         });
 
         if (error) throw error;
+
+        // Messages are automatically saved by the edge function, so just refresh
+        await refetchMessages();
         
       } catch (aiError) {
         console.error('AI processing error:', aiError);
@@ -169,6 +172,9 @@ const Chat = () => {
 
         if (analysisError) throw analysisError;
 
+        // Messages are automatically saved by the edge function, so just refresh  
+        await refetchMessages();
+
       } catch (analysisError) {
         console.error('Analysis error:', analysisError);
         toast({
@@ -223,6 +229,9 @@ const Chat = () => {
       });
 
       if (error) throw error;
+
+      // Messages are automatically saved by the edge function, so just refresh
+      await refetchMessages();
       
     } catch (error) {
       console.error('Button action error:', error);
