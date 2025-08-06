@@ -110,21 +110,30 @@ serve(async (req) => {
 
         if (n8nResponse.ok) {
           try {
-            const n8nResult = JSON.parse(responseText);
-            console.log('n8n parsed result:', n8nResult);
-            
-            // Use the response from n8n
-            aiResponse = n8nResult.response || n8nResult.message || n8nResult.content || n8nResult.text;
-            actionButtons = n8nResult.actions || n8nResult.action_buttons || [];
-            analysisResult = n8nResult.analysis || n8nResult;
-            
-            if (!aiResponse) {
-              throw new Error('No response content from n8n webhook');
+            // Handle empty response body
+            if (!responseText || responseText.trim() === '') {
+              console.log('Empty response from n8n, using fallback');
+              aiResponse = "I received your message but got an empty response from the processing system. Please try again.";
+              actionButtons = [];
+              analysisResult = undefined;
+            } else {
+              const n8nResult = JSON.parse(responseText);
+              console.log('n8n parsed result:', n8nResult);
+              
+              // Use the response from n8n (prioritize 'content' field as shown in n8n config)
+              aiResponse = n8nResult.content || n8nResult.response || n8nResult.message || n8nResult.text;
+              actionButtons = n8nResult.action_buttons || n8nResult.actions || [];
+              analysisResult = n8nResult.analysis || n8nResult;
+              
+              if (!aiResponse) {
+                throw new Error('No response content from n8n webhook');
+              }
             }
           } catch (parseError) {
             console.error('Failed to parse n8n response:', parseError);
+            console.log('Raw response that failed to parse:', responseText);
             // Use the raw text as response if JSON parsing fails
-            aiResponse = responseText || 'Response received from n8n but could not parse content';
+            aiResponse = responseText || 'I received your message but the response format was invalid. Please check your n8n workflow configuration.';
             actionButtons = [];
           }
         } else {
