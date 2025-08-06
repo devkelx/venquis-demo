@@ -60,7 +60,7 @@ const ChatInput = ({ onSendMessage, onFileUpload, disabled = false, uploadProgre
   };
 
   return (
-    <div className="border-t border-border bg-background/80 backdrop-blur-sm">
+    <div className="bg-background/80 backdrop-blur-sm">
       {isUploading && uploadProgress !== undefined && (
         <div className="p-4 pb-2">
           <div className="flex items-center justify-between mb-2">
