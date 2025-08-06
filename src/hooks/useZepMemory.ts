@@ -10,8 +10,11 @@ export const useZepMemory = () => {
   const initializeSession = useCallback(async (sessionId: string): Promise<boolean> => {
     setIsLoading(true);
     try {
-      const { data, error } = await supabase.functions.invoke('zep-memory/initialize-session', {
-        body: { session_id: sessionId }
+      const { data, error } = await supabase.functions.invoke('zep-memory', {
+        body: { 
+          action: 'initialize-session',
+          session_id: sessionId 
+        }
       });
 
       if (error) {
@@ -39,8 +42,9 @@ export const useZepMemory = () => {
   ): Promise<boolean> => {
     setIsLoading(true);
     try {
-      const { data, error } = await supabase.functions.invoke('zep-memory/add-memory', {
+      const { data, error } = await supabase.functions.invoke('zep-memory', {
         body: {
+          action: 'add-memory',
           session_id: sessionId,
           message
         }
@@ -67,8 +71,12 @@ export const useZepMemory = () => {
   ): Promise<ZepMemoryMessage[]> => {
     setIsLoading(true);
     try {
-      const { data, error } = await supabase.functions.invoke('zep-memory/get-memory', {
-        body: { session_id: sessionId, limit }
+      const { data, error } = await supabase.functions.invoke('zep-memory', {
+        body: { 
+          action: 'get-memory',
+          session_id: sessionId, 
+          limit 
+        }
       });
 
       if (error) {
@@ -92,8 +100,13 @@ export const useZepMemory = () => {
   ): Promise<ZepMemoryMessage[]> => {
     setIsLoading(true);
     try {
-      const { data, error } = await supabase.functions.invoke('zep-memory/search-memory', {
-        body: { session_id: sessionId, query, limit }
+      const { data, error } = await supabase.functions.invoke('zep-memory', {
+        body: { 
+          action: 'search-memory',
+          session_id: sessionId, 
+          query, 
+          limit 
+        }
       });
 
       if (error) {
@@ -116,8 +129,12 @@ export const useZepMemory = () => {
   ): Promise<boolean> => {
     setIsLoading(true);
     try {
-      const { data, error } = await supabase.functions.invoke('zep-memory/store-context', {
-        body: { session_id: sessionId, context }
+      const { data, error } = await supabase.functions.invoke('zep-memory', {
+        body: { 
+          action: 'store-context',
+          session_id: sessionId, 
+          context 
+        }
       });
 
       if (error) {

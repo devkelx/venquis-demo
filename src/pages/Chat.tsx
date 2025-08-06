@@ -67,32 +67,29 @@ const Chat = () => {
 
       setIsTyping(true);
 
-      // Simulate AI processing (in real app, this would call your AI service)
-      setTimeout(async () => {
-        const aiResponse = "Thank you for your message. I'm here to help you analyze contracts and provide insights. Please upload a contract document to get started with detailed analysis.";
-        
-        const aiMessage = await saveAIMessage(aiResponse, [
-          {
-            id: 'upload_contract',
-            label: 'Upload Contract',
-            variant: 'default' as const,
-            icon: <Download className="w-4 h-4" />
+      // Call real AI analysis
+      try {
+        const { data, error } = await supabase.functions.invoke('contract-analysis', {
+          body: {
+            conversation_id: currentConversation.id,
+            message_content: message,
+            zep_session_id: currentConversation.zep_session_id
           }
-        ]);
+        });
 
-        if (aiMessage) {
-          await addMemoryMessage(
-            currentConversation.zep_session_id,
-            createMemoryMessage('assistant', aiResponse, {
-              message_type: 'text',
-              conversation_id: currentConversation.id
-            })
-          );
-        }
+        if (error) throw error;
+        
+      } catch (aiError) {
+        console.error('AI processing error:', aiError);
+        toast({
+          title: "AI Processing Error",
+          description: "Failed to process your message. Please try again.",
+          variant: "destructive"
+        });
+      }
 
-        setIsTyping(false);
-        setIsProcessing(false);
-      }, 2000);
+      setIsTyping(false);
+      setIsProcessing(false);
 
     } catch (error) {
       console.error('Error sending message:', error);
@@ -120,34 +117,23 @@ const Chat = () => {
     setUploadProgress(0);
 
     try {
-      // Simulate upload progress
-      const progressInterval = setInterval(() => {
-        setUploadProgress(prev => {
-          if (prev >= 90) {
-            clearInterval(progressInterval);
-            return 90;
-          }
-          return prev + 10;
-        });
-      }, 200);
+      // Upload file to Supabase storage with user folder structure
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${Date.now()}.${fileExt}`;
+      const filePath = `${user?.id}/${fileName}`;
 
-      // Upload file to Supabase storage
-      const fileName = `${Date.now()}_${file.name}`;
       const { data, error } = await supabase.storage
         .from('contracts')
-        .upload(fileName, file);
-
-      clearInterval(progressInterval);
+        .upload(filePath, file);
+      
       setUploadProgress(100);
 
-      if (error) {
-        throw error;
-      }
+      if (error) throw error;
 
       // Get public URL
       const { data: urlData } = supabase.storage
         .from('contracts')
-        .getPublicUrl(fileName);
+        .getPublicUrl(filePath);
 
       // Save file message
       await saveFileMessage(file.name, urlData.publicUrl);
@@ -167,46 +153,32 @@ const Chat = () => {
         description: `${file.name} has been uploaded and is ready for analysis`,
       });
 
-      // Simulate AI analysis
+      // Trigger real AI analysis
       setIsTyping(true);
-      setTimeout(async () => {
-        const analysisResponse = `I've successfully received your contract "${file.name}". Here's a preliminary analysis:
-
-🔍 **Document Overview**
-- Contract type: Recruitment/Employment Agreement
-- Pages analyzed: Processing...
-- Key sections identified: Terms, Compensation, Obligations
-
-📋 **Initial Findings**
-- Standard recruitment terms detected
-- Compensation structure requires review
-- Compliance clauses present
-
-Would you like me to provide a detailed analysis of any specific section?`;
-
-        await saveAIMessage(analysisResponse, [
-          {
-            id: 'detailed_analysis',
-            label: 'Detailed Analysis',
-            variant: 'default' as const,
-            icon: <CheckCircle className="w-4 h-4" />
-          },
-          {
-            id: 'risk_assessment',
-            label: 'Risk Assessment',
-            variant: 'outline' as const,
-            icon: <AlertTriangle className="w-4 h-4" />
-          },
-          {
-            id: 'download_report',
-            label: 'Download Report',
-            variant: 'outline' as const,
-            icon: <Download className="w-4 h-4" />
+      
+      try {
+        const { data: analysisData, error: analysisError } = await supabase.functions.invoke('contract-analysis', {
+          body: {
+            conversation_id: currentConversation.id,
+            file_name: file.name,
+            file_url: urlData.publicUrl,
+            message_content: `Contract uploaded: ${file.name}`,
+            zep_session_id: currentConversation.zep_session_id
           }
-        ]);
+        });
 
-        setIsTyping(false);
-      }, 3000);
+        if (analysisError) throw analysisError;
+
+      } catch (analysisError) {
+        console.error('Analysis error:', analysisError);
+        toast({
+          title: "Analysis Error",
+          description: "Failed to analyze contract. Please try again.",
+          variant: "destructive"
+        });
+      }
+      
+      setIsTyping(false);
 
     } catch (error) {
       console.error('Error uploading file:', error);
@@ -239,90 +211,29 @@ Would you like me to provide a detailed analysis of any specific section?`;
 
     setIsTyping(true);
     
-    // Simulate different responses based on button
-    setTimeout(async () => {
-      let response = "";
-      let actions = undefined;
+    // Process button action through real AI
+    try {
+      const { data, error } = await supabase.functions.invoke('contract-analysis', {
+        body: {
+          conversation_id: currentConversation.id,
+          message_content: `User requested: ${buttonLabel}`,
+          zep_session_id: currentConversation.zep_session_id,
+          button_action: buttonId
+        }
+      });
 
-      switch (buttonId) {
-        case 'detailed_analysis':
-          response = `📊 **Detailed Contract Analysis**
-
-**1. Contract Structure**
-- Well-organized with clear sections
-- Standard legal language used
-- All essential clauses present
-
-**2. Financial Terms**
-- Base compensation: Clearly defined
-- Commission structure: Performance-based
-- Benefits package: Comprehensive
-
-**3. Risk Factors**
-- ⚠️ Termination clauses favor employer
-- ⚠️ Non-compete period extends 12 months
-- ✅ Dispute resolution mechanism in place
-
-**4. Recommendations**
-- Negotiate termination notice period
-- Review non-compete geographical scope
-- Clarify intellectual property ownership`;
-          
-          actions = [
-            {
-              id: 'negotiate_terms',
-              label: 'Negotiation Tips',
-              variant: 'default' as const
-            },
-            {
-              id: 'compare_standards',
-              label: 'Industry Standards',
-              variant: 'outline' as const
-            }
-          ];
-          break;
-
-        case 'risk_assessment':
-          response = `⚠️ **Risk Assessment Report**
-
-**HIGH RISK**
-- Broad non-compete clause (12 months, national scope)
-- Limited termination protection for employee
-- Vague intellectual property assignment
-
-**MEDIUM RISK**
-- Commission calculation methodology
-- Overtime compensation structure
-- Confidentiality scope definitions
-
-**LOW RISK**
-- Base salary terms
-- Standard benefit provisions
-- Dispute resolution process
-
-**Overall Risk Score: 6.5/10**
-Recommendation: Negotiate high-risk items before signing.`;
-          
-          actions = [
-            {
-              id: 'mitigation_strategies',
-              label: 'Risk Mitigation',
-              variant: 'default' as const
-            }
-          ];
-          break;
-
-        case 'download_report':
-          response = "📄 **Report Generation**\n\nI'm preparing a comprehensive analysis report for download. This will include:\n\n• Executive summary\n• Detailed clause analysis\n• Risk assessment\n• Negotiation recommendations\n• Industry benchmarks\n\nThe report will be ready shortly and sent to your email.";
-          break;
-
-        default:
-          response = `I've noted your interest in "${buttonLabel}". How can I help you further with your contract analysis?`;
-      }
-
-      await saveAIMessage(response, actions);
-      setIsTyping(false);
-    }, 2000);
+      if (error) throw error;
+      
+    } catch (error) {
+      console.error('Button action error:', error);
+      toast({
+        title: "Processing Error",
+        description: "Failed to process your request. Please try again.",
+        variant: "destructive"
+      });
+    }
+    
+    setIsTyping(false);
   };
 
   return (
