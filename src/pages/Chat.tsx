@@ -67,9 +67,9 @@ const Chat = () => {
 
       setIsTyping(true);
 
-      // Call conversational AI for regular messages (not file uploads)
+      // Call n8n webhook for all messages (text and files)
       try {
-        const { data, error } = await supabase.functions.invoke('conversational-ai', {
+        const { data, error } = await supabase.functions.invoke('contract-analysis', {
           body: {
             conversation_id: currentConversation.id,
             message_content: message,

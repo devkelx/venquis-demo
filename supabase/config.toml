@@ -35,8 +35,4 @@ verify_jwt = true
 [functions.contract-analysis]
 verify_jwt = true
 
-[functions.conversational-ai]
-verify_jwt = true
-
-# To enable n8n webhook integration for contract analysis, add your webhook URL as a secret:
-# N8N_WEBHOOK_URL = "https://your-n8n-instance.com/webhook/contract-analysis"
+# n8n webhook integration is now configured via secrets
