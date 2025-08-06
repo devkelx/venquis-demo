@@ -151,32 +151,6 @@ const Chat = () => {
         data: urlData
       } = supabase.storage.from('contracts').getPublicUrl(filePath);
 
-      // Create contract record immediately after file upload
-      console.log('Creating contract record with:', {
-        conversation_id: currentConversation.id,
-        file_name: file.name,
-        file_url: urlData.publicUrl
-      });
-      
-      const { error: contractError } = await supabase
-        .from('contracts')
-        .insert({
-          conversation_id: currentConversation.id,
-          file_name: file.name,
-          file_url: urlData.publicUrl
-        });
-
-      if (contractError) {
-        console.error('Error creating contract record:', contractError);
-        toast({
-          title: "Contract record error",
-          description: `Failed to create contract record: ${contractError.message}`,
-          variant: "destructive"
-        });
-      } else {
-        console.log('Contract record created successfully');
-      }
-
       // Save file message
       await saveFileMessage(file.name, urlData.publicUrl);
 

@@ -164,22 +164,27 @@ serve(async (req) => {
     // If we get here, we have a response from n8n
     console.log('Final response:', { aiResponse, actionButtons, analysisResult });
 
-    // Store contract data if it's a file upload
-    if (file_name && file_url && analysisResult) {
+    // Store contract data if it's a file upload (CREATE RECORD FIRST)
+    if (file_name && file_url) {
+      console.log('Creating contract record for file upload');
       const { error: contractError } = await supabase
         .from('contracts')
         .insert({
           conversation_id,
           file_name,
           file_url,
-          client_name: analysisResult?.clientName,
-          extracted_terms: analysisResult,
-          fees: analysisResult?.fees,
-          payment_terms: analysisResult?.paymentTerms
+          // Only add extracted data if available from n8n
+          ...(analysisResult?.clientName && { client_name: analysisResult.clientName }),
+          ...(analysisResult && { extracted_terms: analysisResult }),
+          ...(analysisResult?.fees && { fees: analysisResult.fees }),
+          ...(analysisResult?.paymentTerms && { payment_terms: analysisResult.paymentTerms })
         });
 
       if (contractError) {
         console.error('Error storing contract:', contractError);
+        // Don't throw error, just log it - we don't want to break the flow
+      } else {
+        console.log('Contract record created successfully');
       }
     }
 
