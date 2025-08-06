@@ -67,9 +67,9 @@ const Chat = () => {
 
       setIsTyping(true);
 
-      // Call real AI analysis
+      // Call conversational AI for regular messages (not file uploads)
       try {
-        const { data, error } = await supabase.functions.invoke('contract-analysis', {
+        const { data, error } = await supabase.functions.invoke('conversational-ai', {
           body: {
             conversation_id: currentConversation.id,
             message_content: message,
