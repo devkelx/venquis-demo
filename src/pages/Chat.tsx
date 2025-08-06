@@ -14,7 +14,7 @@ import { createMemoryMessage, createContractContext } from "@/integrations/zep/c
 
 const Chat = () => {
   const { user } = useAuth();
-  const { currentConversation, setCurrentConversation } = useConversations();
+  const { currentConversation, setCurrentConversation, createConversation } = useConversations();
   const { messages, loading, saveUserMessage, saveAIMessage, saveFileMessage, refetch: refetchMessages } = useMessages(currentConversation?.id || null);
   const { addMemoryMessage, storeContractContext } = useZepMemory();
   const [isTyping, setIsTyping] = useState(false);
@@ -251,6 +251,10 @@ const Chat = () => {
         isCollapsed={isSidebarCollapsed}
         onToggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
         onNewChat={() => {
+          setShouldAutoScroll(true);
+        }}
+        onConversationSelect={(conversation) => {
+          setCurrentConversation(conversation);
           setShouldAutoScroll(true);
         }}
       />

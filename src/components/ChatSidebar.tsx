@@ -68,8 +68,11 @@ const ChatSidebar = ({ onConversationSelect, onNewChat, isCollapsed = false, onT
 
   const handleNewChat = async () => {
     const newConv = await createConversation();
-    if (newConv && onNewChat) {
-      onNewChat();
+    if (newConv) {
+      setCurrentConversation(newConv);
+      if (onNewChat) {
+        onNewChat();
+      }
     }
   };
 

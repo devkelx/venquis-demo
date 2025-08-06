@@ -145,11 +145,11 @@ export const useConversations = () => {
 
       if (error) throw error;
 
-      setConversations(prev => prev.filter(conv => conv.id !== id));
+      const updatedConversations = conversations.filter(conv => conv.id !== id);
+      setConversations(updatedConversations);
       
       if (currentConversation?.id === id) {
-        const remaining = conversations.filter(conv => conv.id !== id);
-        setCurrentConversation(remaining.length > 0 ? remaining[0] : null);
+        setCurrentConversation(updatedConversations.length > 0 ? updatedConversations[0] : null);
       }
     } catch (error) {
       console.error('Error deleting conversation:', error);
