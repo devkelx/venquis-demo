@@ -69,17 +69,18 @@ const ChatInput = ({
       
       <div className="p-4">
         <form onSubmit={handleSubmit} className="flex items-end gap-3">
-          <Button type="button" size="sm" onClick={handleFileButtonClick} disabled={disabled || isUploading} className="h-11 px-4">
-            <Paperclip className="h-4 w-4" />
-          </Button>
-          
           <div className="flex-1">
-            <Input value={message} onChange={e => setMessage(e.target.value)} placeholder={disabled ? "Processing..." : "Type your message..."} disabled={disabled || isUploading} className="min-h-[44px] resize-none" onKeyDown={e => {
+            <div className="relative">
+              <Input value={message} onChange={e => setMessage(e.target.value)} placeholder={disabled ? "Processing..." : "Type your message..."} disabled={disabled || isUploading} className="pr-12 min-h-[44px] resize-none" onKeyDown={e => {
               if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();
                 handleSubmit(e);
               }
             }} />
+              <Button type="button" variant="ghost" size="sm" onClick={handleFileButtonClick} disabled={disabled || isUploading} className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 p-0">
+                <Paperclip className="h-4 w-4" />
+              </Button>
+            </div>
           </div>
           
           <Button type="submit" size="sm" disabled={!message.trim() || disabled || isUploading} className="h-11 px-4">
