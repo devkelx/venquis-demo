@@ -3,7 +3,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import ChatSidebar from "@/components/ChatSidebar";
 import ChatMessage from "@/components/ChatMessage";
 import ChatInput from "@/components/ChatInput";
-import { Download, AlertTriangle, CheckCircle } from "lucide-react";
+
 import { useConversations } from "@/hooks/useConversations";
 import { useMessages } from "@/hooks/useMessages";
 import { useAuth } from "@/contexts/AuthContext";

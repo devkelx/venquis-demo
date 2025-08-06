@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { FileText, Download, AlertTriangle } from "lucide-react";
+import { FileText } from "lucide-react";
 
 interface ActionButton {
   id: string;
