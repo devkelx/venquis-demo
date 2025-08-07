@@ -18,14 +18,12 @@ const Chat = () => {
   } = useAuth();
   const {
     currentConversation,
-    setCurrentConversation,
-    createConversation
+    setCurrentConversation
   } = useConversations();
   const {
     messages,
     loading,
     saveUserMessage,
-    saveAIMessage,
     saveFileMessage,
     refetch: refetchMessages
   } = useMessages(currentConversation?.id || null);
