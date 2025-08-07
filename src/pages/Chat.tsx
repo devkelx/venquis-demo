@@ -262,14 +262,14 @@ const Chat = () => {
             
             <TabsContent value="chat" className="flex-1 flex flex-col m-0 h-full">
               <div className="flex-1 flex flex-col h-full">
-                <ScrollArea className="h-[calc(100vh-200px)] p-6" onScrollCapture={handleScroll} ref={scrollAreaRef}>
+                <ScrollArea className="flex-1 p-6" onScrollCapture={handleScroll} ref={scrollAreaRef}>
                   <div className="max-w-4xl mx-auto pb-4">
                     {loading && messages.length === 0 ? (
-                      <div className="flex items-center justify-center py-12">
+                      <div className="flex items-center justify-center py-6">
                         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
                       </div>
                     ) : messages.length === 0 ? (
-                      <div className="text-center py-12">
+                      <div className="text-center py-6">
                         <h2 className="text-2xl font-semibold mb-4">Contract Analysis Assistant</h2>
                         <p className="text-muted-foreground mb-6">
                           Upload a contract document or ask questions to get started

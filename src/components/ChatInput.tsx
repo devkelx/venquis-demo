@@ -58,8 +58,8 @@ const ChatInput = ({
   const handleFileButtonClick = () => {
     fileInputRef.current?.click();
   };
-  return <div className="bg-background border-t">
-      {isUploading && uploadProgress !== undefined && <div className="p-4 pb-2">
+  return <div className="sticky bottom-0 inset-x-0 bg-background/80 supports-[backdrop-filter]:bg-background/60 backdrop-blur border-t">
+      {isUploading && uploadProgress !== undefined && <div className="px-4 pt-3 pb-2">
           <div className="flex items-center justify-between mb-2">
             <span className="text-sm text-muted-foreground">Uploading file...</span>
             <span className="text-sm text-muted-foreground">{Math.round(uploadProgress)}%</span>
@@ -67,7 +67,7 @@ const ChatInput = ({
           <Progress value={uploadProgress} className="h-2" />
         </div>}
       
-      <div className="p-4">
+      <div className="px-4 py-3 pb-[max(env(safe-area-inset-bottom),0.75rem)]">
         <form onSubmit={handleSubmit} className="flex items-end gap-3">
           <div className="flex-1">
             <div className="relative">
