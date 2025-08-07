@@ -67,7 +67,7 @@ const ChatInput = ({
           <Progress value={uploadProgress} className="h-2" />
         </div>}
       
-      <div className="px-4 pt-4 pb-0">
+      <div className="px-4 pt-4 pb-2">
         <form onSubmit={handleSubmit} className="flex items-end gap-3">
           <div className="flex-1">
             <div className="relative">
