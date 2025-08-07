@@ -58,7 +58,7 @@ const ChatInput = ({
   const handleFileButtonClick = () => {
     fileInputRef.current?.click();
   };
-  return <div className="bg-background border-t">
+  return <div className="bg-background">
       {isUploading && uploadProgress !== undefined && <div className="p-4 pb-2">
           <div className="flex items-center justify-between mb-2">
             <span className="text-sm text-muted-foreground">Uploading file...</span>
@@ -67,11 +67,11 @@ const ChatInput = ({
           <Progress value={uploadProgress} className="h-2" />
         </div>}
       
-      <div className="p-4">
+      <div className="p-6">
         <form onSubmit={handleSubmit} className="flex items-end gap-3">
           <div className="flex-1">
             <div className="relative">
-              <Input value={message} onChange={e => setMessage(e.target.value)} placeholder={disabled ? "Processing..." : "Type your message..."} disabled={disabled || isUploading} className="pr-12 min-h-[44px] resize-none" onKeyDown={e => {
+              <Input value={message} onChange={e => setMessage(e.target.value)} placeholder={disabled ? "Processing..." : "Type your message..."} disabled={disabled || isUploading} className="pr-12 min-h-[44px] resize-none shadow-none" onKeyDown={e => {
               if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();
                 handleSubmit(e);
