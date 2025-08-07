@@ -164,7 +164,7 @@ serve(async (req) => {
     // If we get here, we have a response from n8n
     console.log('Final response:', { aiResponse, actionButtons, analysisResult });
 
-    // Store contract data if it's a file upload (CREATE RECORD FIRST)
+    // Store contract data if it's a file upload
     if (file_name && file_url) {
       console.log('Creating contract record for file upload');
       const { error: contractError } = await supabase
@@ -173,11 +173,7 @@ serve(async (req) => {
           conversation_id,
           file_name,
           file_url,
-          // Only add extracted data if available from n8n
-          ...(analysisResult?.clientName && { client_name: analysisResult.clientName }),
-          ...(analysisResult && { extracted_terms: analysisResult }),
-          ...(analysisResult?.fees && { fees: analysisResult.fees }),
-          ...(analysisResult?.paymentTerms && { payment_terms: analysisResult.paymentTerms })
+          full_text: analysisResult?.content || null
         });
 
       if (contractError) {
