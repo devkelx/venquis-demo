@@ -102,47 +102,6 @@ export const useMessages = (conversationId: string | null) => {
     }
   };
 
-  const saveAIMessage = async (
-    content: string, 
-    actions?: any[], 
-    metadata?: any
-  ): Promise<Message | null> => {
-    if (!conversationId) return null;
-
-    try {
-      const { data, error } = await supabase
-        .from('messages')
-        .insert({
-          conversation_id: conversationId,
-          content,
-          sender_type: 'assistant',
-          action_buttons: actions ? JSON.stringify(actions) : null,
-          metadata
-        })
-        .select()
-        .single();
-
-      if (error) throw error;
-
-      const newMessage: Message = {
-        ...data,
-        type: 'ai',
-        sender_type: 'assistant',
-        actions
-      };
-
-      setMessages(prev => [...prev, newMessage]);
-      return newMessage;
-    } catch (error) {
-      console.error('Error saving AI message:', error);
-      toast({
-        title: "Error",
-        description: "Failed to save AI response",
-        variant: "destructive"
-      });
-      return null;
-    }
-  };
 
   const saveFileMessage = async (
     fileName: string, 
@@ -194,7 +153,6 @@ export const useMessages = (conversationId: string | null) => {
     messages,
     loading,
     saveUserMessage,
-    saveAIMessage,
     saveFileMessage,
     refetch: fetchMessages
   };
