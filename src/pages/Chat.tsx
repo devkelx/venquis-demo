@@ -262,58 +262,62 @@ const Chat = () => {
               </TabsList>
             </div>
             
-            <TabsContent value="chat" className="flex-1 flex flex-col m-0">
-              <ScrollArea className="flex-1 p-6" onScrollCapture={handleScroll} ref={scrollAreaRef}>
-                <div className="max-w-4xl mx-auto">
-                  {loading && messages.length === 0 ? (
-                    <div className="flex items-center justify-center py-12">
-                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-                    </div>
-                  ) : messages.length === 0 ? (
-                    <div className="text-center py-12">
-                      <h2 className="text-2xl font-semibold mb-4">Contract Analysis Assistant</h2>
-                      <p className="text-muted-foreground mb-6">
-                        Upload a contract document or ask questions to get started
-                      </p>
-                    </div>
-                  ) : (
-                    <div className="space-y-4">
-                      {messages.map(message => (
-                        <ChatMessage 
-                          key={message.id} 
-                          type={message.type || 'ai'} 
-                          content={message.content} 
-                          fileName={message.fileName} 
-                          actions={message.actions} 
-                          onButtonClick={handleButtonClick} 
-                        />
-                      ))}
-                    </div>
-                  )}
-                  
-                  {isTyping && (
-                    <div className="flex justify-start mb-6">
-                      <div className="bg-chat-ai text-chat-ai-foreground rounded-2xl rounded-tl-sm px-4 py-3 shadow-soft border border-border">
-                        <div className="flex space-x-1">
-                          <div className="h-2 w-2 bg-current rounded-full animate-bounce"></div>
-                          <div className="h-2 w-2 bg-current rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                          <div className="h-2 w-2 bg-current rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+            <TabsContent value="chat" className="flex-1 flex flex-col m-0 h-full">
+              <div className="flex-1 flex flex-col h-full">
+                <ScrollArea className="h-[calc(100vh-200px)] p-6" onScrollCapture={handleScroll} ref={scrollAreaRef}>
+                  <div className="max-w-4xl mx-auto pb-4">
+                    {loading && messages.length === 0 ? (
+                      <div className="flex items-center justify-center py-12">
+                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                      </div>
+                    ) : messages.length === 0 ? (
+                      <div className="text-center py-12">
+                        <h2 className="text-2xl font-semibold mb-4">Contract Analysis Assistant</h2>
+                        <p className="text-muted-foreground mb-6">
+                          Upload a contract document or ask questions to get started
+                        </p>
+                      </div>
+                    ) : (
+                      <div className="space-y-4">
+                        {messages.map(message => (
+                          <ChatMessage 
+                            key={message.id} 
+                            type={message.type || 'ai'} 
+                            content={message.content} 
+                            fileName={message.fileName} 
+                            actions={message.actions} 
+                            onButtonClick={handleButtonClick} 
+                          />
+                        ))}
+                      </div>
+                    )}
+                    
+                    {isTyping && (
+                      <div className="flex justify-start mb-6">
+                        <div className="bg-chat-ai text-chat-ai-foreground rounded-2xl rounded-tl-sm px-4 py-3 shadow-soft border border-border">
+                          <div className="flex space-x-1">
+                            <div className="h-2 w-2 bg-current rounded-full animate-bounce"></div>
+                            <div className="h-2 w-2 bg-current rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                            <div className="h-2 w-2 bg-current rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  )}
-                  
-                  <div ref={messagesEndRef} />
+                    )}
+                    
+                    <div ref={messagesEndRef} />
+                  </div>
+                </ScrollArea>
+                
+                <div className="shrink-0 border-t bg-background">
+                  <ChatInput 
+                    onSendMessage={handleSendMessage} 
+                    onFileUpload={handleFileUpload} 
+                    disabled={isProcessing || loading} 
+                    uploadProgress={uploadProgress} 
+                    isUploading={isUploading} 
+                  />
                 </div>
-              </ScrollArea>
-              
-              <ChatInput 
-                onSendMessage={handleSendMessage} 
-                onFileUpload={handleFileUpload} 
-                disabled={isProcessing || loading} 
-                uploadProgress={uploadProgress} 
-                isUploading={isUploading} 
-              />
+              </div>
             </TabsContent>
             
             <TabsContent value="contracts" className="flex-1 m-0">

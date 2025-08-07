@@ -58,7 +58,7 @@ const ChatInput = ({
   const handleFileButtonClick = () => {
     fileInputRef.current?.click();
   };
-  return <div className="bg-background/80 backdrop-blur-sm">
+  return <div className="bg-background border-t">
       {isUploading && uploadProgress !== undefined && <div className="p-4 pb-2">
           <div className="flex items-center justify-between mb-2">
             <span className="text-sm text-muted-foreground">Uploading file...</span>
@@ -89,8 +89,6 @@ const ChatInput = ({
           
           <input type="file" ref={fileInputRef} onChange={handleFileChange} accept=".pdf" className="hidden" />
         </form>
-        
-        
       </div>
     </div>;
 };
