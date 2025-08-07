@@ -58,7 +58,7 @@ const ChatInput = ({
   const handleFileButtonClick = () => {
     fileInputRef.current?.click();
   };
-  return <div className="bg-background border-t">
+  return <div className="bg-background">
       {isUploading && uploadProgress !== undefined && <div className="p-4 pb-2">
           <div className="flex items-center justify-between mb-2">
             <span className="text-sm text-muted-foreground">Uploading file...</span>

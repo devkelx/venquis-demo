@@ -308,7 +308,7 @@ const Chat = () => {
                   </div>
                 </ScrollArea>
                 
-                <div className="shrink-0 border-t bg-background">
+                <div className="shrink-0 bg-background">
                   <ChatInput 
                     onSendMessage={handleSendMessage} 
                     onFileUpload={handleFileUpload} 
