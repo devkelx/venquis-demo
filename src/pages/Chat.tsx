@@ -264,7 +264,7 @@ const Chat = () => {
             
             <TabsContent value="chat" className="flex-1 flex flex-col m-0 h-full">
               <div className="flex-1 flex flex-col h-full">
-                <ScrollArea className="h-[calc(100vh-200px)] p-6" onScrollCapture={handleScroll} ref={scrollAreaRef}>
+                <ScrollArea className="h-[calc(100vh-200px)] px-6 pt-6" onScrollCapture={handleScroll} ref={scrollAreaRef}>
                   <div className="max-w-4xl mx-auto pb-4">
                     {loading && messages.length === 0 ? (
                       <div className="flex items-center justify-center py-12">
