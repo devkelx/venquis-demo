@@ -27,9 +27,9 @@ const ChatMessage = ({ type, content, fileName, actions, onButtonClick }: ChatMe
 
   if (type === 'file') {
     return (
-      <div className="flex justify-end mb-0">
+      <div className="flex justify-end mb-6">
         <div className="max-w-[70%] animate-slide-in">
-          <div className="bg-gradient-to-r from-primary/10 to-primary/30 text-foreground rounded-2xl rounded-tr-sm px-4 py-3">
+          <div className="bg-chat-user text-chat-user-foreground rounded-2xl rounded-tr-sm px-4 py-3 shadow-soft">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
                 <FileText className="w-4 h-4" />
@@ -47,9 +47,9 @@ const ChatMessage = ({ type, content, fileName, actions, onButtonClick }: ChatMe
 
   if (type === 'user') {
     return (
-      <div className="flex justify-end mb-0">
+      <div className="flex justify-end mb-6">
         <div className="max-w-[70%] animate-slide-in">
-          <div className="bg-gradient-to-r from-primary/10 to-primary/30 text-foreground rounded-2xl rounded-tr-sm px-4 py-3">
+          <div className="bg-chat-user text-chat-user-foreground rounded-2xl rounded-tr-sm px-4 py-3 shadow-soft">
             <p className="text-sm leading-relaxed">{content}</p>
           </div>
         </div>
@@ -58,9 +58,9 @@ const ChatMessage = ({ type, content, fileName, actions, onButtonClick }: ChatMe
   }
 
   return (
-    <div className="flex justify-start mb-0">
+    <div className="flex justify-start mb-6">
       <div className="max-w-[70%] animate-slide-in">
-        <div className="bg-card text-card-foreground rounded-2xl rounded-tl-sm px-4 py-3 border border-border shadow-none">
+        <div className="bg-chat-ai text-chat-ai-foreground rounded-2xl rounded-tl-sm px-4 py-3 shadow-soft border border-border">
           <div className="space-y-3">
             <ReactMarkdown 
               remarkPlugins={[remarkGfm]}
@@ -88,7 +88,7 @@ const ChatMessage = ({ type, content, fileName, actions, onButtonClick }: ChatMe
             </ReactMarkdown>
             
             {actions && actions.length > 0 && (
-              <div className="flex flex-wrap gap-2 pt-2 bg-muted/40 rounded-lg p-2">
+              <div className="flex flex-wrap gap-2 pt-2 border-t border-border/50">
                 {actions.map((button) => (
                   <Button
                     key={button.id}

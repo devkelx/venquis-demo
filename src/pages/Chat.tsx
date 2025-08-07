@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
-
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ChatSidebar from "@/components/ChatSidebar";
 import ChatMessage from "@/components/ChatMessage";
 import ChatInput from "@/components/ChatInput";
@@ -39,7 +39,6 @@ const Chat = () => {
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [shouldAutoScroll, setShouldAutoScroll] = useState(true);
-  const [activeTab, setActiveTab] = useState<'chat' | 'contracts'>('chat');
 
   // Clear states when no conversation is selected
   useEffect(() => {
@@ -243,7 +242,7 @@ const Chat = () => {
     }
     setIsTyping(false);
   };
-  return <div className="h-screen flex bg-muted">
+  return <div className="h-screen flex bg-background">
       <ChatSidebar isCollapsed={isSidebarCollapsed} onToggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)} onNewChat={() => {
       setShouldAutoScroll(true);
     }} onConversationSelect={conversation => {
@@ -253,97 +252,78 @@ const Chat = () => {
       
       <div className="flex-1 flex flex-col">
         {currentConversation ? (
-          <div className="flex-1 flex flex-col">
-            <div className="px-6 py-3 bg-muted">
-              <div className="relative w-full max-w-md">
-                <div className="relative rounded-full bg-muted p-1">
-                  <div className={`absolute inset-1 w-1/2 rounded-full bg-background shadow-soft transition-transform duration-300 ${activeTab === 'chat' ? 'translate-x-0' : 'translate-x-full'}`}></div>
-                  <div className="relative grid grid-cols-2">
-                    <button
-                      type="button"
-                      onClick={() => setActiveTab('chat')}
-                      className={`z-10 relative px-4 py-2 text-sm font-medium rounded-full transition-colors ${activeTab === 'chat' ? 'text-foreground' : 'text-muted-foreground'}`}
-                    >
-                      Chat
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setActiveTab('contracts')}
-                      className={`z-10 relative px-4 py-2 text-sm font-medium rounded-full transition-colors ${activeTab === 'contracts' ? 'text-foreground' : 'text-muted-foreground'}`}
-                    >
-                      Contracts
-                    </button>
-                  </div>
-                </div>
-              </div>
+          <Tabs defaultValue="chat" className="flex-1 flex flex-col">
+            <div className="border-b px-6 py-2">
+              <TabsList className="grid w-full grid-cols-2 max-w-md">
+                <TabsTrigger value="chat">Chat</TabsTrigger>
+                <TabsTrigger value="contracts">Contracts</TabsTrigger>
+              </TabsList>
             </div>
-
-            {activeTab === 'chat' ? (
-              <div className="flex-1 flex flex-col m-0 h-full">
-                <div className="flex-1 flex flex-col h-full">
-                  <ScrollArea className="h-[calc(100vh-200px)] p-6" onScrollCapture={handleScroll} ref={scrollAreaRef}>
-                    <div className="max-w-4xl mx-auto pb-4">
-                      {loading && messages.length === 0 ? (
-                        <div className="flex items-center justify-center py-12">
-                          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-                        </div>
-                      ) : messages.length === 0 ? (
-                        <div className="text-center py-12">
-                          <h2 className="text-2xl font-semibold mb-4">Contract Analysis Assistant</h2>
-                          <p className="text-muted-foreground mb-6">
-                            Upload a contract document or ask questions to get started
-                          </p>
-                        </div>
-                      ) : (
-                        <div className="space-y-4">
-                          {messages.map(message => (
-                            <ChatMessage 
-                              key={message.id} 
-                              type={message.type || 'ai'} 
-                              content={message.content} 
-                              fileName={message.fileName} 
-                              actions={message.actions} 
-                              onButtonClick={handleButtonClick} 
-                            />
-                          ))}
-                        </div>
-                      )}
-
-                      {isTyping && (
-                        <div className="flex justify-start mb-4">
-                          <div className="bg-card text-card-foreground rounded-2xl rounded-tl-sm px-4 py-3 border border-border/60">
-                            <div className="flex space-x-1">
-                              <div className="h-2 w-2 bg-current rounded-full animate-bounce"></div>
-                              <div className="h-2 w-2 bg-current rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                              <div className="h-2 w-2 bg-current rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                            </div>
+            
+            <TabsContent value="chat" className="flex-1 flex flex-col m-0 h-full">
+              <div className="flex-1 flex flex-col h-full">
+                <ScrollArea className="h-[calc(100vh-200px)] p-6" onScrollCapture={handleScroll} ref={scrollAreaRef}>
+                  <div className="max-w-4xl mx-auto pb-4">
+                    {loading && messages.length === 0 ? (
+                      <div className="flex items-center justify-center py-12">
+                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                      </div>
+                    ) : messages.length === 0 ? (
+                      <div className="text-center py-12">
+                        <h2 className="text-2xl font-semibold mb-4">Contract Analysis Assistant</h2>
+                        <p className="text-muted-foreground mb-6">
+                          Upload a contract document or ask questions to get started
+                        </p>
+                      </div>
+                    ) : (
+                      <div className="space-y-4">
+                        {messages.map(message => (
+                          <ChatMessage 
+                            key={message.id} 
+                            type={message.type || 'ai'} 
+                            content={message.content} 
+                            fileName={message.fileName} 
+                            actions={message.actions} 
+                            onButtonClick={handleButtonClick} 
+                          />
+                        ))}
+                      </div>
+                    )}
+                    
+                    {isTyping && (
+                      <div className="flex justify-start mb-6">
+                        <div className="bg-chat-ai text-chat-ai-foreground rounded-2xl rounded-tl-sm px-4 py-3 shadow-soft border border-border">
+                          <div className="flex space-x-1">
+                            <div className="h-2 w-2 bg-current rounded-full animate-bounce"></div>
+                            <div className="h-2 w-2 bg-current rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                            <div className="h-2 w-2 bg-current rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                           </div>
                         </div>
-                      )}
-
-                      <div ref={messagesEndRef} />
-                    </div>
-                  </ScrollArea>
-
-                  <div className="shrink-0 border-t bg-background">
-                    <ChatInput 
-                      onSendMessage={handleSendMessage} 
-                      onFileUpload={handleFileUpload} 
-                      disabled={isProcessing || loading} 
-                      uploadProgress={uploadProgress} 
-                      isUploading={isUploading} 
-                    />
+                      </div>
+                    )}
+                    
+                    <div ref={messagesEndRef} />
                   </div>
+                </ScrollArea>
+                
+                <div className="shrink-0 border-t bg-background">
+                  <ChatInput 
+                    onSendMessage={handleSendMessage} 
+                    onFileUpload={handleFileUpload} 
+                    disabled={isProcessing || loading} 
+                    uploadProgress={uploadProgress} 
+                    isUploading={isUploading} 
+                  />
                 </div>
               </div>
-            ) : (
-              <div className="flex-1 m-0">
-                <ScrollArea className="h-full">
-                  <ContractsPanel conversationId={currentConversation.id} />
-                </ScrollArea>
-              </div>
-            )}
-          </div>
+            </TabsContent>
+            
+            <TabsContent value="contracts" className="flex-1 m-0">
+              <ScrollArea className="h-full">
+                <ContractsPanel conversationId={currentConversation.id} />
+              </ScrollArea>
+            </TabsContent>
+          </Tabs>
         ) : (
           <div className="flex-1 flex items-center justify-center">
             <div className="text-center">
