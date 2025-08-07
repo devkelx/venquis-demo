@@ -1,5 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { FileText } from "lucide-react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 interface ActionButton {
   id: string;
@@ -60,7 +62,16 @@ const ChatMessage = ({ type, content, fileName, actions, onButtonClick }: ChatMe
       <div className="max-w-[70%] animate-slide-in">
         <div className="bg-chat-ai text-chat-ai-foreground rounded-2xl rounded-tl-sm px-4 py-3 shadow-soft border border-border">
           <div className="space-y-3">
-            <p className="text-sm leading-relaxed whitespace-pre-wrap">{content}</p>
+            <div className="text-sm leading-relaxed prose prose-sm prose-slate dark:prose-invert max-w-none
+                         prose-headings:text-chat-ai-foreground prose-p:text-chat-ai-foreground 
+                         prose-strong:text-chat-ai-foreground prose-em:text-chat-ai-foreground
+                         prose-code:text-chat-ai-foreground prose-code:bg-muted prose-code:px-1 prose-code:py-0.5 prose-code:rounded
+                         prose-ul:text-chat-ai-foreground prose-ol:text-chat-ai-foreground prose-li:text-chat-ai-foreground
+                         prose-blockquote:text-chat-ai-foreground prose-blockquote:border-l-border">
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                {content}
+              </ReactMarkdown>
+            </div>
             
             {actions && actions.length > 0 && (
               <div className="flex flex-wrap gap-2 pt-2 border-t border-border/50">
