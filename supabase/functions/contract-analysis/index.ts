@@ -173,7 +173,8 @@ serve(async (req) => {
           conversation_id,
           file_name,
           file_url,
-          full_text: analysisResult?.content || null
+          full_text: analysisResult?.full_text || null,
+          overview: analysisResult?.content || aiResponse || null
         });
 
       if (contractError) {

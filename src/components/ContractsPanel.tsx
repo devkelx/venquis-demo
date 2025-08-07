@@ -1,15 +1,19 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { FileText, Calendar, ExternalLink } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
+import { FileText, Calendar, ExternalLink, Trash2 } from 'lucide-react';
 import { format } from 'date-fns';
+import { toast } from 'sonner';
 interface Contract {
   id: string;
   conversation_id: string;
   file_name: string;
   file_url: string;
   full_text: string | null;
+  overview: string | null;
   created_at: string;
 }
 interface ContractsPanelProps {
@@ -18,6 +22,8 @@ interface ContractsPanelProps {
 export function ContractsPanel({
   conversationId
 }: ContractsPanelProps) {
+  const queryClient = useQueryClient();
+  
   const {
     data: contracts,
     isLoading,
@@ -42,11 +48,32 @@ export function ContractsPanel({
         file_name: item.file_name,
         file_url: item.file_url,
         full_text: item.full_text,
+        overview: item.overview,
         created_at: item.created_at
       }));
     },
     enabled: true
   });
+
+  const deleteContract = useMutation({
+    mutationFn: async (contractId: string) => {
+      const { error } = await supabase
+        .from('contracts')
+        .delete()
+        .eq('id', contractId);
+      
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['contracts', conversationId] });
+      toast.success('Contract deleted successfully');
+    },
+    onError: (error) => {
+      toast.error('Failed to delete contract');
+      console.error('Delete error:', error);
+    }
+  });
+
   if (isLoading) {
     return <div className="p-4">
         <div className="animate-pulse space-y-4">
@@ -84,9 +111,9 @@ export function ContractsPanel({
             </CardHeader>
             
             <CardContent className="pt-0">
-              {contract.full_text && <div className="mb-3">
+              {contract.overview && <div className="mb-3">
                   <p className="text-sm text-muted-foreground line-clamp-3">
-                    {contract.full_text}
+                    {contract.overview}
                   </p>
                 </div>}
               
@@ -94,10 +121,36 @@ export function ContractsPanel({
                 <span className="text-xs text-muted-foreground">
                   {format(new Date(contract.created_at), 'MMM d, yyyy h:mm a')}
                 </span>
-                <a href={contract.file_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-xs text-primary hover:underline">
-                  View File
-                  <ExternalLink className="h-3 w-3" />
-                </a>
+                <div className="flex items-center gap-2">
+                  <a href={contract.file_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-xs text-primary hover:underline">
+                    View File
+                    <ExternalLink className="h-3 w-3" />
+                  </a>
+                  <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                      <Button variant="ghost" size="sm" className="h-6 w-6 p-0 text-destructive hover:text-destructive">
+                        <Trash2 className="h-3 w-3" />
+                      </Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>Delete Contract</AlertDialogTitle>
+                        <AlertDialogDescription>
+                          Are you sure you want to delete "{contract.file_name}"? This action cannot be undone.
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction 
+                          onClick={() => deleteContract.mutate(contract.id)}
+                          className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                        >
+                          Delete
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
+                </div>
               </div>
             </CardContent>
           </Card>)}
