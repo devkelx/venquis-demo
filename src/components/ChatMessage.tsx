@@ -62,16 +62,30 @@ const ChatMessage = ({ type, content, fileName, actions, onButtonClick }: ChatMe
       <div className="max-w-[70%] animate-slide-in">
         <div className="bg-chat-ai text-chat-ai-foreground rounded-2xl rounded-tl-sm px-4 py-3 shadow-soft border border-border">
           <div className="space-y-3">
-            <div className="text-sm leading-relaxed prose prose-sm prose-slate dark:prose-invert max-w-none
-                         prose-headings:text-chat-ai-foreground prose-p:text-chat-ai-foreground 
-                         prose-strong:text-chat-ai-foreground prose-em:text-chat-ai-foreground
-                         prose-code:text-chat-ai-foreground prose-code:bg-muted prose-code:px-1 prose-code:py-0.5 prose-code:rounded
-                         prose-ul:text-chat-ai-foreground prose-ol:text-chat-ai-foreground prose-li:text-chat-ai-foreground
-                         prose-blockquote:text-chat-ai-foreground prose-blockquote:border-l-border">
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                {content}
-              </ReactMarkdown>
-            </div>
+            <ReactMarkdown 
+              remarkPlugins={[remarkGfm]}
+              components={{
+                p: ({node, ...props}) => <p className="text-sm leading-relaxed text-chat-ai-foreground mb-2" {...props} />,
+                strong: ({node, ...props}) => <strong className="font-semibold text-chat-ai-foreground" {...props} />,
+                em: ({node, ...props}) => <em className="italic text-chat-ai-foreground" {...props} />,
+                h1: ({node, ...props}) => <h1 className="text-lg font-bold text-chat-ai-foreground mb-2" {...props} />,
+                h2: ({node, ...props}) => <h2 className="text-base font-bold text-chat-ai-foreground mb-2" {...props} />,
+                h3: ({node, ...props}) => <h3 className="text-sm font-bold text-chat-ai-foreground mb-1" {...props} />,
+                ul: ({node, ...props}) => <ul className="list-disc list-inside text-chat-ai-foreground mb-2 space-y-1" {...props} />,
+                ol: ({node, ...props}) => <ol className="list-decimal list-inside text-chat-ai-foreground mb-2 space-y-1" {...props} />,
+                li: ({node, ...props}) => <li className="text-chat-ai-foreground" {...props} />,
+                code: ({node, ...props}: any) => {
+                  // Check if it's inline code by looking at the parent node
+                  const isInline = node?.position?.start?.line === node?.position?.end?.line;
+                  return isInline ? 
+                    <code className="bg-muted text-chat-ai-foreground px-1 py-0.5 rounded text-xs" {...props} /> :
+                    <code className="block bg-muted text-chat-ai-foreground p-2 rounded text-xs mb-2" {...props} />;
+                },
+                blockquote: ({node, ...props}) => <blockquote className="border-l-2 border-border pl-3 text-chat-ai-foreground italic mb-2" {...props} />
+              }}
+            >
+              {content}
+            </ReactMarkdown>
             
             {actions && actions.length > 0 && (
               <div className="flex flex-wrap gap-2 pt-2 border-t border-border/50">
