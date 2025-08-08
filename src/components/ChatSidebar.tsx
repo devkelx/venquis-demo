@@ -127,7 +127,7 @@ const ChatSidebar = ({
             
             <h2 className="font-semibold text-lg">Venquis</h2>
           </div>
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-0.5">
             <Button variant="ghost" size="sm" onClick={() => setIsDarkMode(!isDarkMode)} className="w-8 h-8 p-0">
               {isDarkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
             </Button>
