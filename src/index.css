@@ -8,111 +8,132 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 210 20% 98%;
-    --foreground: 222.2 84% 4.9%;
+    /* Premium Light Theme - Warm, Notion-inspired */
+    --background: 33 100% 97%;
+    --foreground: 210 15% 20%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 210 15% 20%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 210 15% 20%;
 
-    --primary: 262 86% 66%;
-    --primary-foreground: 210 40% 98%;
-    --primary-glow: 265 89% 78%;
+    /* Premium purple-blue accent */
+    --primary: 242 47% 58%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 244 55% 70%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Subtle warm grays */
+    --secondary: 210 40% 94%;
+    --secondary-foreground: 210 15% 25%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 210 12% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 200 50% 94%;
+    --accent-foreground: 210 15% 25%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 75% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Softer borders */
+    --border: 210 25% 88%;
+    --input: 210 25% 88%;
+    --ring: 242 47% 58%;
 
-    --radius: 0.75rem;
+    --radius: 8px;
 
-    /* Chat-specific colors */
-    --chat-user: 262 86% 66%;
-    --chat-user-foreground: 210 40% 98%;
-    --chat-ai: 210 40% 96.1%;
-    --chat-ai-foreground: 222.2 84% 4.9%;
+    /* Premium chat colors */
+    --chat-user: 242 47% 58%;
+    --chat-user-foreground: 0 0% 100%;
+    --chat-ai: 210 40% 96%;
+    --chat-ai-foreground: 210 15% 20%;
 
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
-    --gradient-subtle: linear-gradient(135deg, hsl(210 20% 98%), hsl(220 25% 95%));
+    /* Rich gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(242 47% 58%), hsl(244 55% 70%));
+    --gradient-subtle: linear-gradient(135deg, hsl(33 100% 97%), hsl(210 40% 94%));
+    --gradient-chat: linear-gradient(135deg, hsl(210 40% 96%), hsl(200 50% 94%));
 
-    /* Shadows */
-    --shadow-medium: 0 4px 16px -4px hsl(var(--primary) / 0.15);
-    --shadow-strong: 0 8px 24px -6px hsl(var(--primary) / 0.25);
-    --shadow-soft: 0 2px 8px -2px hsl(var(--primary) / 0.1);
+    /* Elegant shadows */
+    --shadow-medium: 0 4px 20px -4px hsl(210 15% 20% / 0.08);
+    --shadow-strong: 0 8px 32px -6px hsl(210 15% 20% / 0.12);
+    --shadow-soft: 0 2px 12px -2px hsl(210 15% 20% / 0.05);
+    --shadow-glow: 0 0 40px hsl(242 47% 58% / 0.15);
 
-    /* Animations */
+    /* Smooth transitions */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Premium sidebar */
+    --sidebar-background: 210 40% 96%;
+    --sidebar-foreground: 210 15% 25%;
+    --sidebar-primary: 242 47% 58%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 200 50% 94%;
+    --sidebar-accent-foreground: 210 15% 25%;
+    --sidebar-border: 210 25% 88%;
+    --sidebar-ring: 242 47% 58%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    /* Premium Dark Theme - Smooth, warm tones */
+    --background: 210 15% 8%;
+    --foreground: 210 20% 92%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 210 15% 10%;
+    --card-foreground: 210 20% 92%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 210 15% 10%;
+    --popover-foreground: 210 20% 92%;
 
-    --primary: 262 86% 66%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --primary-glow: 265 89% 78%;
+    /* Refined purple accent for dark mode */
+    --primary: 244 55% 70%;
+    --primary-foreground: 210 15% 8%;
+    --primary-glow: 246 60% 78%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    /* Warm dark grays */
+    --secondary: 210 15% 14%;
+    --secondary-foreground: 210 20% 85%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 210 15% 12%;
+    --muted-foreground: 210 15% 60%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 200 20% 14%;
+    --accent-foreground: 210 20% 85%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 75% 65%;
+    --destructive-foreground: 210 15% 8%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    
-    /* Chat-specific colors */
-    --chat-user: 262 86% 66%;
-    --chat-user-foreground: 210 40% 98%;
-    --chat-ai: 217.2 32.6% 17.5%;
-    --chat-ai-foreground: 210 40% 98%;
-    
-    --gradient-subtle: linear-gradient(135deg, hsl(222.2 84% 4.9%), hsl(217.2 32.6% 17.5%));
-    
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Subtle borders */
+    --border: 210 15% 18%;
+    --input: 210 15% 18%;
+    --ring: 244 55% 70%;
+
+    /* Premium chat colors for dark mode */
+    --chat-user: 244 55% 70%;
+    --chat-user-foreground: 210 15% 8%;
+    --chat-ai: 210 15% 12%;
+    --chat-ai-foreground: 210 20% 88%;
+
+    /* Rich dark gradients */
+    --gradient-subtle: linear-gradient(135deg, hsl(210 15% 8%), hsl(210 15% 12%));
+    --gradient-chat: linear-gradient(135deg, hsl(210 15% 12%), hsl(200 20% 14%));
+    --gradient-primary: linear-gradient(135deg, hsl(244 55% 70%), hsl(246 60% 78%));
+
+    /* Enhanced shadows for dark mode */
+    --shadow-medium: 0 4px 20px -4px hsl(0 0% 0% / 0.25);
+    --shadow-strong: 0 8px 32px -6px hsl(0 0% 0% / 0.35);
+    --shadow-soft: 0 2px 12px -2px hsl(0 0% 0% / 0.15);
+    --shadow-glow: 0 0 40px hsl(244 55% 70% / 0.25);
+
+    /* Premium dark sidebar */
+    --sidebar-background: 210 15% 6%;
+    --sidebar-foreground: 210 20% 85%;
+    --sidebar-primary: 244 55% 70%;
+    --sidebar-primary-foreground: 210 15% 8%;
+    --sidebar-accent: 200 20% 12%;
+    --sidebar-accent-foreground: 210 20% 85%;
+    --sidebar-border: 210 15% 16%;
+    --sidebar-ring: 244 55% 70%;
   }
 }
 

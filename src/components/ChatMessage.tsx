@@ -29,14 +29,14 @@ const ChatMessage = ({ type, content, fileName, actions, onButtonClick }: ChatMe
     return (
       <div className="flex justify-end mb-6">
         <div className="max-w-[70%] animate-slide-in">
-          <div className="bg-chat-user text-chat-user-foreground rounded-2xl rounded-tr-sm px-4 py-3 shadow-soft">
+          <div className="bg-gradient-primary text-white rounded-2xl rounded-tr-sm px-5 py-4 shadow-medium border border-primary/20">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
+              <div className="w-9 h-9 bg-white/15 rounded-xl flex items-center justify-center backdrop-blur-sm">
                 <FileText className="w-4 h-4" />
               </div>
               <div>
                 <p className="font-medium text-sm">{fileName}</p>
-                <p className="text-xs opacity-90">Uploaded document</p>
+                <p className="text-xs opacity-80">Document uploaded</p>
               </div>
             </div>
           </div>
@@ -49,8 +49,8 @@ const ChatMessage = ({ type, content, fileName, actions, onButtonClick }: ChatMe
     return (
       <div className="flex justify-end mb-6">
         <div className="max-w-[70%] animate-slide-in">
-          <div className="bg-chat-user text-chat-user-foreground rounded-2xl rounded-tr-sm px-4 py-3 shadow-soft">
-            <p className="text-sm leading-relaxed">{content}</p>
+          <div className="bg-gradient-primary text-white rounded-2xl rounded-tr-sm px-5 py-4 shadow-medium border border-primary/20">
+            <p className="text-sm leading-relaxed font-medium">{content}</p>
           </div>
         </div>
       </div>
@@ -60,7 +60,7 @@ const ChatMessage = ({ type, content, fileName, actions, onButtonClick }: ChatMe
   return (
     <div className="flex justify-start mb-6">
       <div className="max-w-[70%] animate-slide-in">
-        <div className="bg-chat-ai text-chat-ai-foreground rounded-2xl rounded-tl-sm px-4 py-3 shadow-soft border border-border">
+        <div className="bg-gradient-chat text-chat-ai-foreground rounded-2xl rounded-tl-sm px-5 py-4 shadow-medium border border-border/50 backdrop-blur-sm">
           <div className="space-y-3">
             <ReactMarkdown 
               remarkPlugins={[remarkGfm]}
