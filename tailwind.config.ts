@@ -72,8 +72,7 @@ export default {
 			},
 			backgroundImage: {
 				'gradient-primary': 'var(--gradient-primary)',
-				'gradient-subtle': 'var(--gradient-subtle)',
-				'gradient-chat': 'var(--gradient-chat)'
+				'gradient-subtle': 'var(--gradient-subtle)'
 			},
 			boxShadow: {
 				'medium': 'var(--shadow-medium)',
