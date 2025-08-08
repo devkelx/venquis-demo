@@ -8,7 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useAuth } from "@/contexts/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useConversations } from "@/hooks/useConversations";
 import { useState, useEffect } from "react";
 
@@ -29,6 +29,7 @@ interface ChatSidebarProps {
 const ChatSidebar = ({ onConversationSelect, onNewChat, isCollapsed = false, onToggleCollapse }: ChatSidebarProps) => {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const {
     conversations,
     currentConversation,
@@ -101,6 +102,21 @@ const ChatSidebar = ({ onConversationSelect, onNewChat, isCollapsed = false, onT
     setEditingTitle('');
   };
 
+  const handleToggleView = () => {
+    if (!currentConversation) {
+      // If no conversation selected, create one first or prompt user
+      return;
+    }
+    
+    if (location.pathname === '/chat') {
+      navigate('/contracts');
+    } else {
+      navigate('/chat');
+    }
+  };
+
+  const isOnContracts = location.pathname === '/contracts';
+
   if (isCollapsed) {
     return (
       <div className="w-16 border-r border-border bg-card flex flex-col items-center py-4 space-y-4">
@@ -148,12 +164,13 @@ const ChatSidebar = ({ onConversationSelect, onNewChat, isCollapsed = false, onT
             <Button
               variant="ghost"
               size="sm"
-              onClick={() => navigate('/contracts')}
-              className="w-8 h-8 p-0"
-              aria-label="View contracts"
-              title="Contracts"
+              onClick={handleToggleView}
+              className={`w-8 h-8 p-0 ${isOnContracts ? 'bg-muted text-primary' : ''}`}
+              aria-label={isOnContracts ? "Back to chat" : "View contracts"}
+              title={isOnContracts ? "Back to Chat" : "View Contracts"}
+              disabled={!currentConversation}
             >
-              <FileText className="h-4 w-4" />
+              <FileText className={`h-4 w-4 ${isOnContracts ? 'text-primary' : ''}`} />
             </Button>
             <Button
               variant="ghost"
