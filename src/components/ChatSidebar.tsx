@@ -148,6 +148,16 @@ const ChatSidebar = ({ onConversationSelect, onNewChat, isCollapsed = false, onT
             <Button
               variant="ghost"
               size="sm"
+              onClick={() => navigate('/contracts')}
+              className="w-8 h-8 p-0"
+              aria-label="View contracts"
+              title="Contracts"
+            >
+              <FileText className="h-4 w-4" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
               onClick={onToggleCollapse}
               className="w-8 h-8 p-0"
             >
