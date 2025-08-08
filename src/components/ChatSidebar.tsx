@@ -144,7 +144,7 @@ const ChatSidebar = ({ onConversationSelect, onNewChat, isCollapsed = false, onT
   }
 
   return (
-    <div className="w-80 border-r border-border bg-card flex flex-col h-full">
+    <div className="w-64 border-r border-border bg-card flex flex-col h-full sticky top-0">
       {/* Header */}
       <div className="p-4 border-b border-border">
         <div className="flex items-center justify-between mb-4">

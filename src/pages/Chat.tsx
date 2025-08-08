@@ -242,7 +242,7 @@ const Chat = () => {
     }
     setIsTyping(false);
   };
-  return <div className="h-screen flex bg-background">
+  return <div className="h-screen flex bg-background overflow-hidden">
       <ChatSidebar isCollapsed={isSidebarCollapsed} onToggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)} onNewChat={() => {
       setShouldAutoScroll(true);
     }} onConversationSelect={conversation => {
@@ -250,12 +250,11 @@ const Chat = () => {
       setShouldAutoScroll(true);
     }} />
       
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col min-w-0 h-screen">
         {currentConversation ? (
-          <div className="flex-1 flex flex-col">
-            <div className="flex-1 flex flex-col h-full">
-              <ScrollArea className="flex-1 p-6" onScrollCapture={handleScroll} ref={scrollAreaRef}>
-                <div className="max-w-4xl mx-auto pb-4">
+          <div className="flex-1 flex flex-col h-full">
+            <ScrollArea className="flex-1 p-6" onScrollCapture={handleScroll} ref={scrollAreaRef}>
+              <div className="max-w-4xl mx-auto pb-4">
                   {loading && messages.length === 0 ? (
                     <div className="flex items-center justify-center py-6">
                       <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
@@ -293,17 +292,16 @@ const Chat = () => {
                     </div>
                   )}
                   <div ref={messagesEndRef} />
-                </div>
-              </ScrollArea>
-              <div className="shrink-0 bg-background">
-                <ChatInput 
-                  onSendMessage={handleSendMessage} 
-                  onFileUpload={handleFileUpload} 
-                  disabled={isProcessing || loading} 
-                  uploadProgress={uploadProgress} 
-                  isUploading={isUploading} 
-                />
               </div>
+            </ScrollArea>
+            <div className="shrink-0">
+              <ChatInput 
+                onSendMessage={handleSendMessage} 
+                onFileUpload={handleFileUpload} 
+                disabled={isProcessing || loading} 
+                uploadProgress={uploadProgress} 
+                isUploading={isUploading} 
+              />
             </div>
           </div>
         ) : (
