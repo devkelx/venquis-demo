@@ -100,9 +100,9 @@ const ChatMessage = ({ type, content, fileName, actions, onButtonClick }: ChatMe
               {content}
             </ReactMarkdown>
             
-            {actions && actions.length > 0 && (
-              <div className="flex flex-wrap gap-2">
-                {actions.map((button) => (
+            {(actions && actions.length > 0) || true ? (
+              <div className="flex flex-wrap items-center gap-2">
+                {actions && actions.map((button) => (
                   <Button
                     key={button.id}
                     variant={button.variant || "outline"}
@@ -114,20 +114,17 @@ const ChatMessage = ({ type, content, fileName, actions, onButtonClick }: ChatMe
                     {button.label}
                   </Button>
                 ))}
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={handleCopy}
+                  className="h-7 w-7 p-0 text-muted-foreground hover:text-foreground ml-auto"
+                  title={copied ? "Copied!" : "Copy message"}
+                >
+                  {copied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
+                </Button>
               </div>
-            )}
-            
-            <div className="flex justify-end pt-2 border-t border-border/20">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={handleCopy}
-                className="h-7 w-7 p-0 text-muted-foreground hover:text-foreground"
-                title={copied ? "Copied!" : "Copy message"}
-              >
-                {copied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
-              </Button>
-            </div>
+            ) : null}
           </div>
         </div>
       </div>
