@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
-import { FileText } from "lucide-react";
+import { FileText, Copy, Check } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { useState } from "react";
 
 interface ActionButton {
   id: string;
@@ -19,9 +20,21 @@ interface ChatMessageProps {
 }
 
 const ChatMessage = ({ type, content, fileName, actions, onButtonClick }: ChatMessageProps) => {
+  const [copied, setCopied] = useState(false);
+
   const handleButtonClick = (button: ActionButton) => {
     if (onButtonClick) {
       onButtonClick(button.id, button.label);
+    }
+  };
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(content);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy text: ', err);
     }
   };
 
@@ -60,7 +73,16 @@ const ChatMessage = ({ type, content, fileName, actions, onButtonClick }: ChatMe
   return (
     <div className="flex justify-start mb-6">
       <div className="max-w-[70%] animate-slide-in">
-        <div className="bg-chat-ai text-chat-ai-foreground rounded-2xl rounded-tl-sm px-4 py-3 shadow-soft border border-border">
+        <div className="bg-chat-ai text-chat-ai-foreground rounded-2xl rounded-tl-sm px-4 py-3 shadow-soft border border-border relative group">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={handleCopy}
+            className="absolute top-2 right-2 h-6 w-6 p-0 opacity-0 group-hover:opacity-100 transition-opacity"
+            title={copied ? "Copied!" : "Copy message"}
+          >
+            {copied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
+          </Button>
           <div className="space-y-3">
             <ReactMarkdown 
               remarkPlugins={[remarkGfm]}
