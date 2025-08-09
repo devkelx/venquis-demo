@@ -73,16 +73,7 @@ const ChatMessage = ({ type, content, fileName, actions, onButtonClick }: ChatMe
   return (
     <div className="flex justify-start mb-6">
       <div className="max-w-[70%] animate-slide-in">
-        <div className="bg-chat-ai text-chat-ai-foreground rounded-2xl rounded-tl-sm px-4 py-3 shadow-soft border border-border relative group">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={handleCopy}
-            className="absolute top-2 right-2 h-6 w-6 p-0 opacity-0 group-hover:opacity-100 transition-opacity"
-            title={copied ? "Copied!" : "Copy message"}
-          >
-            {copied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
-          </Button>
+        <div className="bg-chat-ai text-chat-ai-foreground rounded-2xl rounded-tl-sm px-4 py-3 shadow-soft border border-border">
           <div className="space-y-3">
             <ReactMarkdown 
               remarkPlugins={[remarkGfm]}
@@ -125,6 +116,19 @@ const ChatMessage = ({ type, content, fileName, actions, onButtonClick }: ChatMe
                 ))}
               </div>
             )}
+            
+            <div className="flex justify-end pt-2 border-t border-border/20">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleCopy}
+                className="h-7 px-2 text-xs text-muted-foreground hover:text-foreground"
+                title={copied ? "Copied!" : "Copy message"}
+              >
+                {copied ? <Check className="h-3 w-3 mr-1" /> : <Copy className="h-3 w-3 mr-1" />}
+                {copied ? "Copied" : "Copy"}
+              </Button>
+            </div>
           </div>
         </div>
       </div>
