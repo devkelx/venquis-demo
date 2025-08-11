@@ -81,20 +81,29 @@ const ChatMessage = ({ type, content, fileName, actions, onButtonClick }: ChatMe
                 p: ({node, ...props}) => <p className="text-sm leading-relaxed text-chat-ai-foreground mb-2" {...props} />,
                 strong: ({node, ...props}) => <strong className="font-semibold text-chat-ai-foreground" {...props} />,
                 em: ({node, ...props}) => <em className="italic text-chat-ai-foreground" {...props} />,
-                h1: ({node, ...props}) => <h1 className="text-lg font-bold text-chat-ai-foreground mb-2" {...props} />,
-                h2: ({node, ...props}) => <h2 className="text-base font-bold text-chat-ai-foreground mb-2" {...props} />,
+                h1: ({node, ...props}) => <h1 className="text-sm font-bold text-chat-ai-foreground mb-2" {...props} />,
+                h2: ({node, ...props}) => <h2 className="text-sm font-bold text-chat-ai-foreground mb-2" {...props} />,
                 h3: ({node, ...props}) => <h3 className="text-sm font-bold text-chat-ai-foreground mb-1" {...props} />,
-                ul: ({node, ...props}) => <ul className="list-disc list-inside text-chat-ai-foreground mb-2 space-y-1" {...props} />,
-                ol: ({node, ...props}) => <ol className="list-decimal list-inside text-chat-ai-foreground mb-2 space-y-1" {...props} />,
-                li: ({node, ...props}) => <li className="text-chat-ai-foreground" {...props} />,
+                ul: ({node, ...props}) => <ul className="list-disc list-inside text-sm text-chat-ai-foreground mb-2 space-y-1" {...props} />,
+                ol: ({node, ...props}) => <ol className="list-decimal list-inside text-sm text-chat-ai-foreground mb-2 space-y-1" {...props} />,
+                li: ({node, ...props}) => <li className="text-sm text-chat-ai-foreground" {...props} />,
+                table: ({node, ...props}) => (
+                  <div className="overflow-x-auto mb-2">
+                    <table className="min-w-full border border-border rounded-lg text-sm" {...props} />
+                  </div>
+                ),
+                thead: ({node, ...props}) => <thead className="bg-muted" {...props} />,
+                tbody: ({node, ...props}) => <tbody {...props} />,
+                tr: ({node, ...props}) => <tr className="border-b border-border hover:bg-muted/50" {...props} />,
+                th: ({node, ...props}) => <th className="border border-border px-3 py-2 text-left font-semibold text-sm text-chat-ai-foreground" {...props} />,
+                td: ({node, ...props}) => <td className="border border-border px-3 py-2 text-sm text-chat-ai-foreground" {...props} />,
                 code: ({node, ...props}: any) => {
-                  // Check if it's inline code by looking at the parent node
                   const isInline = node?.position?.start?.line === node?.position?.end?.line;
                   return isInline ? 
-                    <code className="bg-muted text-chat-ai-foreground px-1 py-0.5 rounded text-xs" {...props} /> :
-                    <code className="block bg-muted text-chat-ai-foreground p-2 rounded text-xs mb-2" {...props} />;
+                    <code className="bg-muted text-chat-ai-foreground px-1 py-0.5 rounded text-sm" {...props} /> :
+                    <code className="block bg-muted text-chat-ai-foreground p-2 rounded text-sm mb-2" {...props} />;
                 },
-                blockquote: ({node, ...props}) => <blockquote className="border-l-2 border-border pl-3 text-chat-ai-foreground italic mb-2" {...props} />
+                blockquote: ({node, ...props}) => <blockquote className="border-l-2 border-border pl-3 text-sm text-chat-ai-foreground italic mb-2" {...props} />
               }}
             >
               {content}
