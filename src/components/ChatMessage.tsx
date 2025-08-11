@@ -94,17 +94,7 @@ const ChatMessage = ({ type, content, fileName, actions, onButtonClick }: ChatMe
                     <code className="bg-muted text-chat-ai-foreground px-1 py-0.5 rounded text-xs" {...props} /> :
                     <code className="block bg-muted text-chat-ai-foreground p-2 rounded text-xs mb-2" {...props} />;
                 },
-                blockquote: ({node, ...props}) => <blockquote className="border-l-2 border-border pl-3 text-chat-ai-foreground italic mb-2" {...props} />,
-                table: ({node, ...props}) => (
-                  <div className="w-full overflow-x-auto mb-4 rounded-lg shadow-sm border border-border">
-                    <table className="w-full text-sm border-collapse" {...props} />
-                  </div>
-                ),
-                thead: ({node, ...props}) => <thead className="bg-muted/50" {...props} />,
-                tbody: ({node, ...props}) => <tbody {...props} />,
-                tr: ({node, ...props}) => <tr className="border-b border-border hover:bg-muted/30 transition-colors" {...props} />,
-                th: ({node, ...props}) => <th className="px-4 py-3 text-left font-semibold text-foreground uppercase text-xs tracking-wide border-r border-border last:border-r-0" {...props} />,
-                td: ({node, ...props}) => <td className="px-4 py-3 text-chat-ai-foreground border-r border-border last:border-r-0 first:font-medium" {...props} />
+                blockquote: ({node, ...props}) => <blockquote className="border-l-2 border-border pl-3 text-chat-ai-foreground italic mb-2" {...props} />
               }}
             >
               {content}
