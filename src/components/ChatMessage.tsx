@@ -118,10 +118,10 @@ const ChatMessage = ({ type, content, fileName, actions, onButtonClick }: ChatMe
                   variant="ghost"
                   size="sm"
                   onClick={handleCopy}
-                  className="h-6 w-6 p-0 text-muted-foreground hover:text-foreground ml-auto"
+                  className="h-7 w-7 p-0 text-muted-foreground hover:text-foreground ml-auto"
                   title={copied ? "Copied!" : "Copy message"}
                 >
-                  {copied ? <Check className="h-2.5 w-2.5" /> : <Copy className="h-2.5 w-2.5" />}
+                  {copied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
                 </Button>
               </div>
             ) : null}
