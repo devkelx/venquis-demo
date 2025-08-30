@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { MoreHorizontal, Plus, LogOut, FileText, PanelLeftClose, PanelLeftOpen, Moon, Sun } from "lucide-react";
+import { MoreHorizontal, Plus, LogOut, FileText, PanelLeftClose, PanelLeftOpen } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -41,17 +41,6 @@ const ChatSidebar = ({
   } = useConversations();
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editingTitle, setEditingTitle] = useState('');
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
-  // Dark mode effect
-  useEffect(() => {
-    const root = window.document.documentElement;
-    if (isDarkMode) {
-      root.classList.add('dark');
-    } else {
-      root.classList.remove('dark');
-    }
-  }, [isDarkMode]);
 
   const groupedConversations = conversations.reduce((acc, conv) => {
     const timeGroup = conv.timeGroup || 'older';
@@ -140,9 +129,7 @@ const ChatSidebar = ({
             <h2 className="font-semibold text-lg">Venquis</h2>
           </div>
           <div className="flex items-center gap-0.5">
-            <Button variant="ghost" size="sm" onClick={() => setIsDarkMode(!isDarkMode)} className="w-8 h-8 p-0 hover:bg-muted/50 rounded-lg">
-              {isDarkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-            </Button>
+
             <Button 
               variant="ghost" 
               size="sm" 
@@ -162,7 +149,7 @@ const ChatSidebar = ({
         
         <Button 
           onClick={handleNewChat} 
-          className="w-full justify-start bg-black hover:bg-gray-800 text-white border-black rounded-xl shadow-sm transition-all duration-200 hover:shadow-md" 
+          className="w-full justify-start bg-primary hover:bg-primary/90 text-primary-foreground border-primary rounded-xl shadow-sm transition-all duration-200 hover:shadow-md" 
           size="sm"
         >
           <Plus className="h-4 w-4 mr-2" />
@@ -246,8 +233,8 @@ const ChatSidebar = ({
       <div className="p-4 border-t border-border">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-black rounded-full flex items-center justify-center">
-              <span className="text-xs font-medium text-white">
+            <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+              <span className="text-xs font-medium text-primary-foreground">
                 {user?.user_metadata?.name?.[0] || user?.email?.[0] || 'U'}
               </span>
             </div>

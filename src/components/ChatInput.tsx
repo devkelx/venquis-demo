@@ -32,30 +32,33 @@ const ChatInput = ({
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file && !disabled) {
-      // Validate file type
-      if (file.type !== 'application/pdf') {
-        toast({
-          title: "Invalid file type",
-          description: "Please upload a PDF file only",
-          variant: "destructive"
-        });
-        e.target.value = '';
-        return;
-      }
+    const files = e.target.files;
+    if (files && !disabled) {
+      // Process each file
+      Array.from(files).forEach(file => {
+        // Validate file type
+        if (file.type !== 'application/pdf') {
+          toast({
+            title: "Invalid file type",
+            description: `${file.name} is not a PDF file. Please upload PDF files only.`,
+            variant: "destructive"
+          });
+          return;
+        }
 
-      // Validate file size (10MB)
-      if (file.size > 10 * 1024 * 1024) {
-        toast({
-          title: "File too large",
-          description: "Please upload a file smaller than 10MB",
-          variant: "destructive"
-        });
-        e.target.value = '';
-        return;
-      }
-      onFileUpload(file);
+        // Validate file size (10MB)
+        if (file.size > 10 * 1024 * 1024) {
+          toast({
+            title: "File too large",
+            description: `${file.name} is too large. Please upload files smaller than 10MB.`,
+            variant: "destructive"
+          });
+          return;
+        }
+
+        onFileUpload(file);
+      });
+      
       e.target.value = ""; // Reset the input
     }
   };
@@ -65,7 +68,7 @@ const ChatInput = ({
   };
 
   return (
-    <div className="sticky bottom-0 inset-x-0 bg-background/95 supports-[backdrop-filter]:bg-background/80 backdrop-blur border-t border-border">
+    <div className="sticky bottom-0 inset-x-0 bg-background/95 supports-[backdrop-filter]:bg-background/80 backdrop-blur">
       {isUploading && uploadProgress !== undefined && (
         <div className="px-6 pt-4 pb-3">
           <div className="flex items-center justify-between mb-2">
@@ -80,12 +83,13 @@ const ChatInput = ({
         <form onSubmit={handleSubmit} className="flex items-end gap-3">
           <div className="flex-1">
             <div className="relative">
-              <Input 
+              <input 
+                type="text"
                 value={message} 
                 onChange={e => setMessage(e.target.value)} 
                 placeholder={disabled ? "Processing..." : "Type your message..."} 
                 disabled={disabled || isUploading} 
-                className="pr-12 min-h-[48px] resize-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-0 border-border bg-background text-foreground placeholder:text-muted-foreground rounded-xl shadow-sm" 
+                className="flex h-12 w-full rounded-xl border border-border bg-muted px-12 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50" 
                 onKeyDown={e => {
                   if (e.key === 'Enter' && !e.shiftKey) {
                     e.preventDefault();
@@ -93,29 +97,31 @@ const ChatInput = ({
                   }
                 }} 
               />
+              
+              {/* Attachment button on the left */}
               <Button 
                 type="button" 
                 variant="ghost" 
                 size="sm" 
                 onClick={handleFileButtonClick} 
                 disabled={disabled || isUploading} 
-                className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 p-0 hover:bg-muted/50 rounded-lg"
+                className="absolute left-1 top-1/2 -translate-y-1/2 h-8 w-8 p-0 hover:bg-muted/50 rounded-lg"
               >
                 <Paperclip className="h-4 w-4 text-muted-foreground" />
               </Button>
+              
+              {/* Send button on the right */}
+              <button 
+                type="submit" 
+                disabled={!message.trim() || disabled || isUploading} 
+                className="absolute right-4 top-1/2 -translate-y-1/2 p-0 hover:bg-transparent"
+              >
+                <Send className="h-4 w-4 text-muted-foreground" />
+              </button>
             </div>
           </div>
           
-          <Button 
-            type="submit" 
-            size="sm" 
-            disabled={!message.trim() || disabled || isUploading} 
-            className="h-12 px-6 bg-black hover:bg-gray-800 text-white rounded-xl shadow-sm transition-all duration-200 hover:shadow-md"
-          >
-            <Send className="h-4 w-4" />
-          </Button>
-          
-          <input type="file" ref={fileInputRef} onChange={handleFileChange} accept=".pdf" className="hidden" />
+          <input type="file" ref={fileInputRef} onChange={handleFileChange} accept=".pdf" multiple className="hidden" />
         </form>
       </div>
     </div>

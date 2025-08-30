@@ -184,7 +184,7 @@ const Chat = () => {
         console.error('Analysis error:', analysisError);
         toast({
           title: "Analysis Error",
-          description: "Failed to analyze contract. Please try again.",
+          description: `Failed to analyze ${file.name}. Please try again.`,
           variant: "destructive"
         });
       }
@@ -193,7 +193,7 @@ const Chat = () => {
       console.error('Error uploading file:', error);
       toast({
         title: "Upload failed",
-        description: "Failed to upload file. Please try again.",
+        description: `Failed to upload ${file.name}. Please try again.`,
         variant: "destructive"
       });
     } finally {
@@ -268,7 +268,7 @@ const Chat = () => {
                   <div className="text-center py-6">
                     <h2 className="text-2xl font-semibold mb-4 text-foreground">Contract Analysis Assistant</h2>
                     <p className="text-muted-foreground mb-6">
-                      Upload a contract document or ask questions to get started
+                      Upload contract documents or ask questions to get started
                     </p>
                   </div>
                 ) : (
