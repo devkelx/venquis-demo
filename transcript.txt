@@ -1,0 +1,364 @@
+00:03Gaurav AshishaHey, Miriam. 
+00:04Meryem MernissiHello. Hi. 
+00:06Gaurav AshishaHow was your holiday? 
+00:08Meryem MernissiIt was brilliant, thank you. Very nice, Beautiful weather, great food. 
+00:13Gaurav AshishaWhere did you go? 
+00:15Meryem MernissiI was in Greece. 
+00:16Gaurav AshishaOh, nice. 
+00:17Kelsey BrownLike. 
+00:20Gaurav AshishaI need to go to like every. There's a island I really want to visit Kofu. 
+00:25Meryem MernissiAnd then. 
+00:26Kelsey BrownYeah. 
+00:26Gaurav AshishaAnd then there's a no children resort. And I really want to go there because people say that this is a quietest on a beach. I don't know side of the way of getting up, but that's people. A couple of my friends went there. They're like, you have to visit Kofu. Which island did you visit? 
+00:44Meryem MernissiIt's beautiful. So I was in an area called Halkiriki, so it's close to Thessaloniki. But it's beautiful. It really is stunning. The water was beautiful. 
+00:56Gaurav AshishaAmazing. 
+00:57Meryem MernissiVery good. Very good experience. But then if you want the no kids, you just travel in September. You have cheap and no kids. 
+01:07Gaurav AshishaIt's like holidays. 
+01:09Meryem MernissiRight. Absolute perfect deal. 
+01:12Gaurav AshishaThat makes sense. Also sounds good. And Conrad was. I think a lot. Almost everyone was on holiday, so that's why there was a bit of a delay. 
+01:21Meryem MernissiWhere were you, Conrad? 
+01:23Konrad WoloszynI was traveling in the Alps around Innsbruck. I didn't go far because it's. I need to still explore the local region here. 
+01:32Meryem MernissiI was going to say on your. On your steps. You have beautiful things to do. We have. I've told you, our colleague. We have a colleague who lives in. Well, he's Munich. But then every weekend, within an hour to two hours drive, he literally goes skiing, hiking mountain. And the scenery is just insane. 
+01:55Kelsey BrownYeah. 
+01:57Gaurav AshishaBenefits of living in. What is that called? Like Bavaria region, I think. 
+02:03Meryem MernissiYeah. Unique is Bavaria. 
+02:05Gaurav AshishaYeah. 
+02:06Konrad WoloszynAnd then you have. Where I am at Tyrol, so also very nice. 
+02:10Gaurav AshishaYeah. 
+02:11Konrad WoloszynI saw a glacier, so that was. Yeah, there's. There are glaciers here. When you go up like around 3400 meters of elevation, you start to have glaciers at certain locations. 
+02:22Gaurav AshishaCan be like. 
+02:22Konrad WoloszynUp to like 80 meters of ice just going down ice. 
+02:28Meryem MernissiAnd at any time of the year. 
+02:31Konrad WoloszynYeah. 
+02:32Kelsey BrownOh, wow. 
+02:33Konrad WoloszynThat's. And that's since very long time. They can be ice like water frozen below. That's like tens of thousands years old. And it's. And this has been there since that time. And it only has like creeks and tunnels below where in the summer water flows. So there's in glacier lakes inside. And during the winter it freezes. So it's like caves that you can go. 
+02:57Meryem MernissiBut yeah. 
+02:58Konrad WoloszynAnyway, so that was my Kelsey. 
+03:01Meryem MernissiYou've been away or. No, working on my platform. I'm glad one of US was here. 
+03:09Konrad WoloszynSomeone was efficient. 
+03:10Meryem MernissiYeah. Yeah. 
+03:11Gaurav AshishaBecause I have to know. But thank you. I'll quickly share the sheet. I think it'll be easiest. Yeah, I think. Okay, so I think this was a highlighted version, so we can go through the details and stuff. 
+03:29Kelsey BrownSo. 
+03:31Meryem MernissiRight. So here. So you mentioned the integration is missing. Action due from Vanquish. But I spoke to Will, who is adamant. He shared all the details many times for weeks and weeks now. So he. He wasn't sure what you meant. I think he followed up again with another email with all the details for the integration. So I think it's important to understand what is it that you're missing, because as far as we're concerned, you have everything. So if there is something that we're missing, let us know exactly what it is that you're referring to. 
+04:06Gaurav AshishaYeah, I think, like, that'll be. Kel, Conrad, if you could explain, that'll be helpful. But what we can do is we can go by that because there's a section about Bullhorn integration, and then we can cover that there. 
+04:20Meryem MernissiYeah. 
+04:22Konrad WoloszynSo there was confusion at some point about, like, whether the credentials have been shared or not, because it was very late in the conversation before we even had the. The setup in Bullhorn. So were missing still kind of an alignment as well, of like, okay, how many fields do we need in bullhorns? How many fields do we need to create? And then now we know. Okay, we are. I think now it's clear. We have the. It's clear you can use. We know exactly which fields are in Bullhorn, how they are amazing. So on. So now the alignment on Bullhorn is done. But I would say that until like, two weeks ago, where we had the final conversation when we said, okay, like, those are all the key data points we wanted to extract. 
+05:04Konrad WoloszynHow does that align with the fields we want to up having Bullhorn? 
+05:07Meryem MernissiYes, absolutely. 
+05:09Kelsey BrownYeah. 
+05:10Meryem MernissiSo I didn't mean to. Literally, I answered point by point, as Korav did it. So my point here was on the integration, not on which field or anything. So I. I meant we've already given you all the information on the integration. And you're happy with that, right? You have all the credential. 
+05:27Kelsey BrownNow. 
+05:27Konrad WoloszynWe do have all the credentials. You do have them also now. I mean, it is crucial for the integration to also know which fields need to be updated. Otherwise. 
+05:38Meryem MernissiYes, yes, we'll go. We'll go through them. Okay, so that's done. Is Will not on the call? He should be. 
+05:49Gaurav AshishaI did not invite him. 
+05:50Meryem MernissiI only know no, I did because I think when we're gonna hit the. When we're gonna hit the. The fields, he has to. Sorry, give me one second. I'm gonna mute myself. Thanks. I just asked someone to nudge him, so. Cool. Okay, so upload. We are good. That's done. That's done. Yeah. The extraction piece. Yeah. Termination, close contract. Lens ownership. Yeah. Contract is compared to vanquish relevant T's and C's. 
+06:33Gaurav AshishaYeah, it's all kind. Yeah. 
+06:35Meryem MernissiI summarize. Okay. So it says here no risk rating to be defined just for me. The important is to have something called red flags or to be reviewed. Right. There needs to be something, you know, like the example I showed you on ChatGPT. There's like a little red flag and it goes, this doesn't align with your framework. Doesn't need to be. Does not. This is how widely different it is or it's exposing you or things like that. That's what I mean by that. When you said no risk rating. So we're happy with that. 
+07:12Gaurav AshishaYeah, I think like, because what it means like in risk rating, it could mean like in the chat GPD sort of. I'll admit real quickly it just said like this is anomaly. That didn't happen before. So have a look. So like Kel, if you could explain like how that visually would look like, I guess that will help kind of team to understand how. Yeah. They can see it. Or it could be like a maybe if it's a chat experience, it could be like a section with a bold or something like that. 
+07:43Kelsey BrownYeah, I apologize. It's just got really dark here. I think there's a cloud. So if you think you go dark, you've got raining coming. But no. Yes. So there is a risk racing like GPT. Not really in the flag sense. Although I can make it as it's as dynamic as an emoji if you really want it like that. But it will inform you based on the other frameworks what kind of risk rating you've got if you did want it. So you do literally have the red flag. That's a very simple tweak. I can just, I can put it into it. 
+08:13Meryem MernissiI, I generally I'm not too fast. It's just because Garage puts no risk rating. So that's why as long as we have something that really attracts attention to. 
+08:23Kelsey BrownThat section, it couldn't really be tested and put into production until we got the new frameworks. 
+08:29Meryem MernissiOkay. 
+08:30Kelsey BrownBecause it has to analyze the frameworks that you guys have got and the different codes because for the uk, you've got three frameworks. So it has to look at all three or that framework and go down. 
+08:41Meryem MernissiI think we have more than that in the uk. 
+08:44Kelsey BrownI remember three in the uk. 
+08:48Meryem MernissiSo in UK you have pam, you have search and then you have three in contract. You have statement of work, you have PAYE and you have LTD umbrella. 
+09:00Kelsey BrownYeah. UK permanent pay oe client contract schedule and the SOW one. So they're all the frameworks. 
+09:08Meryem MernissiYes. So that's the UK one. Yeah. Okay. In the other countries there's. They're much less. 
+09:14Kelsey BrownYeah, Yep, got that. 
+09:15Meryem MernissiCool, cool. Okay, so then you confirm there will be somewhere where it says red flags or to be reviewed. Okay, cool. 
+09:25Kelsey BrownTo be like. 
+09:26Gaurav AshishaI think the emoji is. Could be the easiest one. If Kelsey, like it's very visual and it just comes out here, we can have something like that. Nice. 
+09:35Meryem MernissiPerfect. Cool. Good. 
+09:36Gaurav AshishaOkay, that is all clear. I will. Yeah. Discuss. 
+09:39Meryem MernissiYeah. The interactive interface. Okay. We said we can talk to the interface, you can ask question and then it will go and get the information from Bullhorn. Correct. 
+09:53Gaurav AshishaGet all of these things. Like is done. 
+09:56Meryem MernissiYeah, yeah, cool. 
+09:58Gaurav AshishaAll of this. Yeah. So here it was the communication support. I think here what we meant is like a chat GPT. Like, so what would be good thing to understand is what would be the typical questions the team would ask? And then we can test those questions in a chat GPT format to see like, that is working. Yeah. So ultimately we will want your team to have like a really good understanding what questions and how to ask. So we can have that tested before. 
+10:29Meryem MernissiSo question. Sorry, from the one that you said don't copy feature to paste it. Else a question will be if your platform came back with a red flag, like the wording is not good. Can we go back and say, can you suggest a wording like you would be on ChatGPT? 
+10:47Kelsey BrownYeah, because you'll be using the. Essentially it's branched in the back ends. Once we pull the information from the reg agent, it'll then go to the conversational agent. 
+10:57Meryem MernissiOkay. And it will be able to advise on best way to word it or how to go. Okay, cool. And now going. Okay, so option to generate. So ChatGPT must be prompted. Okay. So that's the. That's what we talked about, right? 
+11:14Gaurav AshishaYeah, yeah. 
+11:15Meryem MernissiSo. 
+11:15Gaurav AshishaSo ultimately, like it's not automated. It is a more interactive community. 
+11:19Meryem MernissiYes, yes, 100%. I very much like picture it as a chatgpt. You will prompt it. It will come back with last time. 
+11:27Kelsey BrownAnd My census on this was you don't need to prompt it as you would a normal chat interface because that's what the agent's for. The agent is already pre configured, it's pre built. Otherwise if you did have to prompt it every time, you might as well just use ChatGPT in the most black and white world. I can. I can see it. So it's already pre configured, it's already trained on the prompts on the information on its task. You're now just essentially enabling it to go forward. 
+11:53Meryem MernissiGot you. Okay. 
+11:58Gaurav AshishaI think sales opportunity detection, that was a point. Wanted to get more overview because Kel mentioned that we have built a kind of a backend infrastructure. How it would be but within the kind of scope of opportunity detection there's so many different ways it could go. So think like better. Wanted to understand how this would overall look like and stuff because. 
+12:23Meryem MernissiSo there are a few things here I think because there is the external capturing external opportunities, but there is also the internal. Is that the lead generation one as well? Yeah. Okay, so there's two different scenarios I would say. One is the external tracker for leads. Right. And that's when the one that we said where it's understanding all the client names that we have in the system and making sure we have a tracker that will highlight when those people have a job. Is that correct, Kels? 
+13:06Kelsey BrownYes. So was you looking for it to scan LinkedIn, looking to scan job postings or just the company website? 
+13:16Meryem MernissiI think, I think we talked about several data points externally, ongoing. For example, if on Bullhorn we have a client called Venquis, then the tracker will be able to flag if there is any jobs posted by Vanquish. 
+13:38Kelsey BrownRight. Okay. 
+13:39Meryem MernissiEither on their website or on LinkedIn or anything like that. 
+13:43Kelsey BrownSo then just to be really black and white about it. 
+13:47Meryem MernissiYeah. 
+13:48Kelsey BrownYou prompting this information and how you getting the information back, Is it going to an email box? Is this going to the front ends? How's this working as like a. 
+13:58Meryem MernissiOkay, so one of the examples. So I'm going to go back and take it because I've sent you a potential way of it working. Let me go back. Where is our chat here? Okay, so let me share my screen. Can I take over graph? 
+14:40Gaurav AshishaYeah, please. Yeah, yeah. 
+14:47Meryem MernissiOkay. Can you see this? Yep, yep. So that was one of the idea that I had which would be potentially a flag on. On teams or it could be by email, it doesn't matter. And it could be a lead card presented like that. And then the way I looked at it is, it's a daily workflow. Like on a daily basis there is a AI email generated with the digest of all the leads that are out or that have been captured. And I went, when a new feed vacancy is found, the AI can ping, the cells can ping. Ping it on the, on teams potentially. But I, I guess I was looking more for some help on designing it. 
+15:53Meryem MernissiAs you've mentioned, you've done that quite a few times, so I will probably look for your insights on that and what's the best way to do it. 
+16:02Kelsey BrownYeah, I mean I'm going to be like, I'm going to open your doors a bit more now. There's about 10 or 15 different ways you can build this. There's, there's so many different ways to build something like this. So from what I see here, you want something. Probably just shut my window because I can hear the brain. 
+16:23Gaurav AshishaYeah. The weather is changing dramatically. I don't know what's happening. 
+16:26Meryem MernissiIt is absolutely. 
+16:32Kelsey BrownSo what you want essentially is like a weekly ping coming to your team's. 
+16:37Meryem MernissiAccount, I guess a daily. Because you need to tackle it straight. 
+16:43Kelsey BrownAway like a daily message coming through your team's account highlighting all the open roles. 
+16:50Meryem MernissiSo is there a way to filter it down to relevant roles to us? Like, can we build it? So question for you, Kels. Can we build it build a lead tracker around an industry and a country or does it need to be about specific client names? An example will be can we build a lead tracker for maritime industry clients in Netherlands? So that's what I want to know what those clients in this industry, in this country are hiring for as an example, or does it need to be a list of clients? 
+17:28Kelsey BrownAs long as you, as long as you can get all the information from their data points, you could get it from anywhere. If, if north, if the North Pole and Sansa had a data point, I'm sure you can get like job openings there. But you need to make sure that for all these postings you're getting the correct information from them sites. So you, you can niche it down and go like maritime or if you want fintech or you know, construction, you can filter it, but you'll need a lot of data points. It's not to say it's not possible. You just need a lot of essentially like a lot, like a lot of APIs really to go from it because there'll be various sites, these jobs, these aren't just going to be on indeed, are they? Or, and LinkedIn. He's going to be on. 
+18:12Meryem MernissiOkay. And I understand from Koravis we're doing the basic version now. So not the multi. Which I completely understand. Not the complex one. So. So if were to give you like specific industries, specific countries. Yes, and specific industries, specific countries and. 
+18:35Kelsey BrownMariam, I want to. 
+18:38Gaurav AshishaSo the way we would approach it and it's the easiest would be is that looking at which data source is the easiest to scrape. 
+18:46Meryem MernissiYeah. 
+18:46Gaurav AshishaAnd then in phase two we will build which are the trickier to scrape which is, you know, LinkedIn or other aspects. So initially it could be the company website is easier to see and Kel, please and Conrad correct me like the easy sources and that allows us to have a first like is working. I think that approach would be so much easier because if we. Because LinkedIn is very notorious with scraping so I would park it for later. It's purely ill. Just not LinkedIn. LinkedIn is very notorious to scrape. We have to do that. So the. The one which is easier to scrape is a company website where they would post all. So all the company where you already have the clients with and because most of the jobs that post on LinkedIn are often posted on their own careers page, it's very unlikely. 
+19:39Gaurav AshishaI. We see that it's not the other way around. Unless we. It's a completely new trend. We missed it out here. 
+19:46Meryem MernissiOkay, so if we do company websites, can we then. Do we need to go for specific clients or can it be an industry and no, because then I guess you would need to go for a job board. 
+20:01Kelsey BrownYou would still need. So if you wanted to go in say the fintech industry. 
+20:05Meryem MernissiYeah. You need the name of the company. 
+20:07Kelsey BrownYou'Ll need a company name. Otherwise you'll be sending a scraper out to just call where any finset comes. 
+20:12Meryem MernissiYeah, I understand. And. And that list can be as long as we want it. Right. From a client perspective. 
+20:19Kelsey BrownYeah, I suppose, yeah. I mean as. Because it will still be using the same scraper effectively, you'd have to consider. 
+20:27Konrad WoloszynThat every run costs. 
+20:30Kelsey BrownYeah. 
+20:30Konrad WoloszynEssentially money. It costs tokens and it costs computing power and probably what you want to avoid. If there is not a good system built in for qualification of those and scoring them on like this is at least a certain quality that we want to work with. If you put like 10,000 companies, you might get out of trash. 
+20:49Meryem MernissiYeah, no, absolutely. And can we filter it down to specific job titles? Because an example will be. We're mainly tech and transformation. I have no interest in accounting roles or marketing roles. So can we filter down to specific roles, because that's the filtering piece as well. Or can we make it quite wide, which is like just technology roles there. 
+21:13Kelsey BrownSo, so there's a few ways to do it. You could have the scraper pull all the listings from a website. 
+21:17Meryem MernissiYep. 
+21:18Kelsey BrownSay like a fintech job board. And then that will go through a filter in the back end through. Through NA10 and it will look for titles relevant to what you want. 
+21:27Meryem MernissiYeah. 
+21:28Kelsey BrownBut then you have to think about every person who creates these job listings. They're going to rephrase that title very differently. 
+21:34Meryem MernissiYes, yes, yes. 
+21:36Kelsey BrownWe've got a vacancy for a senior backend engineer. Somebody else might completely rewrite that. So, yeah, hard code for logic. Like as you can just say a senior backend developer. That could mess it up. 
+21:52Meryem MernissiSo no, of course, like if were to do it, we're probably going to go software engineer and things like that. We'll keep it all software developer. We'll keep it quite wide, but the role function will be there. We're not going to go very detailed. So I'm going to go architect. 
+22:08Kelsey BrownYeah. 
+22:09Meryem MernissiRight. And then I'm not going to make too much. There won't be too much around that architect. It's just anyone who has architecture in there. 
+22:18Kelsey BrownYeah, I would say that isn't impossible. I'd say, I mean you can filter that fairly easy as long as you're getting the correct information through the scraper. 
+22:26Meryem MernissiOkay. So I'll get the list. I'll build the list of jobs. 
+22:31Kelsey BrownThe best thing as well. So like if I just look at this, the best thing as well is you can send the list, but I wouldn't put all of the list out straight away. So even if you had three good sites that you know are regularly updating, we should use them as a test first and just to see what information is coming through. So the parts of this build is the scraper has to scrape information, filter the information and then we need a deliver like a, a, like a delivery device to go to your third platform, which is teams. We then need an agent to format that into a message and then send it to you guys. So that'll be the free stage of this build. 
+23:12Meryem MernissiYeah. 
+23:12Kelsey BrownFilter and send it. 
+23:14Meryem MernissiOkay. And the question will stand on who to send it to. Does that mean it needs to be a. Well, we need to build a channel or would you. 
+23:24Kelsey BrownAt Hive, we. We've got our own channels and we have our own Slack agents about regular updates on news and this and that. 
+23:30Meryem MernissiSo no, sorry What I meant is, let's say you have five clients, but they're all owned by a different salesperson here. How do we then direct to the relevant person based on the client? 
+23:46Kelsey BrownWell, so for example, from the conversation I having last time, there's a guy called Liam and a guy called Connor, right? 
+23:54Meryem MernissiYeah. 
+23:54Kelsey BrownSo are you saying that Connor may deal with the technology roles and Liam. 
+24:00Meryem MernissiSo Liam is insurance uk, Connor is Netherlands data, for example. 
+24:08Kelsey BrownOkay, well let's just say for example that Connor is the UK data. Right. So we've got two different consultants, two different industries. You could have it. So it sends to a channel. Got you make it a bit more black and white where they see it come through and they will see what their niche is. 
+24:28Meryem MernissiAmazing. So we can go like anything that is those clients will go to this channel and those clients will go to those channels. Would we be able to do that? 
+24:41Kelsey BrownYou could have one main channel. 
+24:43Meryem MernissiYeah. 
+24:43Kelsey BrownEssentially all the listings. And when Connor sees a notification, he goes in. When he sees it's insurance, he knows that's nothing to do with him, he ignores it. 
+24:52Meryem MernissiYeah, but that's going to be a lot of noise. We're talking about hands what you could. 
+24:57Kelsey BrownDo then if we are filtering it. So if we're filtering from technology to fintech, you could have a channel and I'm not too up to date with how teams work, so you might have to correct me if I'm wrong here, but you could have a channel which says. 
+25:10Meryem MernissiThat's what I meant. We would build different channels where you post. If it's insurance, it goes here, if it's Netherlands, it goes there. If it's okay. 
+25:18Kelsey BrownYeah. So then Liam, if he sees a notification insurance, he can go in there. 
+25:22Meryem MernissiUnderstood. I think that will make more sense. 
+25:27Kelsey BrownI'm not in the Microsoft ecosystem, so I'll look into how that can actually be delivered. 
+25:32Meryem MernissiWe, I guess will you can build the channels and then we'll just let you know. So you link them. 
+25:40Konrad WoloszynDon't you know which person responsible for which customer? 
+25:44Kelsey BrownIn a way? 
+25:45Meryem MernissiI do, I do. Well, that's what I said is it's a better option. That was my suggestion to tag each client with a self name. 
+25:55Konrad WoloszynI mean it could be done but it's like additional to like try to match it with Bullhorn, see if that customer, like if that person is assigned and then find that person Teams like if we consider the fact that to have that additional logic of sending the message to the right person based on the information on Bullhorn and consider like all the edge cases. What if that person is not assigned? What if that person is assigned in Bullhorn but is not any more active on teams, for example, because this person left the company. Like, if you were to scope all those possibilities, it's just a bit more work basically to. To navigate that. But it's something that we could consider, like, okay, for now we're going the easy way. 
+26:36Konrad WoloszynAnd then once we see, okay, this actually works and we want to continue using this, we can go the more, okay, personalized way. 
+26:43Meryem MernissiSo can I say. Can I check just what we just agreed to? Just because we had a lot of ideas. So we've agreed that I'm going to send a list of clients and job titles. Right. And then we're going to build a workflow where the leads are scraped on a daily basis and sent to different potential channels on teams. Correct. Kelsey, would you confirm. 
+27:12Kelsey BrownYep. That. That sounds correct so far. 
+27:14Meryem MernissiCool. 
+27:16Gaurav AshishaAnd the only thing I would add, Miriam, like, if, for example, there could be a lot of refinement within that. So we should use this to validate that the initial data you're getting is correct. Right. Because the goal wouldn't be to make it like a. Because within each channel, I could imagine there could be multiple criteria as well. You know, they might have a different tier of clients, they might have different industries or locations, like what channel will. 
+27:46Meryem MernissiBe built around the industry, so I won't have to worry. But I understand we can. There are some clear industries. Insurance UK is a clear industry and there's four people in that. They can both. They can check it in and then they can pick up between them which one they're going to tackle. Then we have Netherlands and Netherlands again, it could be just all of. As in all kinds of Netherlands there and then they can fight it off. That's. That's absolutely fine. Then we have a very clear one which is Investment Management uk. And again, that's just two people. So I can build four channels easily and have the right people in them. 
+28:25Kelsey BrownYeah. 
+28:27Gaurav AshishaMakes sense. I think. Like, what I would say like we. Kelly, whatever is required to do the quick test, do that ultimately. Otherwise with the data scraping, it can just go crazy. So, yes, what we want to do, like the initial, like even just you build a kind of foundation that'll be really helpful. Otherwise it's. It's almost like Maria on the back end. It'll require a lot of time to segment and stuff like that. But we want to have make sure that the initial test run is done. So we'll do that. Yeah, that makes sense. Quickly, see so that's all point there. Let me share my screen. 
+29:08Konrad WoloszynI need to jump on an interview that I have right now. So all up to you and good luck and I'll be updated after the call. Thank you so much. 
+29:20Meryem MernissiThank you, Bye. Right, so then we are. AI generates gap analysis reports, client heath maps and clients overlays. That hasn't been covered by you. Gorav, go back up. 
+29:37Gaurav AshishaSo let me quickly see. I'm looking at the renewal contract and. 
+29:41Meryem MernissiNo, no further up. Yeah, yes, those three I just wrote. How about this? Because you haven't covered that dashboard to. 
+29:48Gaurav AshishaHigh potential accounts action fee strengths like these points were these points and ultimately like what when kind of like Kel started taking this project and kind of diving more into it. These are very, kind of like requires way more time than we expected. So the question would be like if were able to give you the overview of what we discuss and we kind of like continue to build, would it be okay? Ultimately because these, Kel, correct me if I'm wrong. These almost requires like further like a lot of time to dedicate to build these stuff. 
+30:29Kelsey BrownI mean, how can I put this? So when you mentioned dashboards, heat maps. Yeah, I mean that's a very. 
+30:37Meryem MernissiSo don't quote my. My words on it is to be able. So. So take the. Don't worry, not a dashboard. The question will be can we then have by questioning the platform that will go into Bullhorn and look at it. Can I go and ask what's the trend? What's the. Can you give me analysis of the last six months billings for example, or fees? So you can actually look at the last six months. The deals that we've put. Are we aligned with the 20% that we agreed? Is that what we are billing the clients? 
+31:16Kelsey BrownYes. So it will be referring back to Bullcorm, right? 
+31:20Meryem MernissiYes. Okay. So the idea will be the fee is 20%. That's what we had in the terms and condition. I just want to check whether for the last six months we've been aligned with those 20%. So the idea is to go and check on Bullhorn. Okay. The fee should be 20%. I've checked that. You can look at the last six months billings, but they were added at 16%. Just an example if there has been any margin erosion or anything like that. So that's something. Forget about the word dashboard might not be. We just need the information, the actual data insight information. 
+32:01Kelsey BrownYeah. So once the Bullhorn set up. It will be able to refer to Bullhorn very easily. 
+32:06Meryem MernissiGot you. Okay. So will just something to note because we might need an integration or mapping out the fields on hard as well. 
+32:16WilliamYep, that's fine. 
+32:18Meryem MernissiYep. Cool. So you see the like again, it doesn't need to be to look super fancy. I guess what I was trying to get from here is that interaction with Bullhorn to be able to ask question and look at trends. Cool. 
+32:36Gaurav AshishaThat makes sense. 
+32:37Meryem MernissiOkay. There was here also the have uploaded new terms. The platform being able to flag me that we already have terms with that client but in a different location or for contract terms when I'm uploading perm terms. That was a big one for us, Gaurav. As you as you know. Yeah. 
+32:56Gaurav AshishaCheck historic performance versus terms agreed. Was. 
+33:01Meryem MernissiNo. No. So that's different. The other one was I'm a salesperson. I've just uploaded a contract with Hive Mechanics for contract and then the system is then flagging me that I already have contracts terms agreed with Harvey Mechanics in Luxembourg. Right. But it's perm only so it's. It's a. An understanding to go. You already have terms with that client but in different location. FYI you can use that when you are negotiating. And also remember you only have perm terms with that client. You should go and look at contract for example. 
+33:42Gaurav AshishaI think this one is covered here. 
+33:44Meryem MernissiNo, it has been covered. 
+33:46Gaurav AshishaYeah. 
+33:46Meryem MernissiCool. Cool, cool. Yeah, it just came up because I see it as the same thing as data insights and that's possible chaos, right? 
+33:56Kelsey BrownYes. I'm going to say yes to that. 
+33:59Gaurav AshishaYeah. 
+33:59Meryem MernissiThat. 
+33:59Gaurav AshishaYeah. Because I remember like that was. That's like that was a core of the platform. 
+34:03Meryem MernissiSo amazing. 
+34:04Gaurav AshishaHere it's covered already. Yeah. 
+34:07Meryem MernissiCool. Yeah. 
+34:09Gaurav AshishaAnd okay. And also check historic performance versus terms Agree. That also part of the contract analysis Agreed. There fee stands specific industries country. How about. Yeah, like there might be like a lot of insights. Might be the way I see it, Miriam. Like a lot of insights. What you might not see as standard delivered might be a prompt away to ask. 
+34:33Meryem MernissiI do. I. I don't mind it at all. Everything we're talking about could be prompted. Right. I'm talking just about like if I have to prompt it. I'm really happy and we will be doing that. I'm. I'm very much questioning or asking the ability of the platform to come back with those analysis. Yeah. How it's presented or whether I need to prompt it. That's. That's okay. It doesn't matter. 
+34:57Gaurav AshishaYeah. 
+34:58Meryem MernissiRight. Yep. 
+34:59Kelsey BrownYep. Unsteady. 
+35:00Meryem MernissiYeah. 
+35:00Gaurav AshishaMakes sense. 
+35:02Meryem MernissiRight? So this is the big one with Will. 
+35:08Kelsey BrownYeah. 
+35:08Gaurav AshishaWaiting. That one is the Bullhorn integration part. 
+35:13Kelsey BrownYeah. 
+35:13Meryem MernissiYes. I have a question for you, please. How are we going to go around the historical data? So once it's connected to Bullhorn, does it speak to Bullhorn directly? 
+35:31Kelsey BrownMyself? 
+35:31Meryem MernissiSorry, I. I think so. 
+35:33Kelsey BrownWhoever had the answer, Will. So once. Once Bullhorn sets up, it should be able to just read the API and pull information on demand. 
+35:43Meryem MernissiOkay. 
+35:46Kelsey BrownWhat answer I can give you? Yeah. 
+35:47Meryem MernissiOkay, excellent. So I can go back and say, what are the terms with Hive Mechanics? Please auto populate it on the client cards on Bullhorn. Can I say that? 
+35:58Kelsey BrownYeah. So also there's the rag agent. So any. Any contracts you upload into the chat interface. Yeah, they're embedded and they're stored in the database, which you can always retrieve if you need. 
+36:10Meryem MernissiBut I meant about. So, you know, new contract. That's the easy flow. I'm going to update it. It will automatically take the information and go and auto populate it on the Bullhorn client card. Yeah. 
+36:22Kelsey BrownYes. Well, I mean, that's not been built. 
+36:23Meryem MernissiYet, but what I meant is that's what. That's easy. How about clients that already exist on Bullhorn? So obviously that terms card is not filled out. Can I prompt it to go and auto populate it then? 
+36:37Kelsey BrownYou mean to update it? 
+36:39Meryem MernissiYes. Yes, you can. Okay. 
+36:42Kelsey BrownFrom what I've read on the documentation on Bullhorn, that is possible. 
+36:46Meryem MernissiThat is possible. 
+36:46WilliamYes, definitely possible. I've used the API myself to push data into Bullhorn, so it's not. So it's not particularly complicated. 
+36:54Meryem MernissiCool, cool, cool. 
+36:55Kelsey BrownYeah. 
+36:56Gaurav AshishaLike all of these parts shouldn't be. That makes sense. And the last one was external market monitoring, so back in version build. So like AI tracks external communication signal if client was signed. 
+37:09Meryem MernissiThat's what were talking about. 
+37:10Gaurav AshishaYeah, yeah. So I would say. The majority of things I would say is done. The Bullhorn integration is a one part we'll need to do. And then another thing Kel will take care of is the. 
+37:25Meryem MernissiThe lead one. 
+37:26Gaurav AshishaThe lead one creating like. 
+37:28Meryem MernissiSo this one is basically the same as the one further down. 
+37:31Gaurav AshishaYeah, yeah. 
+37:32Meryem MernissiOkay. Yeah. 
+37:34Kelsey BrownSo. 
+37:34Gaurav AshishaAnd the only thing I would say, like Mariam, in the initial phase, what we should make sure that we not overdoing with the data, that it confuses a lot of things. So we. A lot of there could be deciding which signals could be easily scraped and which signals should be very hard to scrape. And that's something Kel can Also come back to you and say, okay, if we want to do that level of scraping, it will require almost like more credit from your side, but also more time. So what you want to do is you get an immediate validation this system works and get an initial indication like these are the things how I can use and how people in a business can make sense out of. And then that will help to kind of get the version ready for you to. 
+38:25Gaurav AshishaOn all aspects. 
+38:26Meryem MernissiI actually, I have a question. So we have a tool that we use for lead scraping, Cal and Graph called Source Breaker. So I don't know if you heard about it before Source Breaker. So it's easy. So you go in and then you can add a search, for example and then it will. And you save them as a little box. Right. And what it does is it searches on the Internet and it will look at leads publication. I'm going to show you what it looks like and it actually sends us. So if you go product search. Oh, you won't be able to see. Okay. 
+39:12Gaurav AshishaProbably inside the platform. If it has an API connection, it's owned by. 
+39:18Meryem MernissiIt's owned by Bullhorn. So they just bought it. They acquired it a few months ago. So I guess it will be the same access or depends if the. 
+39:29Gaurav AshishaIf the Source Breaker deal also involved Bullhorn to sell the data. So I will. 
+39:35Kelsey BrownWe'll check. 
+39:36Gaurav AshishaYeah. 
+39:37Meryem MernissiOkay. Because what I'm thinking is I can already. You can already build. Build the lead generation there as in I'm looking for data analysts in the UK within the insurance market. And what it does and you save it as a bot and what it does is on a daily basis it will send you an email with all the leads that have been posted. And also it will flag if any companies are going through any funding rounds or anything like that as and flag it to you. So maybe an idea will be how that can be integrated into the platform. 
+40:19Meryem MernissiBut I guess the best way is for me to book a bit of time with you and show you how it will work as opposed to just telling you about it because it might be an easier workflow than you having to go in and then build all this scraping workflow. It might already be built and the idea will be just to link it to the platform or link it to teams or something like that. 
+40:50Kelsey BrownI am sorry, I'm just looking for a documentation now on Source. Yeah, I am very intrigued. I'll just have to see if there's any. 
+41:00Meryem MernissiYou know what I have some material that they've sent from a training Perspective because then you might have some videos or things like that will help. 
+41:20Gaurav AshishaWell, I'm. 
+41:20Kelsey BrownI'm using MCP to search it. So I'll. So essentially from what here I use that mcp. So there's no open source documentation for Source Breaker. So it will check. It will check first for any open source information. Essentially we just want to check. We can use API. 
+41:43Meryem MernissiOkay. 
+41:47Kelsey BrownBut if it's. If it's been brought by Bullhorn then I'm sure down the line there would be. If there's. If it's not now there should be in the. 
+42:05Gaurav AshishaKelly, is that your search agent you have built? 
+42:10Kelsey BrownThis is one of my MCPS. I use it's context 7 so it will search the platform because I've trained the projects. It will then search for any documentation. So it's nothing open source. It will then ask to use the web. So I can say sure. And now you can see actually mentioned Bullhorn there. Which windsor on the right one. It does not appear to publicly have an API available for direct developer integration. Yeah so it's a bit more of a closed source product SAS solution. But we can use an API within Job Addr and enable source breakers integration. So there's ways and means to get around things. I mean it's not every situation you'll see a site has API so we can always. 
+43:01Gaurav AshishaEspecially the sites whose main product is information, they tend to not give it because if they lose the power to retain the data that means they don't have a business. So quickly you would see those companies are very strict with data access. The company which is more about usage like CRM and stuff like that when you need to push data. 
+43:25Meryem MernissiIt'S surprising because they are actually they're called Bullhorn now this, it's on Bullhorn and that shows you how the actual scraping is built and worked. 
+43:48Kelsey BrownI mean there's always ways and means of getting information. 
+43:51Meryem MernissiOkay, we can then let's park it for now and then we'll. We'll do how were planning to do it. I. I was thinking is it a shortcut actually because we have the ability to do that. But if not it's better to keep it as is for now. 
+44:08Gaurav AshishaAnd we can always like if you guys are seeing also really good kind of trend or insights that you from that platform let us know. So in the phase two we can actually even make it more multi data. 
+44:22Meryem MernissiSo you know you showed me that project that you've done for the lead generation. 
+44:27Kelsey BrownYeah. 
+44:28Meryem MernissiSo how did you like. Is that not the framework for what we want to do. 
+44:32Gaurav AshishaSo that is a completely. So the lead generation project takes roughly three months time. So the V1 is like you build the connector system so it works. In V2, what you would do is start looking at all the data sources, start looking and start matching with what you have and looking at all the different conditions and all the different scenarios and adding a lot of conditions to match it based on if this happens. Look at this, this, this, find this. So it's it. It can be done, but it takes far more work to complete. 
+45:06Meryem MernissiUnderstood. Yeah, sorry, I meant just from a scraping. I didn't mean into the actioning it, because I think you had like a pre screening and the scoring. I didn't mean that. I mean just the having the architecture to scrape. 
+45:20Gaurav AshishaAlso like when we think about scraping, because scraping in itself is a really broad term. So the scraping, the way scraping is done in a good way is by predefined criteria and pre. Kind of like a selection of sources. That means the scraping is giving you value. Otherwise AI can go rogue and just. It can scrape so much and you're like, I have so much noise now, I don't even know what to do with this data. 
+45:48Kelsey BrownYeah. 
+45:48Gaurav AshishaAnd then you get irritated. Like it doesn't work. So we don't want to give you the experience. Like it's like, hey, you got a lot of scraping is like. It's even more confusing and less useful for you as a business. So, yeah, that's why we just get like, if we really define it in the smallest possible way in the right one, so you can start to see the outcome and then we can expand because data, like finding a data in abundance, AI has made it much easier, but also the noise has made it much difficult to make. 
+46:19Meryem MernissiAbsolutely makes sense. Cool. Okay, so we'll stick to what we have. Do you still have any questions, Cal, regarding the fields for Wheel? Do we need to map out the fields for you? Do we need to tell you which one to use or anything like that? 
+46:40Kelsey BrownIf, if it feels more direction on the fields, that'd be great because then it'll allow it to be. 
+46:48Meryem MernissiWill. 
+46:50Kelsey BrownYeah. 
+46:50Meryem MernissiHi, do you mind dropping the message please, with the four. I think we said four or five fields that needs to be updated on the client card and making sure they exist. 
+47:01Kelsey BrownYeah, sure. 
+47:02Gaurav AshishaCan I just. 
+47:03WilliamIf I can get a list, then I can. I can go through that and get that all. I can get all the fields on. 
+47:09Meryem MernissiThere you have it. We talked about it. It was palm Fee, contract fee. Okay, rebates. What else did we talked about? Pound fee, contract fee, rebate. You have it somewhere? 
+47:25WilliamYeah, that was the three that I sent across but there was somewhere else. 
+47:30Meryem MernissiThere was something else. Do you remember Cal, we talked about perm fee, contract fee, rebates. 
+47:38Kelsey BrownI cannot remember, I'm being completely honest. 
+47:40Gaurav AshishaBut it's called SOW and retainer. Is that the one? 
+47:46Meryem MernissiNo, those are the frameworks. Those were the frameworks. Okay so oh here because they've sent you on Tuesday there was a message from Conrad Will asking you. 
+48:07Kelsey BrownJust have. 
+48:08WilliamA look at my emails. I've got so many sent emails because all the automations just have a look through. 
+48:14Kelsey BrownHere we go. 
+48:16WilliamTerm fees, rebate and payment terms is the ones like three that I've got on. 
+48:22Meryem MernissiOh no, retainer and retainer. So it needs to be 1, 2, 3, 4. Retainer, retainer. Okay, okay. Can you please put them in email and then we send them and then Kels for you to be able to. So you know how we said being able to communicate with the platform so it goes in and check the placement fees for the last few months compared to the actual fee that should have been on the clients. Do you need any, do you need to have access to that placement card or structure or that specific field? 
+48:58Kelsey BrownI would probably need access. 
+49:02Meryem MernissiSo the access will be the same, it will be through the API. But I, I guess the. So what I mean by that is. Let me share my screen. Okay, so a client. So what we are talking about from a client perspective is this. There is a card that is the client card. Yes, yeah. Here. And basically on this card we're going to use the fields here, they're going to be written here, the one that you need. 
+49:38Kelsey BrownYeah, yes. 
+49:39Meryem MernissiSo that's the one that are going to be automatically populated based on the contract that's on the client card and let's say on this fee. Oh sorry. No, no no that's fine. Where is it? Here, sorry. So it will say 13% for contract, 15% for Palm for example. Yep. And then the standard T's and C's that's the one that we talked about just now that is the official ones that are auto populated straight from the. The folder, the file. Okay, yeah so while I'm on this, when we upload it on the platform, can it actually save a copy as a file against the client name of the terms and condition? 
+50:27Kelsey BrownSo to put. So to populate the fields and just save the file itself, right? 
+50:35Meryem MernissiYes. So the idea is we Also when you say yes, please save. It's to auto populate those contract fee, perm fee, There will be one called retainer fee and then standard season Cs will be called rebates. We're going to do that before you work on them. 
+50:51Kelsey BrownYeah. And then you'd also want to copy save to the files in there, please. 
+50:55Meryem MernissiTo save the actual contract to the files. 
+51:00Kelsey BrownHow that would work, I think for myself is when you upload a contract, it's embedded in the rag agent, but there's also, there's always a file saved. So. Okay, what we could do is maybe set a route up to just ping that file over. 
+51:12Meryem MernissiAmazing. Against the clients. 
+51:14Kelsey BrownYeah. 
+51:15Meryem MernissiYep. Perfect. So that's one. So that is the main client card which we refer to when we're making deals and we want to know. However, as time goes, every time we make a placement with the clients, we're using placement cards. I'm going to show you what it looks like. So this is the placement card where we then again add the pay rates and the bill rates and the percentage of the fee. Right. 
+51:47Kelsey BrownYeah, I got that. 
+51:48Meryem MernissiYeah. So some of the questions, and that's the insights that I was looking at could be what's been the average fee in HHG for the last six months? Right. So the idea is to retrieve the information from all placement cards in the last six months, come up with an average. Yeah. And then compare it to the actual fee it should have been, which is on the placement card. Here, look an example here. It was saying we should be on 13%. That's what we signed up for. That's what we said. We're going to build a client. But the question is, are we actually or are we eating at our margin? 
+52:33Kelsey BrownOkay. Right. 
+52:35Meryem MernissiAnd the only way to do that will be to compare it to here. I think if I take a permanent placement, it will be easier to show you. So a permanent placement will be. 
+52:49WilliamI might just send like the full list of all the fields that we have on the placement and client cards. Because I feel like if we've got all that information in front of us, it'll be a whole lot easier. 
+52:59Meryem MernissiSo here, I'll show it here. It will be quite so. Can you see here? 
+53:04Kelsey BrownYeah. 
+53:05Meryem MernissiSo displacement says we've done it at 15% and then on the client we should have done it at 15. So that's correct. We're okay. There is no margin. Margin erosion. Do you know what I mean? 
+53:23Kelsey BrownI do. 
+53:25Meryem MernissiThat's, that's what I mean. 
+53:26Kelsey BrownMy only question is when we're testing this. 
+53:30Meryem MernissiYep. 
+53:31Kelsey BrownThere's gonna be a lot of. Essentially in the first phase of testing, like trial and error. 
+53:36Meryem MernissiYeah. 
+53:37Kelsey BrownI going to see the results. If I'm not inside the ballpoint itself. 
+53:42Meryem MernissiWe can give you. Will, am I right saying. Because I think it's something that we suggested to Conrad before to give you access. 
+53:49Kelsey BrownYeah. So that was. That would be easier even if it's just a limited access or even just like a template account. That's not an issue. It's just to see that. 
+53:57Meryem MernissiYeah. We've all signed NDAs, so I have no issue with the. With you being inside Will. Can we. Is that something we can arrange for? Yeah, I can. 
+54:06WilliamI can. I can set up a hive account on Bullhorn. I have to tweak around with it because we've currently got an SSO as standard across, like the whole thing. So I'd have to assign an email to be the sso, but I'll see if there's a way of turning that off with specific kind of. 
+54:22Meryem MernissiI wouldn't mind if you use my logins. Like you can use my logins or anyone like. 
+54:30Kelsey BrownAnd just to see when we initiate this bullhorn sync, the correct fields are populating, you know, in the first three runs. 
+54:38Meryem MernissiYes, 100. I think that is a. It is very important for you to be able to see it because you want to action it, go check, see it, action it, go check, see it until it's working. 
+54:49Kelsey BrownYeah. Otherwise you are going to be testing blinds and then. 
+54:52Meryem MernissiYeah. 
+54:53Kelsey BrownYou have no idea what's actually populating. 
+54:55Meryem MernissiYeah, we'll try. If it doesn't work, then I'll give my. My login details. 
+55:02Kelsey BrownSure thing. Yeah, sounds good. 
+55:07Meryem MernissiCool. Excellent. Thank you very much. 
+55:10Gaurav AshishaThank you. Yeah, no worries. I wanted to quickly summarize for Kel and kind of like events. So the Bullhorn integration seems like the login will be given and the fields are aligned. So that seems fine. And then from the sales signal point of view. 
+55:24Meryem MernissiSo first, before that, Gaurav, you need to do the API integration and you already have the credentials, so that's even before the. The actual login on the system from the backend perspective. 
+55:36Kelsey BrownSo I'll be starting on the back end first, making sure. 
+55:39Meryem MernissiYes. 
+55:40Kelsey BrownAnd then I'll just. Essentially, once I'm ready, I can drop you an email Miriam and go. Right. I'm ready to actually access the front end. 
+55:48Meryem MernissiThere will be. Please CC me in. But will be the best person to. Because he's going to reset My login. So they're actually a new password. You can use my email, but it will be a new password. 
+56:00WilliamI'll be able. I'll check to see if I can generate a new account. Yes, I think that makes sense. 
+56:04Meryem MernissiYes. 
+56:05Gaurav AshishaGot it. 
+56:05Kelsey BrownPerfect. 
+56:06Gaurav AshishaAnd then from the sales side we know like the teams would be the channel. So will, would you create two separate channel and then give all the details and then we will kind of build a kind of version for you to validate and test. So those are. 
+56:19Meryem MernissiI'll send them to you, Will, and then you can create them. I'll build them. 
+56:24Kelsey BrownI can do. Just to get this up and running now I can just. I think and I don't know if this is okay garage, but I can set up a slack channel just for us and just. And just test the movement of data going from the scraper to a channel. And then when you guys are ready we can just get this swapped over to teams. 
+56:44Meryem MernissiSure. 
+56:45WilliamSo that makes sense. 
+56:46Kelsey BrownMy internal testing. This isn't for you. This is just for me to test. Okay. It's going from the back end to account. 
+56:54Meryem MernissiAnd Klaus, the teams is one option. If it's much easier by email and you'd rather ping an email, that's another option as well, right? 
+57:03Kelsey BrownYeah. I mean to be honest with you, like sometimes it's not easier. 
+57:07Meryem MernissiGot you. I just wanted to put it out there. You know, sometimes we go with oh, we should do that. And actually it's so complicated that there are options. What I meant is when we. When I say something, just take it for what it is. How we do it. That's definitely your. Your boat. 
+57:22Kelsey BrownI mean I'll. It's just like with a ballhorn thing. I'll. I'll get the back end of it working first, see it working and then we can see where is best for. 
+57:30Gaurav AshishaThis to be delivered. 
+57:31Kelsey BrownWhere Email teams, whatever. 
+57:33Meryem MernissiCool. Excellent. 
+57:35Gaurav AshishaAnd Mariam, would it be okay if we catch up like let's say and like early next week? 
+57:41Meryem MernissiYes. 100 I'm here. So no worries at all. 
+57:45Gaurav AshishaYeah, it will be good to get a. Kind of get a update on the project. I want to capture all the milestones and stuff. So you can do that. Yeah. So I'll ping your email and maybe like Tuesday next week, afternoon if that looks for you. 
+57:56Meryem MernissiYes. 
+57:57Gaurav AshishaOkay, perfect. We'll do that and thank you. In the meantime, if it's easier. Do I need to summarize? Action point. Are you guys like. Everyone is clear? Let me know. 
+58:07Meryem MernissiI think, I think we're clear it's quite straightforward. I'm happy to do that. The the only thing I'd say once that's done then the because we've mentioned to Liam and Connor that they will get some logins to play around with its course Is that something that we're in a position to do or not yet Remember last time you. 
+58:28Kelsey BrownSaid it I was ready I was waiting for a few frameworks so I just need to double they're working and then it'll be ready for them to jump in and play. 
+58:36Meryem MernissiYeah I'd say without the integration there is a much more I don't think I mean they will be able to try it but once we have the integration running I think that's where really they will be able to inquire ask questions, use the existing Whether you want. 
+58:52Kelsey BrownMe to send it off without the bullhorn working or whether you'd like it. 
+58:57Meryem MernissiLet'S see by Tuesday next week where we are. 
+59:00Kelsey BrownYeah, yeah, that sounds fine. 
+59:02Meryem MernissiCool. Thank you very much. 
+59:04Gaurav AshishaThank you everyone. 
+59:04Meryem MernissiBye guys. 
+59:05Kelsey BrownThank you. 
+59:05Meryem MernissiBye bye. 

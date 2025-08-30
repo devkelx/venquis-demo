@@ -243,55 +243,60 @@ const Chat = () => {
     setIsTyping(false);
   };
   return <div className="h-screen flex bg-background overflow-hidden">
-      <ChatSidebar isCollapsed={isSidebarCollapsed} onToggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)} onNewChat={() => {
-      setShouldAutoScroll(true);
-    }} onConversationSelect={conversation => {
-      setCurrentConversation(conversation);
-      setShouldAutoScroll(true);
-    }} />
+      <ChatSidebar 
+        isCollapsed={isSidebarCollapsed} 
+        onToggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)} 
+        onNewChat={() => {
+          setShouldAutoScroll(true);
+        }} 
+        onConversationSelect={conversation => {
+          setCurrentConversation(conversation);
+          setShouldAutoScroll(true);
+        }} 
+      />
       
       <div className="flex-1 flex flex-col min-w-0 h-screen">
         {currentConversation ? (
           <div className="flex-1 flex flex-col h-full">
             <ScrollArea className="flex-1 px-6 pt-6" onScrollCapture={handleScroll} ref={scrollAreaRef}>
               <div className="max-w-4xl mx-auto pb-4">
-                  {loading && messages.length === 0 ? (
-                    <div className="flex items-center justify-center py-6">
-                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-                    </div>
-                  ) : messages.length === 0 ? (
-                    <div className="text-center py-6">
-                      <h2 className="text-2xl font-semibold mb-4">Contract Analysis Assistant</h2>
-                      <p className="text-muted-foreground mb-6">
-                        Upload a contract document or ask questions to get started
-                      </p>
-                    </div>
-                  ) : (
-                    <div className="space-y-4">
-                      {messages.map(message => (
-                        <ChatMessage 
-                          key={message.id} 
-                          type={message.type || 'ai'} 
-                          content={message.content} 
-                          fileName={message.fileName} 
-                          actions={message.actions} 
-                          onButtonClick={handleButtonClick} 
-                        />
-                      ))}
-                    </div>
-                  )}
-                  {isTyping && (
-                    <div className="flex justify-start mb-6">
-                      <div className="bg-chat-ai text-chat-ai-foreground rounded-2xl rounded-tl-sm px-4 py-3 shadow-soft border border-border">
-                        <div className="flex space-x-1">
-                          <div className="h-2 w-2 bg-current rounded-full animate-bounce"></div>
-                          <div className="h-2 w-2 bg-current rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                          <div className="h-2 w-2 bg-current rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                        </div>
+                {loading && messages.length === 0 ? (
+                  <div className="flex items-center justify-center py-6">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-black"></div>
+                  </div>
+                ) : messages.length === 0 ? (
+                  <div className="text-center py-6">
+                    <h2 className="text-2xl font-semibold mb-4 text-foreground">Contract Analysis Assistant</h2>
+                    <p className="text-muted-foreground mb-6">
+                      Upload a contract document or ask questions to get started
+                    </p>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {messages.map(message => (
+                      <ChatMessage 
+                        key={message.id} 
+                        type={message.type || 'ai'} 
+                        content={message.content} 
+                        fileName={message.fileName} 
+                        actions={message.actions} 
+                        onButtonClick={handleButtonClick} 
+                      />
+                    ))}
+                  </div>
+                )}
+                {isTyping && (
+                  <div className="flex justify-start mb-6">
+                    <div className="bg-white text-foreground rounded-2xl rounded-tl-sm px-4 py-3 shadow-sm border border-border">
+                      <div className="flex space-x-1">
+                        <div className="h-2 w-2 bg-muted-foreground rounded-full animate-bounce"></div>
+                        <div className="h-2 w-2 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                        <div className="h-2 w-2 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                       </div>
                     </div>
-                  )}
-                  <div ref={messagesEndRef} />
+                  </div>
+                )}
+                <div ref={messagesEndRef} />
               </div>
             </ScrollArea>
             <div className="shrink-0">
@@ -307,7 +312,7 @@ const Chat = () => {
         ) : (
           <div className="flex-1 flex items-center justify-center">
             <div className="text-center">
-              <h2 className="text-2xl font-semibold mb-4">Welcome to Venquis</h2>
+              <h2 className="text-2xl font-semibold mb-4 text-foreground">Welcome to Venquis</h2>
               <p className="text-muted-foreground mb-6">
                 Create a new conversation to get started
               </p>
