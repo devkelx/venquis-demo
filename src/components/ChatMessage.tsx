@@ -1,8 +1,8 @@
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { FileText, Copy, Check } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { useState } from "react";
 
 interface ActionButton {
   id: string;
@@ -97,7 +97,7 @@ const ChatMessage = ({ type, content, fileName, actions, onButtonClick }: ChatMe
                 tr: ({node, ...props}) => <tr className="border-b border-border hover:bg-muted/50" {...props} />,
                 th: ({node, ...props}) => <th className="border border-border px-3 py-2 text-left font-semibold text-sm text-foreground" {...props} />,
                 td: ({node, ...props}) => <td className="border border-border px-3 py-2 text-sm text-foreground" {...props} />,
-                code: ({node, ...props}: any) => {
+                code: ({node, ...props}: React.ComponentProps<'code'> & { node?: any }) => {
                   const isInline = node?.position?.start?.line === node?.position?.end?.line;
                   return isInline ? 
                     <code className="bg-muted text-foreground px-1 py-0.5 rounded text-sm font-mono" {...props} /> :
@@ -109,7 +109,7 @@ const ChatMessage = ({ type, content, fileName, actions, onButtonClick }: ChatMe
               {content}
             </ReactMarkdown>
             
-            {(actions && actions.length > 0) || true ? (
+            {actions && actions.length > 0 ? (
               <div className="flex flex-wrap items-center gap-2">
                 {actions && actions.map((button) => (
                   <Button
