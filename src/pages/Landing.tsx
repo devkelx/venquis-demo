@@ -40,7 +40,7 @@ const Landing = () => {
           <Button
             onClick={handleGetStarted}
             size="lg"
-            className="bg-gradient-primary hover:opacity-90 text-lg px-8 py-6 shadow-medium hover:shadow-strong transition-all duration-300 hover:scale-105"
+            className="bg-black hover:bg-gray-800 text-white text-lg px-8 py-6 shadow-medium hover:shadow-strong transition-all duration-300 hover:scale-105"
           >
             Start Analysis
           </Button>
