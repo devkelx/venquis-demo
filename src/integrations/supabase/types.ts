@@ -7,7 +7,7 @@ export type Json =
   | Json[]
 
 export type Database = {
-  // Allows to automatically instanciate createClient with right options
+  // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
     PostgrestVersion: "12.2.12 (cd3cf9e)"
@@ -16,6 +16,7 @@ export type Database = {
     Tables: {
       contract_chunks: {
         Row: {
+          chunk_index: number | null
           content: string
           conversation_id: string | null
           created_at: string | null
@@ -24,6 +25,7 @@ export type Database = {
           metadata: Json | null
         }
         Insert: {
+          chunk_index?: number | null
           content: string
           conversation_id?: string | null
           created_at?: string | null
@@ -32,6 +34,7 @@ export type Database = {
           metadata?: Json | null
         }
         Update: {
+          chunk_index?: number | null
           content?: string
           conversation_id?: string | null
           created_at?: string | null
@@ -123,7 +126,6 @@ export type Database = {
           framework_name: string
           id: string
           is_active: boolean
-          version: number | null
         }
         Insert: {
           contract_type: string
@@ -133,7 +135,6 @@ export type Database = {
           framework_name: string
           id?: string
           is_active?: boolean
-          version?: number | null
         }
         Update: {
           contract_type?: string
@@ -143,7 +144,6 @@ export type Database = {
           framework_name?: string
           id?: string
           is_active?: boolean
-          version?: number | null
         }
         Relationships: []
       }
@@ -299,6 +299,15 @@ export type Database = {
       l2_normalize: {
         Args: { "": string } | { "": unknown } | { "": unknown }
         Returns: unknown
+      }
+      match_documents: {
+        Args: { filter?: Json; match_count?: number; query_embedding: string }
+        Returns: {
+          content: string
+          id: string
+          metadata: Json
+          similarity: number
+        }[]
       }
       sparsevec_out: {
         Args: { "": unknown }
