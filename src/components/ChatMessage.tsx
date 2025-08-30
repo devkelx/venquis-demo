@@ -74,36 +74,36 @@ const ChatMessage = ({ type, content, fileName, actions, onButtonClick }: ChatMe
     <div className="flex justify-start mb-6">
       <div className="max-w-[70%] animate-slide-in">
         <div className="bg-white text-foreground rounded-2xl rounded-tl-sm px-4 py-3 shadow-sm border border-border">
-          <div className="space-y-3">
+          <div className="space-y-2">
             <ReactMarkdown 
               remarkPlugins={[remarkGfm]}
               components={{
                 p: ({node, ...props}) => <p className="text-sm leading-relaxed text-foreground mb-2" {...props} />,
                 strong: ({node, ...props}) => <strong className="font-semibold text-foreground" {...props} />,
                 em: ({node, ...props}) => <em className="italic text-foreground" {...props} />,
-                h1: ({node, ...props}) => <h1 className="text-sm font-bold text-foreground mb-2" {...props} />,
-                h2: ({node, ...props}) => <h2 className="text-sm font-bold text-foreground mb-2" {...props} />,
-                h3: ({node, ...props}) => <h3 className="text-sm font-bold text-foreground mb-1" {...props} />,
+                h1: ({node, ...props}) => <h1 className="text-sm font-semibold text-foreground mb-2" {...props} />,
+                h2: ({node, ...props}) => <h2 className="text-sm font-semibold text-foreground mb-2" {...props} />,
+                h3: ({node, ...props}) => <h3 className="text-sm font-semibold text-foreground mb-1" {...props} />,
                 ul: ({node, ...props}) => <ul className="list-disc list-inside text-sm text-foreground mb-2 space-y-1" {...props} />,
                 ol: ({node, ...props}) => <ol className="list-decimal list-inside text-sm text-foreground mb-2 space-y-1" {...props} />,
                 li: ({node, ...props}) => <li className="text-sm text-foreground" {...props} />,
                 table: ({node, ...props}) => (
-                  <div className="overflow-x-auto mb-2">
-                    <table className="min-w-full border border-border rounded-lg text-sm" {...props} />
+                  <div className="overflow-x-auto mb-3">
+                    <table className="min-w-full border border-border rounded-lg text-sm border-collapse" {...props} />
                   </div>
                 ),
-                thead: ({node, ...props}) => <thead className="bg-muted" {...props} />,
+                thead: ({node, ...props}) => <thead className="bg-muted/50" {...props} />,
                 tbody: ({node, ...props}) => <tbody {...props} />,
-                tr: ({node, ...props}) => <tr className="border-b border-border hover:bg-muted/50" {...props} />,
-                th: ({node, ...props}) => <th className="border border-border px-3 py-2 text-left font-semibold text-sm text-foreground" {...props} />,
-                td: ({node, ...props}) => <td className="border border-border px-3 py-2 text-sm text-foreground" {...props} />,
+                tr: ({node, ...props}) => <tr className="border-b border-border last:border-b-0 hover:bg-muted/30 transition-colors" {...props} />,
+                th: ({node, ...props}) => <th className="border-r border-border last:border-r-0 px-3 py-2 text-left font-semibold text-sm text-foreground bg-muted/50" {...props} />,
+                td: ({node, ...props}) => <td className="border-r border-border last:border-r-0 px-3 py-2 text-sm text-foreground" {...props} />,
                 code: ({node, ...props}: React.ComponentProps<'code'> & { node?: any }) => {
                   const isInline = node?.position?.start?.line === node?.position?.end?.line;
                   return isInline ? 
-                    <code className="bg-muted text-foreground px-1 py-0.5 rounded text-sm font-mono" {...props} /> :
-                    <code className="block bg-muted text-foreground p-2 rounded text-sm mb-2 font-mono" {...props} />;
+                    <code className="bg-muted text-foreground px-1.5 py-0.5 rounded text-sm font-mono" {...props} /> :
+                    <code className="block bg-muted text-foreground p-3 rounded text-sm mb-3 font-mono leading-relaxed" {...props} />;
                 },
-                blockquote: ({node, ...props}) => <blockquote className="border-l-2 border-border pl-3 text-sm text-foreground italic mb-2" {...props} />
+                blockquote: ({node, ...props}) => <blockquote className="border-l-2 border-border pl-4 text-sm text-foreground italic mb-3 bg-muted/30 py-2 rounded-r" {...props} />
               }}
             >
               {content}
