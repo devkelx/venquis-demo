@@ -89,7 +89,7 @@ const ChatInput = ({
                 onChange={e => setMessage(e.target.value)} 
                 placeholder={disabled ? "Processing..." : "Type your message..."} 
                 disabled={disabled || isUploading} 
-                className="flex h-12 w-full rounded-xl border border-border bg-muted px-12 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50" 
+                className="flex h-12 w-full rounded-xl border border-border bg-muted px-12 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus-visible:ring-1 focus-visible:ring-muted-foreground/30 focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50" 
                 onKeyDown={e => {
                   if (e.key === 'Enter' && !e.shiftKey) {
                     e.preventDefault();
