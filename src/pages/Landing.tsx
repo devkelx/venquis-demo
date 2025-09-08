@@ -32,6 +32,8 @@ const Landing = () => {
           <p className="text-lg text-muted-foreground leading-relaxed">
             Streamline your contract review process with AI-powered analysis.
             Get instant insights and recommendations for recruitment agreements.
+            Demo version of the app, not to be used for production.
+            For production, please contact us at info@venquis.com.
           </p>
         </div>
 
@@ -40,7 +42,7 @@ const Landing = () => {
           <Button
             onClick={handleGetStarted}
             size="lg"
-            className="bg-black hover:bg-gray-800 text-white text-lg px-8 py-6 shadow-medium hover:shadow-strong transition-all duration-300 hover:scale-105"
+            className="bg-chat-user hover:bg-chat-user/80 text-chat-user-foreground text-lg px-8 py-6 shadow-medium hover:shadow-strong transition-all duration-300 hover:scale-105"
           >
             Start Analysis
           </Button>

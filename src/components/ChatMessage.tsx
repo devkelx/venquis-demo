@@ -42,7 +42,7 @@ const ChatMessage = ({ type, content, fileName, actions, onButtonClick }: ChatMe
     return (
       <div className="flex justify-end mb-6">
         <div className="max-w-[70%] animate-slide-in">
-          <div className="bg-black text-white rounded-2xl rounded-tr-sm px-4 py-3 shadow-sm border border-border/10">
+          <div className="bg-chat-user text-chat-user-foreground rounded-2xl rounded-tr-sm px-4 py-3 shadow-sm border border-border/10">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
                 <FileText className="w-4 h-4" />
@@ -62,7 +62,7 @@ const ChatMessage = ({ type, content, fileName, actions, onButtonClick }: ChatMe
     return (
       <div className="flex justify-end mb-6">
         <div className="max-w-[70%] animate-slide-in">
-          <div className="bg-black text-white rounded-2xl rounded-tr-sm px-4 py-3 shadow-sm border border-border/10">
+          <div className="bg-chat-user text-chat-user-foreground rounded-2xl rounded-tr-sm px-4 py-3 shadow-sm border border-border/10">
             <p className="text-sm leading-relaxed">{content}</p>
           </div>
         </div>
@@ -109,9 +109,9 @@ const ChatMessage = ({ type, content, fileName, actions, onButtonClick }: ChatMe
               {content}
             </ReactMarkdown>
             
-            {actions && actions.length > 0 ? (
-              <div className="flex flex-wrap items-center gap-2">
-                {actions && actions.map((button) => (
+            {actions && actions.length > 0 && (
+              <div className="flex flex-wrap items-center gap-2 mt-2">
+                {actions.map((button) => (
                   <Button
                     key={button.id}
                     variant={button.variant === "outline" ? "outline" : "default"}
@@ -119,7 +119,7 @@ const ChatMessage = ({ type, content, fileName, actions, onButtonClick }: ChatMe
                     onClick={() => handleButtonClick(button)}
                     className={`h-8 text-xs ${
                       button.variant === "default" || !button.variant 
-                        ? "bg-black hover:bg-gray-800 text-white border-black" 
+                        ? "bg-chat-user hover:bg-chat-user/80 text-chat-user-foreground border-chat-user" 
                         : ""
                     }`}
                   >
@@ -127,18 +127,22 @@ const ChatMessage = ({ type, content, fileName, actions, onButtonClick }: ChatMe
                     {button.label}
                   </Button>
                 ))}
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={handleCopy}
-                  className="h-7 w-7 p-0 text-muted-foreground hover:text-foreground ml-auto hover:bg-muted/50 rounded-lg"
-                  title={copied ? "Copied!" : "Copy message"}
-                >
-                  {copied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
-                </Button>
               </div>
-            ) : null}
+            )}
           </div>
+        </div>
+        
+        {/* Copy button positioned below the bubble */}
+        <div className="flex justify-end mt-2">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={handleCopy}
+            className="h-7 w-7 p-0 text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg"
+            title={copied ? "Copied!" : "Copy message"}
+          >
+            {copied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
+          </Button>
         </div>
       </div>
     </div>

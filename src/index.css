@@ -40,7 +40,7 @@ All colors MUST be HSL.
     --radius: 0.5rem;
 
     /* Chat-specific colors */
-    --chat-user: 240 5.9% 10%;
+    --chat-user: 220 13% 18%;
     --chat-user-foreground: 0 0% 98%;
     --chat-ai: 0 0% 98%;
     --chat-ai-foreground: 240 10% 3.9%;
