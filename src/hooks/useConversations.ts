@@ -39,7 +39,7 @@ export const useConversations = () => {
     try {
       const { data, error } = await supabase
         .from('conversations')
-        .select('id, title, user_id, session_id, created_at, updated_at, last_activity, metadata')
+        .select('*')
         .eq('user_id', user.id)
         .order('last_activity', { ascending: false });
 

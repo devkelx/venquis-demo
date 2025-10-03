@@ -94,26 +94,32 @@ export type Database = {
         Row: {
           created_at: string
           id: string
+          last_activity: string | null
+          metadata: Json | null
+          session_id: string
           title: string
           updated_at: string
           user_id: string
-          zep_session_id: string
         }
         Insert: {
           created_at?: string
           id?: string
+          last_activity?: string | null
+          metadata?: Json | null
+          session_id?: string
           title?: string
           updated_at?: string
           user_id: string
-          zep_session_id: string
         }
         Update: {
           created_at?: string
           id?: string
+          last_activity?: string | null
+          metadata?: Json | null
+          session_id?: string
           title?: string
           updated_at?: string
           user_id?: string
-          zep_session_id?: string
         }
         Relationships: []
       }
@@ -122,7 +128,7 @@ export type Database = {
           contract_type: string
           country: string
           created_at: string
-          framework_data: string
+          framework_data: Json
           framework_name: string
           id: string
           is_active: boolean
@@ -131,7 +137,7 @@ export type Database = {
           contract_type: string
           country: string
           created_at?: string
-          framework_data: string
+          framework_data: Json
           framework_name: string
           id?: string
           is_active?: boolean
@@ -140,7 +146,7 @@ export type Database = {
           contract_type?: string
           country?: string
           created_at?: string
-          framework_data?: string
+          framework_data?: Json
           framework_name?: string
           id?: string
           is_active?: boolean
@@ -158,7 +164,10 @@ export type Database = {
           file_url: string | null
           id: string
           metadata: Json | null
+          processing_time_ms: number | null
           sender_type: string
+          sequence_number: number | null
+          tokens_used: number | null
         }
         Insert: {
           action_buttons?: Json | null
@@ -170,7 +179,10 @@ export type Database = {
           file_url?: string | null
           id?: string
           metadata?: Json | null
+          processing_time_ms?: number | null
           sender_type: string
+          sequence_number?: number | null
+          tokens_used?: number | null
         }
         Update: {
           action_buttons?: Json | null
@@ -182,7 +194,10 @@ export type Database = {
           file_url?: string | null
           id?: string
           metadata?: Json | null
+          processing_time_ms?: number | null
           sender_type?: string
+          sequence_number?: number | null
+          tokens_used?: number | null
         }
         Relationships: [
           {
@@ -244,62 +259,6 @@ export type Database = {
       }
     }
     Functions: {
-      binary_quantize: {
-        Args: { "": string } | { "": unknown }
-        Returns: unknown
-      }
-      halfvec_avg: {
-        Args: { "": number[] }
-        Returns: unknown
-      }
-      halfvec_out: {
-        Args: { "": unknown }
-        Returns: unknown
-      }
-      halfvec_send: {
-        Args: { "": unknown }
-        Returns: string
-      }
-      halfvec_typmod_in: {
-        Args: { "": unknown[] }
-        Returns: number
-      }
-      hnsw_bit_support: {
-        Args: { "": unknown }
-        Returns: unknown
-      }
-      hnsw_halfvec_support: {
-        Args: { "": unknown }
-        Returns: unknown
-      }
-      hnsw_sparsevec_support: {
-        Args: { "": unknown }
-        Returns: unknown
-      }
-      hnswhandler: {
-        Args: { "": unknown }
-        Returns: unknown
-      }
-      ivfflat_bit_support: {
-        Args: { "": unknown }
-        Returns: unknown
-      }
-      ivfflat_halfvec_support: {
-        Args: { "": unknown }
-        Returns: unknown
-      }
-      ivfflathandler: {
-        Args: { "": unknown }
-        Returns: unknown
-      }
-      l2_norm: {
-        Args: { "": unknown } | { "": unknown }
-        Returns: number
-      }
-      l2_normalize: {
-        Args: { "": string } | { "": unknown } | { "": unknown }
-        Returns: unknown
-      }
       match_documents: {
         Args: { filter?: Json; match_count?: number; query_embedding: string }
         Returns: {
@@ -308,42 +267,6 @@ export type Database = {
           metadata: Json
           similarity: number
         }[]
-      }
-      sparsevec_out: {
-        Args: { "": unknown }
-        Returns: unknown
-      }
-      sparsevec_send: {
-        Args: { "": unknown }
-        Returns: string
-      }
-      sparsevec_typmod_in: {
-        Args: { "": unknown[] }
-        Returns: number
-      }
-      vector_avg: {
-        Args: { "": number[] }
-        Returns: string
-      }
-      vector_dims: {
-        Args: { "": string } | { "": unknown }
-        Returns: number
-      }
-      vector_norm: {
-        Args: { "": string }
-        Returns: number
-      }
-      vector_out: {
-        Args: { "": string }
-        Returns: unknown
-      }
-      vector_send: {
-        Args: { "": string }
-        Returns: string
-      }
-      vector_typmod_in: {
-        Args: { "": unknown[] }
-        Returns: number
       }
     }
     Enums: {
