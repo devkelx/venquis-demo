@@ -18,7 +18,7 @@ export type Database = {
         Row: {
           chunk_index: number | null
           content: string
-          conversation_id: string | null
+          conversation_id: string
           created_at: string | null
           embedding: string | null
           id: string
@@ -27,7 +27,7 @@ export type Database = {
         Insert: {
           chunk_index?: number | null
           content: string
-          conversation_id?: string | null
+          conversation_id: string
           created_at?: string | null
           embedding?: string | null
           id?: string
@@ -36,7 +36,7 @@ export type Database = {
         Update: {
           chunk_index?: number | null
           content?: string
-          conversation_id?: string | null
+          conversation_id?: string
           created_at?: string | null
           embedding?: string | null
           id?: string
@@ -60,7 +60,6 @@ export type Database = {
           file_url: string
           full_text: string | null
           id: string
-          overview: string | null
         }
         Insert: {
           conversation_id: string
@@ -69,7 +68,6 @@ export type Database = {
           file_url: string
           full_text?: string | null
           id?: string
-          overview?: string | null
         }
         Update: {
           conversation_id?: string
@@ -78,7 +76,6 @@ export type Database = {
           file_url?: string
           full_text?: string | null
           id?: string
-          overview?: string | null
         }
         Relationships: [
           {
@@ -94,30 +91,21 @@ export type Database = {
         Row: {
           created_at: string
           id: string
-          last_activity: string | null
-          metadata: Json | null
           session_id: string
-          title: string
           updated_at: string
           user_id: string
         }
         Insert: {
           created_at?: string
           id?: string
-          last_activity?: string | null
-          metadata?: Json | null
           session_id?: string
-          title?: string
           updated_at?: string
           user_id: string
         }
         Update: {
           created_at?: string
           id?: string
-          last_activity?: string | null
-          metadata?: Json | null
           session_id?: string
-          title?: string
           updated_at?: string
           user_id?: string
         }
@@ -164,10 +152,8 @@ export type Database = {
           file_url: string | null
           id: string
           metadata: Json | null
-          processing_time_ms: number | null
           sender_type: string
-          sequence_number: number | null
-          tokens_used: number | null
+          session_id: string | null
         }
         Insert: {
           action_buttons?: Json | null
@@ -179,10 +165,8 @@ export type Database = {
           file_url?: string | null
           id?: string
           metadata?: Json | null
-          processing_time_ms?: number | null
           sender_type: string
-          sequence_number?: number | null
-          tokens_used?: number | null
+          session_id?: string | null
         }
         Update: {
           action_buttons?: Json | null
@@ -194,10 +178,8 @@ export type Database = {
           file_url?: string | null
           id?: string
           metadata?: Json | null
-          processing_time_ms?: number | null
           sender_type?: string
-          sequence_number?: number | null
-          tokens_used?: number | null
+          session_id?: string | null
         }
         Relationships: [
           {
@@ -235,28 +217,7 @@ export type Database = {
       }
     }
     Views: {
-      files: {
-        Row: {
-          conversation_id: string | null
-          conversation_title: string | null
-          file_name: string | null
-          file_size: string | null
-          id: string | null
-          uploaded_at: string | null
-          uploaded_by: string | null
-          url: string | null
-          user_id: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "messages_conversation_id_fkey"
-            columns: ["conversation_id"]
-            isOneToOne: false
-            referencedRelation: "conversations"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
+      [_ in never]: never
     }
     Functions: {
       match_documents: {

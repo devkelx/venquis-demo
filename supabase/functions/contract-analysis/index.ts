@@ -175,8 +175,7 @@ serve(async (req) => {
           conversation_id,
           file_name,
           file_url,
-          full_text: analysisResult?.full_text || null,
-          overview: analysisResult?.content || aiResponse || null
+          full_text: analysisResult?.full_text || null
         });
 
       if (contractError) {
@@ -187,15 +186,18 @@ serve(async (req) => {
       }
     }
 
-    // Save AI message to database
+    // Save AI message to database with action_buttons
     const { error: messageError } = await supabase
       .from('messages')
       .insert({
         conversation_id,
+        session_id,
         content: aiResponse,
         sender_type: 'assistant',
         agent_used: 'n8n-workflow',
-        action_buttons: actionButtons.length > 0 ? JSON.stringify(actionButtons) : null,
+        action_buttons: actionButtons && actionButtons.length > 0 ? actionButtons : null,
+        file_url: file_url || null,
+        file_name: file_name || null,
         metadata: { 
           message_type: file_name ? 'file_analysis' : button_action ? 'button_response' : 'text_response',
           n8n_processed: true,

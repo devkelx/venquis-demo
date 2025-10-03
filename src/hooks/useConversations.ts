@@ -71,9 +71,9 @@ export const useConversations = () => {
     try {
       const { data, error } = await supabase
         .from('conversations')
-        .select('id, title, user_id, session_id, created_at, updated_at, last_activity, metadata')
+        .select('id, user_id, session_id, created_at, updated_at')
         .eq('user_id', user.id)
-        .order('last_activity', { ascending: false }) as any;
+        .order('updated_at', { ascending: false }) as any;
 
       if (error) throw error;
 
@@ -112,9 +112,7 @@ export const useConversations = () => {
         .insert({
           id: conversationId,
           user_id: user.id,
-          session_id: sessionId,
-          last_activity: new Date().toISOString(),
-          metadata: {}
+          session_id: sessionId
         })
         .select()
         .single();
@@ -148,27 +146,9 @@ export const useConversations = () => {
   };
 
   const updateConversationTitle = async (id: string, title: string) => {
-    try {
-      const { error } = await supabase
-        .from('conversations')
-        .update({ title })
-        .eq('id', id);
-
-      if (error) throw error;
-
-      setConversations(prev => 
-        prev.map(conv => 
-          conv.id === id ? { ...conv, title } : conv
-        )
-      );
-    } catch (error) {
-      console.error('Error updating conversation:', error);
-      toast({
-        title: "Error",
-        description: "Failed to update conversation title",
-        variant: "destructive"
-      });
-    }
+    // Title column removed from conversations table - this function is now deprecated
+    // Keeping for backward compatibility but it does nothing
+    console.log('updateConversationTitle called but title column no longer exists');
   };
 
   const deleteConversation = async (id: string) => {
