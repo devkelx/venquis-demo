@@ -75,34 +75,45 @@ const Chat = () => {
 
       setIsTyping(true);
 
-      // Call n8n webhook via edge function
-      try {
-        const {
-          data,
-          error
-        } = await supabase.functions.invoke('contract-analysis', {
-          body: {
-            conversation_id: currentConversation.id,
-            session_id: currentConversation.session_id,
-            message_content: message,
-            message_type: 'text_message',
-            file_url: null,
-            file_name: null,
-            button_action: null
-          }
-        });
-        if (error) throw error;
+      // Call n8n webhook via edge function with retry logic
+      let retryCount = 0;
+      const maxRetries = 3;
+      
+      while (retryCount < maxRetries) {
+        try {
+          const { data, error } = await supabase.functions.invoke('contract-analysis', {
+            body: {
+              conversation_id: currentConversation.id,
+              session_id: currentConversation.session_id,
+              message_content: message,
+              message_type: 'text_message',
+              timestamp: new Date().toISOString()
+            }
+          });
+          
+          if (error) throw error;
 
-        // Messages are automatically saved by the edge function, so just refresh
-        await refetchMessages();
-      } catch (aiError) {
-        console.error('AI processing error:', aiError);
-        toast({
-          title: "AI Processing Error",
-          description: "Failed to process your message. Please try again.",
-          variant: "destructive"
-        });
+          // Messages are automatically saved by the edge function, so just refresh
+          await refetchMessages();
+          break; // Success, exit retry loop
+        } catch (aiError: any) {
+          retryCount++;
+          console.error(`AI processing error (attempt ${retryCount}):`, aiError);
+          
+          if (retryCount < maxRetries) {
+            // Wait 2 seconds before retrying
+            await new Promise(resolve => setTimeout(resolve, 2000));
+          } else {
+            // Final retry failed
+            toast({
+              title: "AI Processing Error",
+              description: "Failed to process your message after multiple attempts. Please try again.",
+              variant: "destructive"
+            });
+          }
+        }
       }
+      
       setIsTyping(false);
       setIsProcessing(false);
     } catch (error) {
@@ -132,55 +143,66 @@ const Chat = () => {
       const fileExt = file.name.split('.').pop();
       const fileName = `${Date.now()}.${fileExt}`;
       const filePath = `${user?.id}/${fileName}`;
-      const {
-        data,
-        error
-      } = await supabase.storage.from('contracts').upload(filePath, file);
+      const { data, error } = await supabase.storage.from('contracts').upload(filePath, file);
       setUploadProgress(100);
       if (error) throw error;
 
       // Get public URL
-      const {
-        data: urlData
-      } = supabase.storage.from('contracts').getPublicUrl(filePath);
+      const { data: urlData } = supabase.storage.from('contracts').getPublicUrl(filePath);
 
       // Save file message
       await saveFileMessage(file.name, urlData.publicUrl);
 
       toast({
         title: "Upload successful",
-        description: `${file.name} has been uploaded and is ready for analysis`
+        description: "Analyzing document..."
       });
 
-      // Trigger AI analysis via edge function
+      // Trigger AI analysis immediately with retry logic
       setIsTyping(true);
-      try {
-        const {
-          data: analysisData,
-          error: analysisError
-        } = await supabase.functions.invoke('contract-analysis', {
-          body: {
-            conversation_id: currentConversation.id,
-            session_id: currentConversation.session_id,
-            message_content: `Contract uploaded: ${file.name}`,
-            message_type: 'file_upload',
-            file_url: urlData.publicUrl,
-            file_name: file.name,
-            button_action: null
-          }
-        });
-        if (analysisError) throw analysisError;
+      setIsUploading(false); // Stop showing upload progress
+      setUploadProgress(0);
+      
+      let retryCount = 0;
+      const maxRetries = 3;
+      
+      while (retryCount < maxRetries) {
+        try {
+          const { data: analysisData, error: analysisError } = await supabase.functions.invoke('contract-analysis', {
+            body: {
+              conversation_id: currentConversation.id,
+              session_id: currentConversation.session_id,
+              message_content: `Contract uploaded: ${file.name}`,
+              message_type: 'file_upload',
+              file_url: urlData.publicUrl,
+              file_name: file.name,
+              timestamp: new Date().toISOString()
+            }
+          });
+          
+          if (analysisError) throw analysisError;
 
-        // Messages are automatically saved by the edge function, so just refresh  
-        await refetchMessages();
-      } catch (analysisError) {
-        console.error('Analysis error:', analysisError);
-        toast({
-          title: "Analysis Error",
-          description: `Failed to analyze ${file.name}. Please try again.`,
-          variant: "destructive"
-        });
+          // Messages are automatically saved by the edge function, so just refresh  
+          await refetchMessages();
+          break; // Success, exit retry loop
+        } catch (analysisError: any) {
+          retryCount++;
+          console.error(`Analysis error (attempt ${retryCount}):`, analysisError);
+          
+          if (retryCount < maxRetries) {
+            // Wait 2 seconds before retrying
+            await new Promise(resolve => setTimeout(resolve, 2000));
+          } else {
+            // Final retry failed
+            toast({
+              title: "Analysis Error",
+              description: `Failed to analyze ${file.name} after multiple attempts. Please try again.`,
+              variant: "destructive"
+            });
+          }
+        }
       }
+      
       setIsTyping(false);
     } catch (error) {
       console.error('Error uploading file:', error);
@@ -189,7 +211,7 @@ const Chat = () => {
         description: `Failed to upload ${file.name}. Please try again.`,
         variant: "destructive"
       });
-    } finally {
+      setIsTyping(false);
       setIsUploading(false);
       setUploadProgress(0);
     }
@@ -202,34 +224,46 @@ const Chat = () => {
 
     setIsTyping(true);
 
-    // Process button action through edge function
-    try {
-      const {
-        data,
-        error
-      } = await supabase.functions.invoke('contract-analysis', {
-        body: {
-          conversation_id: currentConversation.id,
-          session_id: currentConversation.session_id,
-          message_content: '',
-          message_type: 'button_action',
-          file_url: null,
-          file_name: null,
-          button_action: buttonId
-        }
-      });
-      if (error) throw error;
+    // Process button action through edge function with retry logic
+    let retryCount = 0;
+    const maxRetries = 3;
+    
+    while (retryCount < maxRetries) {
+      try {
+        const { data, error } = await supabase.functions.invoke('contract-analysis', {
+          body: {
+            conversation_id: currentConversation.id,
+            session_id: currentConversation.session_id,
+            message_content: buttonLabel,
+            message_type: 'button_action',
+            button_action: buttonId,
+            timestamp: new Date().toISOString()
+          }
+        });
+        
+        if (error) throw error;
 
-      // Messages are automatically saved by the edge function, so just refresh
-      await refetchMessages();
-    } catch (error) {
-      console.error('Button action error:', error);
-      toast({
-        title: "Processing Error",
-        description: "Failed to process your request. Please try again.",
-        variant: "destructive"
-      });
+        // Messages are automatically saved by the edge function, so just refresh
+        await refetchMessages();
+        break; // Success, exit retry loop
+      } catch (error: any) {
+        retryCount++;
+        console.error(`Button action error (attempt ${retryCount}):`, error);
+        
+        if (retryCount < maxRetries) {
+          // Wait 2 seconds before retrying
+          await new Promise(resolve => setTimeout(resolve, 2000));
+        } else {
+          // Final retry failed
+          toast({
+            title: "Processing Error",
+            description: "Failed to process your request after multiple attempts. Please try again.",
+            variant: "destructive"
+          });
+        }
+      }
     }
+    
     setIsTyping(false);
   };
   return <div className="h-screen flex bg-background overflow-hidden">

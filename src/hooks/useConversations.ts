@@ -3,15 +3,17 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from '@/hooks/use-toast';
 
+const CONVERSATION_KEY = 'venquis_current_conversation_id';
+
 export interface Conversation {
   id: string;
-  title: string;
+  title?: string;
   user_id: string;
   session_id: string;
   created_at: string;
   updated_at: string;
-  last_activity: string;
-  metadata: any;
+  last_activity?: string;
+  metadata?: any;
   timeGroup?: 'today' | 'yesterday' | 'last7days' | 'older';
 }
 
@@ -20,6 +22,36 @@ export const useConversations = () => {
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [currentConversation, setCurrentConversation] = useState<Conversation | null>(null);
   const [loading, setLoading] = useState(true);
+
+  // Load conversation from localStorage on mount
+  useEffect(() => {
+    const loadPersistedConversation = async () => {
+      const conversationId = localStorage.getItem(CONVERSATION_KEY);
+      if (conversationId && user) {
+        try {
+          const { data, error } = await supabase
+            .from('conversations')
+            .select('*')
+            .eq('id', conversationId)
+            .eq('user_id', user.id)
+            .single();
+
+          if (data && !error) {
+            setCurrentConversation(data);
+          } else {
+            localStorage.removeItem(CONVERSATION_KEY);
+          }
+        } catch (error) {
+          console.error('Error loading persisted conversation:', error);
+          localStorage.removeItem(CONVERSATION_KEY);
+        }
+      }
+    };
+
+    if (user) {
+      loadPersistedConversation();
+    }
+  }, [user]);
 
   const getTimeGroup = (date: string): 'today' | 'yesterday' | 'last7days' | 'older' => {
     const now = new Date();
@@ -72,13 +104,13 @@ export const useConversations = () => {
     if (!user) return null;
 
     try {
-      const sessionId = crypto.randomUUID();
-      const conversationTitle = title || 'New Analysis';
+      const conversationId = crypto.randomUUID();
+      const sessionId = conversationId; // Use same ID for both
 
       const { data, error } = await supabase
         .from('conversations')
         .insert({
-          title: conversationTitle,
+          id: conversationId,
           user_id: user.id,
           session_id: sessionId,
           last_activity: new Date().toISOString(),
@@ -99,6 +131,9 @@ export const useConversations = () => {
 
       setConversations(prev => [newConversation, ...prev]);
       setCurrentConversation(newConversation);
+      
+      // Persist to localStorage
+      localStorage.setItem(CONVERSATION_KEY, conversationId);
 
       return newConversation;
     } catch (error: any) {
@@ -150,6 +185,7 @@ export const useConversations = () => {
       
       if (currentConversation?.id === id) {
         setCurrentConversation(updatedConversations.length > 0 ? updatedConversations[0] : null);
+        localStorage.removeItem(CONVERSATION_KEY);
       }
     } catch (error) {
       console.error('Error deleting conversation:', error);
@@ -160,6 +196,13 @@ export const useConversations = () => {
       });
     }
   };
+
+  // Update localStorage when currentConversation changes
+  useEffect(() => {
+    if (currentConversation) {
+      localStorage.setItem(CONVERSATION_KEY, currentConversation.id);
+    }
+  }, [currentConversation]);
 
   useEffect(() => {
     fetchConversations();
