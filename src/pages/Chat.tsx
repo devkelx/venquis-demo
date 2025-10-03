@@ -147,11 +147,15 @@ const Chat = () => {
       setUploadProgress(100);
       if (error) throw error;
 
-      // Get public URL
-      const { data: urlData } = supabase.storage.from('contracts').getPublicUrl(filePath);
+      // Get signed URL (works immediately, no CDN propagation delay)
+      const { data: urlData, error: urlError } = await supabase.storage
+        .from('contracts')
+        .createSignedUrl(filePath, 3600); // Valid for 1 hour
+
+      if (urlError) throw urlError;
 
       // Save file message
-      await saveFileMessage(file.name, urlData.publicUrl);
+      await saveFileMessage(file.name, urlData.signedUrl);
 
       toast({
         title: "Upload successful",
@@ -174,7 +178,7 @@ const Chat = () => {
               session_id: currentConversation.session_id,
               message_content: `Contract uploaded: ${file.name}`,
               message_type: 'file_upload',
-              file_url: urlData.publicUrl,
+              file_url: urlData.signedUrl,
               file_name: file.name,
               timestamp: new Date().toISOString()
             }
