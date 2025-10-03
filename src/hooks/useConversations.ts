@@ -2,21 +2,21 @@ import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from '@/hooks/use-toast';
-import { useZepMemory } from '@/hooks/useZepMemory';
 
 export interface Conversation {
   id: string;
   title: string;
   user_id: string;
-  zep_session_id: string;
+  session_id: string;
   created_at: string;
   updated_at: string;
+  last_activity: string;
+  metadata: any;
   timeGroup?: 'today' | 'yesterday' | 'last7days' | 'older';
 }
 
 export const useConversations = () => {
   const { user } = useAuth();
-  const { initializeSession } = useZepMemory();
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [currentConversation, setCurrentConversation] = useState<Conversation | null>(null);
   const [loading, setLoading] = useState(true);
@@ -41,7 +41,7 @@ export const useConversations = () => {
         .from('conversations')
         .select('*')
         .eq('user_id', user.id)
-        .order('updated_at', { ascending: false });
+        .order('last_activity', { ascending: false });
 
       if (error) throw error;
 
@@ -72,20 +72,25 @@ export const useConversations = () => {
     if (!user) return null;
 
     try {
-      const sessionId = `session_${Date.now()}_${user.id}`;
-      const conversationTitle = title || `Chat ${new Date().toLocaleDateString()}`;
+      const sessionId = crypto.randomUUID();
+      const conversationTitle = title || 'New Analysis';
 
       const { data, error } = await supabase
         .from('conversations')
         .insert({
           title: conversationTitle,
           user_id: user.id,
-          zep_session_id: sessionId
+          session_id: sessionId,
+          last_activity: new Date().toISOString(),
+          metadata: {}
         })
         .select()
         .single();
 
-      if (error) throw error;
+      if (error) {
+        console.error('Database error creating conversation:', error);
+        throw new Error(`Failed to create conversation: ${error.message}`);
+      }
 
       const newConversation = {
         ...data,
@@ -95,17 +100,12 @@ export const useConversations = () => {
       setConversations(prev => [newConversation, ...prev]);
       setCurrentConversation(newConversation);
 
-      // Initialize Zep session (optional - don't block if it fails)
-      initializeSession(sessionId).catch(err => 
-        console.warn('Zep session initialization failed, continuing without memory:', err)
-      );
-
       return newConversation;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error creating conversation:', error);
       toast({
-        title: "Error",
-        description: "Failed to create conversation",
+        title: "Failed to Create Conversation",
+        description: error.message || "Unable to start a new conversation. Please try again.",
         variant: "destructive"
       });
       return null;

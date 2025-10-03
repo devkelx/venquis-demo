@@ -10,8 +10,6 @@ import { useMessages } from "@/hooks/useMessages";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
-import { useZepMemory } from "@/hooks/useZepMemory";
-import { createMemoryMessage, createContractContext } from "@/integrations/zep/client";
 const Chat = () => {
   const {
     user
@@ -27,10 +25,6 @@ const Chat = () => {
     saveFileMessage,
     refetch: refetchMessages
   } = useMessages(currentConversation?.id || null);
-  const {
-    addMemoryMessage,
-    storeContractContext
-  } = useZepMemory();
   const [isTyping, setIsTyping] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [uploadProgress, setUploadProgress] = useState<number>(0);
@@ -79,14 +73,9 @@ const Chat = () => {
       const userMessage = await saveUserMessage(message);
       if (!userMessage) return;
 
-      // Add to Zep memory
-      await addMemoryMessage(currentConversation.zep_session_id, createMemoryMessage('user', message, {
-        message_type: 'text',
-        conversation_id: currentConversation.id
-      }));
       setIsTyping(true);
 
-      // Call n8n webhook for all messages (text and files)
+      // Call n8n webhook via edge function
       try {
         const {
           data,
@@ -94,8 +83,12 @@ const Chat = () => {
         } = await supabase.functions.invoke('contract-analysis', {
           body: {
             conversation_id: currentConversation.id,
+            session_id: currentConversation.session_id,
             message_content: message,
-            zep_session_id: currentConversation.zep_session_id
+            message_type: 'text_message',
+            file_url: null,
+            file_name: null,
+            button_action: null
           }
         });
         if (error) throw error;
@@ -154,14 +147,12 @@ const Chat = () => {
       // Save file message
       await saveFileMessage(file.name, urlData.publicUrl);
 
-      // Store contract context in Zep
-      await storeContractContext(currentConversation.zep_session_id, createContractContext(fileName, file.name, urlData.publicUrl));
       toast({
         title: "Upload successful",
         description: `${file.name} has been uploaded and is ready for analysis`
       });
 
-      // Trigger real AI analysis
+      // Trigger AI analysis via edge function
       setIsTyping(true);
       try {
         const {
@@ -170,10 +161,12 @@ const Chat = () => {
         } = await supabase.functions.invoke('contract-analysis', {
           body: {
             conversation_id: currentConversation.id,
-            file_name: file.name,
-            file_url: urlData.publicUrl,
+            session_id: currentConversation.session_id,
             message_content: `Contract uploaded: ${file.name}`,
-            zep_session_id: currentConversation.zep_session_id
+            message_type: 'file_upload',
+            file_url: urlData.publicUrl,
+            file_name: file.name,
+            button_action: null
           }
         });
         if (analysisError) throw analysisError;
@@ -207,15 +200,9 @@ const Chat = () => {
     // Save button click as user message
     await saveUserMessage(`Clicked: ${buttonLabel}`);
 
-    // Add to memory
-    await addMemoryMessage(currentConversation.zep_session_id, createMemoryMessage('user', `User clicked: ${buttonLabel}`, {
-      message_type: 'button_click',
-      button_action: buttonId,
-      conversation_id: currentConversation.id
-    }));
     setIsTyping(true);
 
-    // Process button action through real AI
+    // Process button action through edge function
     try {
       const {
         data,
@@ -223,8 +210,11 @@ const Chat = () => {
       } = await supabase.functions.invoke('contract-analysis', {
         body: {
           conversation_id: currentConversation.id,
-          message_content: `User requested: ${buttonLabel}`,
-          zep_session_id: currentConversation.zep_session_id,
+          session_id: currentConversation.session_id,
+          message_content: '',
+          message_type: 'button_action',
+          file_url: null,
+          file_name: null,
           button_action: buttonId
         }
       });
