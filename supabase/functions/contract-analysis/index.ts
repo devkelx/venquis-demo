@@ -6,6 +6,56 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 }
 
+// Helper function to get current user ID from auth
+async function getCurrentUserId(req: Request, supabase: any): Promise<string | null> {
+  try {
+    const authHeader = req.headers.get('Authorization');
+    if (!authHeader) return null;
+    
+    const { data: { user }, error } = await supabase.auth.getUser(authHeader.replace('Bearer ', ''));
+    if (error || !user) return null;
+    
+    return user.id;
+  } catch (error) {
+    console.error('Error getting user ID:', error);
+    return null;
+  }
+}
+
+// Helper function to send enriched payload to n8n
+async function sendToN8n(payload: any, userId: string) {
+  const N8N_WEBHOOK_URL = Deno.env.get('N8N_WEBHOOK_URL');
+  
+  if (!N8N_WEBHOOK_URL) {
+    throw new Error('N8N_WEBHOOK_URL is not configured');
+  }
+
+  // Ensure user_id is always provided
+  const enrichedPayload = {
+    ...payload,
+    conversation_id: payload.conversation_id || crypto.randomUUID(),
+    session_id: payload.session_id || payload.conversation_id,
+    user_id: userId || 'c3d7a5b9-8e2f-4a6d-9c1b-3e5f7a9b2d4e',
+    timestamp: new Date().toISOString()
+  };
+  
+  console.log('Sending enriched payload to n8n:', JSON.stringify(enrichedPayload, null, 2));
+  
+  const response = await fetch(N8N_WEBHOOK_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(enrichedPayload)
+  });
+  
+  if (!response.ok) {
+    const errorText = await response.text();
+    console.error('n8n webhook failed:', response.status, errorText);
+    throw new Error(`n8n webhook failed: ${response.status}`);
+  }
+  
+  return response;
+}
+
 serve(async (req) => {
   // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
@@ -35,94 +85,82 @@ serve(async (req) => {
     const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
+    // Get current user ID
+    const userId = await getCurrentUserId(req, supabase);
+    console.log('Processing request for user:', userId);
+
     let analysisResult;
     let aiResponse;
     let actionButtons;
 
     // **ALWAYS CALL N8N WEBHOOK FOR ALL REQUESTS**
-    const N8N_WEBHOOK_URL = Deno.env.get('N8N_WEBHOOK_URL');
-    
-    if (N8N_WEBHOOK_URL) {
-      console.log('Calling n8n webhook:', N8N_WEBHOOK_URL);
-      
-      try {
-        // Prepare payload for n8n webhook - exact structure expected by n8n
-        const webhookPayload = {
-          conversation_id,
-          session_id,
-          message_content: message_content || '',
-          message_type,
-          file_url: file_url || null,
-          file_name: file_name || null,
-          button_action: button_action || null
-        };
+    try {
+      // Prepare payload for n8n webhook
+      const webhookPayload = {
+        conversation_id,
+        session_id,
+        message_content: message_content || '',
+        message_type,
+        file_url: file_url || null,
+        file_name: file_name || null,
+        button_action: button_action || null
+      };
 
-        console.log('Sending to n8n:', JSON.stringify(webhookPayload, null, 2));
+      // Call n8n webhook with enriched payload
+      const n8nResponse = await sendToN8n(webhookPayload, userId || 'c3d7a5b9-8e2f-4a6d-9c1b-3e5f7a9b2d4e');
 
-        // Call n8n webhook
-        const n8nResponse = await fetch(N8N_WEBHOOK_URL, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(webhookPayload)
-        });
+      const responseText = await n8nResponse.text();
+      console.log('n8n response status:', n8nResponse.status);
+      console.log('n8n response body:', responseText);
 
-        const responseText = await n8nResponse.text();
-        console.log('n8n response status:', n8nResponse.status);
-        console.log('n8n response body:', responseText);
-
-        if (n8nResponse.ok) {
-          try {
-            // Handle empty response body
-            if (!responseText || responseText.trim() === '') {
-              console.log('Empty response from n8n, using fallback');
-              aiResponse = "I received your message but got an empty response from the processing system. Please try again.";
-              actionButtons = [];
-              analysisResult = undefined;
-            } else {
-              const n8nResult = JSON.parse(responseText);
-              console.log('n8n parsed result:', n8nResult);
-              
-              // Handle array response format from n8n (e.g., [{"output": "response text"}])
-              if (Array.isArray(n8nResult) && n8nResult.length > 0) {
-                const firstItem = n8nResult[0];
-                console.log('Processing array response, first item:', firstItem);
-                
-                // Extract content from various possible fields in the array item
-                aiResponse = firstItem.output || firstItem.content || firstItem.response || firstItem.message || firstItem.text;
-                actionButtons = firstItem.action_buttons || firstItem.actions || [];
-                analysisResult = firstItem.analysis || firstItem;
-              } else {
-                // Handle object response format
-                aiResponse = n8nResult.content || n8nResult.response || n8nResult.message || n8nResult.text;
-                actionButtons = n8nResult.action_buttons || n8nResult.actions || [];
-                analysisResult = n8nResult.analysis || n8nResult;
-              }
-              
-              if (!aiResponse) {
-                console.error('No valid response content found in:', n8nResult);
-                throw new Error('No response content from n8n webhook');
-              }
-            }
-          } catch (parseError) {
-            console.error('Failed to parse n8n response:', parseError);
-            console.log('Raw response that failed to parse:', responseText);
-            // Use the raw text as response if JSON parsing fails
-            aiResponse = responseText || 'I received your message but the response format was invalid. Please check your n8n workflow configuration.';
+      if (n8nResponse.ok) {
+        try {
+          // Handle empty response body
+          if (!responseText || responseText.trim() === '') {
+            console.log('Empty response from n8n, using fallback');
+            aiResponse = "I received your message but got an empty response from the processing system. Please try again.";
             actionButtons = [];
+            analysisResult = undefined;
+          } else {
+            const n8nResult = JSON.parse(responseText);
+            console.log('n8n parsed result:', n8nResult);
+            
+            // Handle array response format from n8n (e.g., [{"output": "response text"}])
+            if (Array.isArray(n8nResult) && n8nResult.length > 0) {
+              const firstItem = n8nResult[0];
+              console.log('Processing array response, first item:', firstItem);
+              
+              // Extract content from various possible fields in the array item
+              aiResponse = firstItem.output || firstItem.content || firstItem.response || firstItem.message || firstItem.text;
+              actionButtons = firstItem.action_buttons || firstItem.actions || [];
+              analysisResult = firstItem.analysis || firstItem;
+            } else {
+              // Handle object response format
+              aiResponse = n8nResult.content || n8nResult.response || n8nResult.message || n8nResult.text;
+              actionButtons = n8nResult.action_buttons || n8nResult.actions || [];
+              analysisResult = n8nResult.analysis || n8nResult;
+            }
+            
+            if (!aiResponse) {
+              console.error('No valid response content found in:', n8nResult);
+              throw new Error('No response content from n8n webhook');
+            }
           }
-        } else {
-          console.error('n8n webhook failed with status:', n8nResponse.status);
-          console.error('n8n error response:', responseText);
-          throw new Error(`n8n webhook failed with status: ${n8nResponse.status}`);
+        } catch (parseError) {
+          console.error('Failed to parse n8n response:', parseError);
+          console.log('Raw response that failed to parse:', responseText);
+          // Use the raw text as response if JSON parsing fails
+          aiResponse = responseText || 'I received your message but the response format was invalid. Please check your n8n workflow configuration.';
+          actionButtons = [];
         }
-      } catch (n8nError) {
-        console.error('n8n webhook error:', n8nError);
-        throw new Error(`n8n webhook failed: ${n8nError.message}`);
+      } else {
+        console.error('n8n webhook failed with status:', n8nResponse.status);
+        console.error('n8n error response:', responseText);
+        throw new Error(`n8n webhook failed with status: ${n8nResponse.status}`);
       }
-    } else {
-      throw new Error('N8N_WEBHOOK_URL is not configured - please add it to your secrets');
+    } catch (n8nError) {
+      console.error('n8n webhook error:', n8nError);
+      throw new Error(`n8n webhook failed: ${n8nError.message}`);
     }
 
     // If we get here, we have a response from n8n
