@@ -51,7 +51,12 @@ export const useMessages = (conversationId: string | null) => {
         type: msg.sender_type === 'user' ? 'user' as const :
               msg.sender_type === 'file' ? 'file' as const : 'ai' as const,
         fileName: msg.file_name || undefined,
-        actions: msg.action_buttons ? JSON.parse(msg.action_buttons as string) : undefined
+        actions: (msg.action_buttons && Array.isArray(msg.action_buttons)) ? msg.action_buttons as Array<{
+          id: string;
+          label: string;
+          variant?: 'default' | 'outline' | 'destructive';
+          icon?: React.ReactNode;
+        }> : undefined
       })) || [];
 
       setMessages(transformedMessages);
