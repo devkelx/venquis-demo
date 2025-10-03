@@ -14,16 +14,17 @@ serve(async (req) => {
 
   try {
     const { 
-      conversation_id, 
-      file_name, 
-      file_url, 
+      conversation_id,
+      session_id,
       message_content,
-      zep_session_id,
+      message_type,
+      file_url,
+      file_name,
       button_action
     } = await req.json();
 
     console.log('Processing request:', {
-      type: file_name ? 'file_upload' : button_action ? 'button_action' : 'text_message',
+      message_type,
       file_name,
       message_content,
       button_action
@@ -45,53 +46,16 @@ serve(async (req) => {
       console.log('Calling n8n webhook:', N8N_WEBHOOK_URL);
       
       try {
-        // Prepare payload for n8n webhook
+        // Prepare payload for n8n webhook - exact structure expected by n8n
         const webhookPayload = {
           conversation_id,
-          zep_session_id,
-          timestamp: new Date().toISOString(),
-          user_context: {
-            action: file_name ? 'contract_analysis' : button_action ? 'button_action' : 'chat_message',
-            source: 'venquis_platform'
-          }
+          session_id,
+          message_content: message_content || '',
+          message_type,
+          file_url: file_url || null,
+          file_name: file_name || null,
+          button_action: button_action || null
         };
-
-        // Add file-specific data if it's a file upload
-        if (file_name && file_url) {
-          // Extract the storage path from the public URL
-          let storagePath = file_url;
-          if (file_url.includes('/storage/v1/object/public/contracts/')) {
-            storagePath = file_url.split('/storage/v1/object/public/contracts/')[1];
-          }
-
-          // Get file from storage
-          const { data: fileData, error: downloadError } = await supabase.storage
-            .from('contracts')
-            .download(storagePath);
-
-          if (downloadError) {
-            console.error('Download error:', downloadError);
-            throw new Error(`Failed to download file: ${downloadError.message}`);
-          }
-
-          const fileSize = fileData.size;
-          console.log(`File downloaded successfully: ${file_name}, size: ${fileSize} bytes`);
-
-          // Add file data to payload
-          Object.assign(webhookPayload, {
-            file_name,
-            file_url,
-            file_size: fileSize,
-            message_type: 'file_upload'
-          });
-        } else {
-          // Add text message data to payload
-          Object.assign(webhookPayload, {
-            message_content,
-            button_action,
-            message_type: button_action ? 'button_action' : 'text_message'
-          });
-        }
 
         console.log('Sending to n8n:', JSON.stringify(webhookPayload, null, 2));
 
@@ -205,30 +169,6 @@ serve(async (req) => {
 
     if (messageError) {
       throw new Error(`Failed to save AI message: ${messageError.message}`);
-    }
-
-    // Store context in Zep if session provided
-    if (zep_session_id) {
-      try {
-        await supabase.functions.invoke('zep-memory', {
-          body: {
-            action: 'add-memory',
-            session_id: zep_session_id,
-            message: {
-              role: 'assistant',
-              content: aiResponse,
-              metadata: {
-                message_type: file_name ? 'file_analysis' : button_action ? 'button_response' : 'text_response',
-                conversation_id,
-                n8n_processed: true
-              }
-            }
-          }
-        });
-      } catch (zepError) {
-        console.error('Zep memory storage failed:', zepError);
-        // Continue execution even if Zep fails
-      }
     }
 
     return new Response(
