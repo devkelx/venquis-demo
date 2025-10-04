@@ -169,6 +169,38 @@ serve(async (req) => {
     // Store contract data if it's a file upload
     if (file_name && file_url) {
       console.log('Creating contract record for file upload');
+      
+      // First, ensure the conversation exists
+      const { data: existingConv, error: convCheckError } = await supabase
+        .from('conversations')
+        .select('id')
+        .eq('id', conversation_id)
+        .maybeSingle();
+      
+      if (convCheckError) {
+        console.error('Error checking conversation:', convCheckError);
+      }
+      
+      if (!existingConv && userId) {
+        // Conversation doesn't exist, create it
+        console.log('Conversation not found, creating it with ID:', conversation_id);
+        const { error: createConvError } = await supabase
+          .from('conversations')
+          .insert({
+            id: conversation_id,
+            user_id: userId,
+            session_id: session_id || conversation_id
+          });
+        
+        if (createConvError) {
+          console.error('Error creating conversation:', createConvError);
+          throw new Error(`Failed to create conversation: ${createConvError.message}`);
+        } else {
+          console.log('Conversation created successfully');
+        }
+      }
+      
+      // Now insert the contract
       const { error: contractError } = await supabase
         .from('contracts')
         .insert({
