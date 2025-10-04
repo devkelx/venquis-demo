@@ -18,7 +18,8 @@ export type Database = {
         Row: {
           chunk_index: number | null
           content: string
-          conversation_id: string
+          contract_id: string | null
+          conversation_id: string | null
           created_at: string | null
           embedding: string | null
           id: string
@@ -27,7 +28,8 @@ export type Database = {
         Insert: {
           chunk_index?: number | null
           content: string
-          conversation_id: string
+          contract_id?: string | null
+          conversation_id?: string | null
           created_at?: string | null
           embedding?: string | null
           id?: string
@@ -36,13 +38,21 @@ export type Database = {
         Update: {
           chunk_index?: number | null
           content?: string
-          conversation_id?: string
+          contract_id?: string | null
+          conversation_id?: string | null
           created_at?: string | null
           embedding?: string | null
           id?: string
           metadata?: Json | null
         }
         Relationships: [
+          {
+            foreignKeyName: "contract_chunks_contract_id_fkey"
+            columns: ["contract_id"]
+            isOneToOne: false
+            referencedRelation: "contracts"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "contract_chunks_conversation_id_fkey"
             columns: ["conversation_id"]
