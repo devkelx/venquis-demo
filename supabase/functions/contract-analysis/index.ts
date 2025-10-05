@@ -217,38 +217,73 @@ serve(async (req) => {
       }
     }
 
-    // Generate conversation title from first message if not set
-    const { data: convData } = await supabase
+    // Generate AI-powered conversation title from first message if not set
+    const { data: convData, error: convSelectError } = await supabase
       .from('conversations')
       .select('title')
       .eq('id', conversation_id)
       .maybeSingle();
     
-    if (convData && !convData.title && message_content) {
-      // Generate a concise title from the first message (max 50 chars)
-      let title = message_content.substring(0, 50);
+    console.log('Conversation title check:', { convData, convSelectError, conversation_id });
+    
+    if (!convSelectError && (!convData?.title) && message_content) {
+      console.log('Generating AI title for message:', message_content);
       
-      // Truncate at last complete word
-      const lastSpace = title.lastIndexOf(' ');
-      if (lastSpace > 20) { // Only truncate if we have at least 20 chars
-        title = title.substring(0, lastSpace);
-      }
+      // Use OpenAI to generate a smart, contextual title
+      const OPENAI_API_KEY = Deno.env.get('OPENAI_API_KEY');
       
-      // Add ellipsis if truncated
-      if (message_content.length > title.length) {
-        title += '...';
-      }
-      
-      // Update conversation with generated title
-      const { error: titleError } = await supabase
-        .from('conversations')
-        .update({ title })
-        .eq('id', conversation_id);
-      
-      if (titleError) {
-        console.error('Error updating conversation title:', titleError);
+      if (OPENAI_API_KEY) {
+        try {
+          const titleResponse = await fetch('https://api.openai.com/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${OPENAI_API_KEY}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              model: 'gpt-4o-mini',
+              messages: [
+                {
+                  role: 'system',
+                  content: 'Generate a concise 2-4 word title for this conversation. Be contextual and descriptive. For greetings like "hello" or "hi", use "Welcome". For questions about capabilities, use "Capabilities Overview". For file uploads, extract the company/document name. Keep it professional and brief.'
+                },
+                {
+                  role: 'user',
+                  content: file_name 
+                    ? `File uploaded: ${file_name}. Message: ${message_content}` 
+                    : message_content
+                }
+              ],
+              max_tokens: 20,
+              temperature: 0.7
+            })
+          });
+
+          if (titleResponse.ok) {
+            const titleData = await titleResponse.json();
+            const generatedTitle = titleData.choices[0]?.message?.content?.trim() || message_content.substring(0, 30);
+            
+            console.log('AI generated title:', generatedTitle);
+            
+            // Update conversation with AI-generated title
+            const { error: titleError } = await supabase
+              .from('conversations')
+              .update({ title: generatedTitle })
+              .eq('id', conversation_id);
+            
+            if (titleError) {
+              console.error('Error updating conversation title:', titleError);
+            } else {
+              console.log('Conversation title successfully set to:', generatedTitle);
+            }
+          } else {
+            console.error('OpenAI title generation failed:', await titleResponse.text());
+          }
+        } catch (titleGenError) {
+          console.error('Error generating AI title:', titleGenError);
+        }
       } else {
-        console.log('Conversation title set to:', title);
+        console.log('OPENAI_API_KEY not set, skipping AI title generation');
       }
     }
 
