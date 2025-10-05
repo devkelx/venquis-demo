@@ -68,7 +68,6 @@ export type Database = {
           created_at: string | null
           file_name: string
           file_url: string
-          full_text: string | null
           id: string
         }
         Insert: {
@@ -76,7 +75,6 @@ export type Database = {
           created_at?: string | null
           file_name: string
           file_url: string
-          full_text?: string | null
           id?: string
         }
         Update: {
@@ -84,7 +82,6 @@ export type Database = {
           created_at?: string | null
           file_name?: string
           file_url?: string
-          full_text?: string | null
           id?: string
         }
         Relationships: [
@@ -102,6 +99,7 @@ export type Database = {
           created_at: string
           id: string
           session_id: string
+          title: string | null
           updated_at: string
           user_id: string
         }
@@ -109,6 +107,7 @@ export type Database = {
           created_at?: string
           id?: string
           session_id?: string
+          title?: string | null
           updated_at?: string
           user_id: string
         }
@@ -116,10 +115,49 @@ export type Database = {
           created_at?: string
           id?: string
           session_id?: string
+          title?: string | null
           updated_at?: string
           user_id?: string
         }
         Relationships: []
+      }
+      framework_chunks: {
+        Row: {
+          chunk_index: number | null
+          content: string
+          created_at: string | null
+          embedding: string | null
+          framework_id: string
+          id: string
+          metadata: Json | null
+        }
+        Insert: {
+          chunk_index?: number | null
+          content: string
+          created_at?: string | null
+          embedding?: string | null
+          framework_id: string
+          id?: string
+          metadata?: Json | null
+        }
+        Update: {
+          chunk_index?: number | null
+          content?: string
+          created_at?: string | null
+          embedding?: string | null
+          framework_id?: string
+          id?: string
+          metadata?: Json | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "framework_chunks_framework_id_fkey"
+            columns: ["framework_id"]
+            isOneToOne: false
+            referencedRelation: "frameworks"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       frameworks: {
         Row: {
@@ -128,6 +166,7 @@ export type Database = {
           created_at: string
           framework_data: Json
           framework_name: string
+          full_text: string | null
           id: string
           is_active: boolean
         }
@@ -137,6 +176,7 @@ export type Database = {
           created_at?: string
           framework_data: Json
           framework_name: string
+          full_text?: string | null
           id?: string
           is_active?: boolean
         }
@@ -146,6 +186,7 @@ export type Database = {
           created_at?: string
           framework_data?: Json
           framework_name?: string
+          full_text?: string | null
           id?: string
           is_active?: boolean
         }
@@ -252,6 +293,25 @@ export type Database = {
         Args: { filter?: Json; match_count?: number; query_embedding: string }
         Returns: {
           content: string
+          id: string
+          metadata: Json
+          similarity: number
+        }[]
+      }
+      match_framework_documents: {
+        Args: {
+          filter_country?: string
+          filter_framework_name?: string
+          match_count?: number
+          match_threshold?: number
+          query_embedding: string
+        }
+        Returns: {
+          content: string
+          contract_type: string
+          country: string
+          framework_id: string
+          framework_name: string
           id: string
           metadata: Json
           similarity: number

@@ -217,6 +217,41 @@ serve(async (req) => {
       }
     }
 
+    // Generate conversation title from first message if not set
+    const { data: convData } = await supabase
+      .from('conversations')
+      .select('title')
+      .eq('id', conversation_id)
+      .maybeSingle();
+    
+    if (convData && !convData.title && message_content) {
+      // Generate a concise title from the first message (max 50 chars)
+      let title = message_content.substring(0, 50);
+      
+      // Truncate at last complete word
+      const lastSpace = title.lastIndexOf(' ');
+      if (lastSpace > 20) { // Only truncate if we have at least 20 chars
+        title = title.substring(0, lastSpace);
+      }
+      
+      // Add ellipsis if truncated
+      if (message_content.length > title.length) {
+        title += '...';
+      }
+      
+      // Update conversation with generated title
+      const { error: titleError } = await supabase
+        .from('conversations')
+        .update({ title })
+        .eq('id', conversation_id);
+      
+      if (titleError) {
+        console.error('Error updating conversation title:', titleError);
+      } else {
+        console.log('Conversation title set to:', title);
+      }
+    }
+
     // Save AI message to database with action_buttons
     const { error: messageError } = await supabase
       .from('messages')

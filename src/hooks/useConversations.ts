@@ -71,7 +71,7 @@ export const useConversations = () => {
     try {
       const { data, error } = await supabase
         .from('conversations')
-        .select('id, user_id, session_id, created_at, updated_at')
+        .select('id, user_id, session_id, created_at, updated_at, title')
         .eq('user_id', user.id)
         .order('updated_at', { ascending: false }) as any;
 
@@ -145,10 +145,35 @@ export const useConversations = () => {
     }
   };
 
-  const updateConversationTitle = async (id: string, title: string) => {
-    // Title column removed from conversations table - this function is now deprecated
-    // Keeping for backward compatibility but it does nothing
-    console.log('updateConversationTitle called but title column no longer exists');
+  const updateConversationTitle = async (id: string, newTitle: string) => {
+    try {
+      const { error } = await supabase
+        .from('conversations')
+        .update({ title: newTitle })
+        .eq('id', id)
+        .eq('user_id', user?.id);
+
+      if (error) throw error;
+
+      // Update local state
+      setConversations(prev =>
+        prev.map(conv =>
+          conv.id === id ? { ...conv, title: newTitle } : conv
+        )
+      );
+      
+      // Update current conversation if it's the one being renamed
+      if (currentConversation?.id === id) {
+        setCurrentConversation(prev => prev ? { ...prev, title: newTitle } : null);
+      }
+    } catch (error) {
+      console.error('Error updating conversation title:', error);
+      toast({
+        title: "Error",
+        description: "Failed to update conversation title",
+        variant: "destructive"
+      });
+    }
   };
 
   const deleteConversation = async (id: string) => {

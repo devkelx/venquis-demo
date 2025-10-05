@@ -73,9 +73,9 @@ const ChatSidebar = ({
     }
   };
 
-  const startEditing = (id: string, currentTitle: string) => {
+  const startEditing = (id: string, currentTitle: string | undefined) => {
     setEditingId(id);
-    setEditingTitle(currentTitle);
+    setEditingTitle(currentTitle || 'New conversation');
   };
 
   const handleEditSubmit = async () => {
@@ -200,7 +200,7 @@ const ChatSidebar = ({
                           />
                         ) : (
                           <span className="flex-1 text-sm truncate">
-                            {conversation.title}
+                            {conversation.title || 'New conversation'}
                           </span>
                         )}
                         
