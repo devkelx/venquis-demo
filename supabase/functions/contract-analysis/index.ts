@@ -217,7 +217,7 @@ serve(async (req) => {
       }
     }
 
-    // Generate AI-powered conversation title from first message if not set
+    // Generate date-based conversation title from first message if not set
     const { data: convData, error: convSelectError } = await supabase
       .from('conversations')
       .select('title')
@@ -227,63 +227,25 @@ serve(async (req) => {
     console.log('Conversation title check:', { convData, convSelectError, conversation_id });
     
     if (!convSelectError && (!convData?.title) && message_content) {
-      console.log('Generating AI title for message:', message_content);
+      // Generate title using current date in DD/MM/YYYY format
+      const now = new Date();
+      const day = String(now.getDate()).padStart(2, '0');
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const year = now.getFullYear();
+      const dateTitle = `${day}/${month}/${year}`;
       
-      // Use OpenAI to generate a smart, contextual title
-      const OPENAI_API_KEY = Deno.env.get('OPENAI_API_KEY');
+      console.log('Setting conversation title to:', dateTitle);
       
-      if (OPENAI_API_KEY) {
-        try {
-          const titleResponse = await fetch('https://api.openai.com/v1/chat/completions', {
-            method: 'POST',
-            headers: {
-              'Authorization': `Bearer ${OPENAI_API_KEY}`,
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              model: 'gpt-4o-mini',
-              messages: [
-                {
-                  role: 'system',
-                  content: 'Generate a concise 2-4 word title for this conversation. Be contextual and descriptive. For greetings like "hello" or "hi", use "Welcome". For questions about capabilities, use "Capabilities Overview". For file uploads, extract the company/document name. Keep it professional and brief.'
-                },
-                {
-                  role: 'user',
-                  content: file_name 
-                    ? `File uploaded: ${file_name}. Message: ${message_content}` 
-                    : message_content
-                }
-              ],
-              max_tokens: 20,
-              temperature: 0.7
-            })
-          });
-
-          if (titleResponse.ok) {
-            const titleData = await titleResponse.json();
-            const generatedTitle = titleData.choices[0]?.message?.content?.trim() || message_content.substring(0, 30);
-            
-            console.log('AI generated title:', generatedTitle);
-            
-            // Update conversation with AI-generated title
-            const { error: titleError } = await supabase
-              .from('conversations')
-              .update({ title: generatedTitle })
-              .eq('id', conversation_id);
-            
-            if (titleError) {
-              console.error('Error updating conversation title:', titleError);
-            } else {
-              console.log('Conversation title successfully set to:', generatedTitle);
-            }
-          } else {
-            console.error('OpenAI title generation failed:', await titleResponse.text());
-          }
-        } catch (titleGenError) {
-          console.error('Error generating AI title:', titleGenError);
-        }
+      // Update conversation with date title
+      const { error: titleError } = await supabase
+        .from('conversations')
+        .update({ title: dateTitle })
+        .eq('id', conversation_id);
+      
+      if (titleError) {
+        console.error('Error updating conversation title:', titleError);
       } else {
-        console.log('OPENAI_API_KEY not set, skipping AI title generation');
+        console.log('Conversation title successfully set to:', dateTitle);
       }
     }
 
