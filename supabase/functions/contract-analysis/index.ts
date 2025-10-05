@@ -206,8 +206,7 @@ serve(async (req) => {
         .insert({
           conversation_id,
           file_name,
-          file_url,
-          full_text: analysisResult?.full_text || null
+          file_url
         });
 
       if (contractError) {
