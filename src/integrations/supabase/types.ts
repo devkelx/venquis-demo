@@ -16,7 +16,6 @@ export type Database = {
     Tables: {
       contract_chunks: {
         Row: {
-          chunk_index: number | null
           content: string
           contract_id: string | null
           conversation_id: string | null
@@ -26,7 +25,6 @@ export type Database = {
           metadata: Json | null
         }
         Insert: {
-          chunk_index?: number | null
           content: string
           contract_id?: string | null
           conversation_id?: string | null
@@ -36,7 +34,6 @@ export type Database = {
           metadata?: Json | null
         }
         Update: {
-          chunk_index?: number | null
           content?: string
           contract_id?: string | null
           conversation_id?: string | null
@@ -58,6 +55,79 @@ export type Database = {
             columns: ["conversation_id"]
             isOneToOne: false
             referencedRelation: "conversations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      contract_metadata: {
+        Row: {
+          client_name: string | null
+          contract_id: string | null
+          contract_start_date: string | null
+          contract_type: string | null
+          conversation_id: string | null
+          created_at: string | null
+          fees: Json | null
+          id: string
+          notice_period: string | null
+          payment_terms: string | null
+          rebate_terms: string | null
+          renewal_date: string | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          client_name?: string | null
+          contract_id?: string | null
+          contract_start_date?: string | null
+          contract_type?: string | null
+          conversation_id?: string | null
+          created_at?: string | null
+          fees?: Json | null
+          id?: string
+          notice_period?: string | null
+          payment_terms?: string | null
+          rebate_terms?: string | null
+          renewal_date?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          client_name?: string | null
+          contract_id?: string | null
+          contract_start_date?: string | null
+          contract_type?: string | null
+          conversation_id?: string | null
+          created_at?: string | null
+          fees?: Json | null
+          id?: string
+          notice_period?: string | null
+          payment_terms?: string | null
+          rebate_terms?: string | null
+          renewal_date?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "contract_metadata_contract_id_fkey"
+            columns: ["contract_id"]
+            isOneToOne: true
+            referencedRelation: "contracts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "contract_metadata_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "conversations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "contract_metadata_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
         ]
@@ -120,44 +190,6 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
-      }
-      framework_chunks: {
-        Row: {
-          chunk_index: number | null
-          content: string
-          created_at: string | null
-          embedding: string | null
-          framework_id: string
-          id: string
-          metadata: Json | null
-        }
-        Insert: {
-          chunk_index?: number | null
-          content: string
-          created_at?: string | null
-          embedding?: string | null
-          framework_id: string
-          id?: string
-          metadata?: Json | null
-        }
-        Update: {
-          chunk_index?: number | null
-          content?: string
-          created_at?: string | null
-          embedding?: string | null
-          framework_id?: string
-          id?: string
-          metadata?: Json | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "framework_chunks_framework_id_fkey"
-            columns: ["framework_id"]
-            isOneToOne: false
-            referencedRelation: "frameworks"
-            referencedColumns: ["id"]
-          },
-        ]
       }
       frameworks: {
         Row: {
@@ -299,20 +331,22 @@ export type Database = {
         }[]
       }
       match_framework_documents: {
-        Args: {
-          filter_country?: string
-          filter_framework_name?: string
-          match_count?: number
-          match_threshold?: number
-          query_embedding: string
-        }
+        Args:
+          | {
+              filter_country?: string
+              filter_framework_name?: string
+              match_count?: number
+              match_threshold?: number
+              query_embedding: string
+            }
+          | {
+              match_count?: number
+              match_threshold?: number
+              query_embedding: string
+            }
         Returns: {
           content: string
-          contract_type: string
-          country: string
-          framework_id: string
-          framework_name: string
-          id: string
+          id: number
           metadata: Json
           similarity: number
         }[]
