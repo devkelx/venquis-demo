@@ -177,11 +177,14 @@ export const useConversations = () => {
   };
 
   const deleteConversation = async (id: string) => {
+    if (!user) return;
+    
     try {
       const { error } = await supabase
         .from('conversations')
         .delete()
-        .eq('id', id);
+        .eq('id', id)
+        .eq('user_id', user.id);
 
       if (error) throw error;
 
